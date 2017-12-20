@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const AcidenteSchema = Schema({    
+    LATITUDE: Number,
+    LONGITUDE: Number,
+    LOG1: String,
+    LOG2: String,
+    TIPO_ACID: String,
+    QUEDA_ARR: Number,
+    DATA_HORA: String,
+    DIA_SEM: String,
+    FERIDOS: Number,
+    FERIDOS_GR: Number,
+    MORTES: Number,
+    MORTES_POST: Number,
+    FATAIS: Number,
+    AUTO: Number,
+    TAXI: Number,
+    LOTACAO: Number,
+    ONIBUS_URB: Number,
+    ONIBUS_MET: Number,
+    ONIBUS_INT: Number,
+    CAMINHAO: Number,
+    MOTO: Number,
+    CARROCA: Number,
+    BICICLETA: Number,
+    OUTRO: Number,
+    TEMPO: String,
+    NOITE_DIA: String,
+    REGIAO: String,
+    DIA: Number,
+    MES: Number,
+    ANO: Number,
+    FX_HORA: Number,
+    UPS: Number
+});
+module.exports = mongoose.model('Acidente', AcidenteSchema, 'acidentes');
