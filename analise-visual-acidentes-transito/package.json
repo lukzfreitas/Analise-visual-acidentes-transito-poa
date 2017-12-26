@@ -1,0 +1,21 @@
+{
+  "name": "heat-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas e Camila",
+  "license": "ISC",
+  "dependencies": {
+    "angular-google-map": "0.0.2",
+    "elasticsearch": "^14.0.0",
+    "express": "^4.16.2",
+    "get-json": "^1.0.0",
+    "mongoose": "^4.13.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.3"
+  }
+}
