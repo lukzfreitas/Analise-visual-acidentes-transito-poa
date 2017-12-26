@@ -19,15 +19,31 @@
     </header>
     <section ng-controller="acidentesController">
         <section>
-            <ng-map zoom="12"  center="-30.0454, -51.1579" map-type-id="HYBRID" default-style="false" style="width:800px; height:600px;text-align:center">
-                <heatmap-layer ng-if="!pauseLoading" id="cord" data="coordenadas"></heatmap-layer>
+            <ng-map zoom="12" center="-30.0454, -51.1579" map-type-id="HYBRID" default-style="false" style="width:800px; height:600px;text-align:center">
+                <heatmap-layer ng-if="!googleMaps.pauseLoading" id="cord" data="coordenadas"></heatmap-layer>
             </ng-map>
-        </section>        
-        <md-button type="submit" ng-click="loadHeatmap()" class="md-primary md-raised">load heatmap</md-button>
-        <md-button type="submit" ng-click="reloadMap()" class="md-primary md-raised">reload heatmap</md-button>
-        <div>
-            <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
-        </div>
+        </section>
+        <section>
+            <md-button type="submit" ng-click="loadHeatmap()" class="md-primary md-raised">load heatmap</md-button>
+        </section>
+        <section>
+            <div>
+                <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
+            </div>
+        </section>
+        <section>            
+            <md-radio-group ng-model="regiao.regiaoSelecionada" ng-disabled="regiao.regioesDisable" class="md-primary">
+                <md-radio-button ng-repeat="regiao in regiao.regioes" ng-value="regiao">
+                    {{ regiao }}
+                </md-radio-button>
+            </md-radio-group>
+        </section>
+        <section>
+            <md-button type="submit" ng-click="habilitarRegioes()" class="md-primary md-raised">
+                {{regiao.label}}
+            </md-button>
+        </section>
+
     </section>
 
     <script src="js/app.js"></script>
