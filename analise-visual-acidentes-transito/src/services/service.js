@@ -5,7 +5,13 @@ angular.module('service', [])
             return $http.get('/api/acidentes?anos=' + anos);
         },
         porRegiao : function(anos, regiao) {
-            return $http.get('/api/acidentesPorRegiao?anos=' + anos + '&regiao=' + regiao);
+            return $http.get('/api/acidentes-por-regiao?anos=' + anos + '&regiao=' + regiao);
+        },
+        qtdPorRegiao : function(anos, regiao) {            
+            return $http.get('/api/qtd-acidentes-por-regiao?anos=' + anos + '&regiao=' + regiao);
+        },
+        locaisErrados : function() {
+            return $http.get('/api/acidentes-locais-errados');
         }
     }
 }])

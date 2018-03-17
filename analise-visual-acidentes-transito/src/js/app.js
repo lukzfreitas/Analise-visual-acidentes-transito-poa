@@ -3,5 +3,6 @@ var app = angular.module('app', [
 	'acidentesController',
 	'ngMap',
 	'ngMaterial',	
-	'rzModule'
+	'rzModule',
+	'nvd3'	
 ]);
