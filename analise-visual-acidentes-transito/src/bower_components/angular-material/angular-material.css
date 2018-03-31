@@ -10,7 +10,16 @@ html, body {
 
 body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  margin-top:20px; 
+  margin-left:200px; 
+  margin-right:200px;
+  position: absolute; 
+  width:1000px;}
+
+header{
+  text-align: left;
+}
 
 [tabindex='-1']:focus {
   outline: none; }
@@ -253,7 +262,7 @@ html, body {
   letter-spacing: 0.020em; }
 
 .md-button {
-  letter-spacing: 0.010em; }
+  letter-spacing: 0.010em;}
 
 /************
  * Defaults
@@ -2778,7 +2787,7 @@ md-list-item {
     md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon),
     md-list-item .md-list-item-inner > md-icon.md-secondary:not(.md-avatar-icon) {
       width: 24px;
-      margin-top: 16px;
+      margin-top: 100px;
       margin-bottom: 12px;
       box-sizing: content-box; }
     md-list-item > div.md-primary > md-checkbox,
@@ -3065,7 +3074,7 @@ md-menu-item {
   md-menu-item > a.md-button {
     padding-top: 5px; }
   md-menu-item > .md-button {
-    text-align: left;
+    text-align: right;
     display: inline-block;
     border-radius: 0;
     margin: auto 0;
@@ -5257,7 +5266,8 @@ md-toast {
    * make it rotate when the user swipes it away
    */ }
     md-toast.md-bottom {
-      bottom: 0; }
+      bottom: 0;
+}
     md-toast.md-left {
       left: 0; }
     md-toast.md-right {
