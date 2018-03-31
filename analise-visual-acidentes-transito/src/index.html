@@ -36,6 +36,11 @@
     <script src="bower_components/nvd3/build/nv.d3.js"></script>
     <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>      
 
+    <!-- angular-heatmap-js -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-heatmap-js/src/angular-heatmap.js"></script>
+    <script src="bower_components/heatmap.js-amd/build/heatmap.min.js"></script>
+
     <!-- rzslider -->
     <script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>   
     
@@ -74,8 +79,9 @@
         <section>            
             <nvd3 options="options" data="data"></nvd3>
         </section>
-        
-    </section>
+        <section>
+            <angular-heatmap heatmap-data="heatmapData"></angular-heatmap>
+        </section>
     
 </body>
 

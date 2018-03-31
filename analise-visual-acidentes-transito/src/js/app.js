@@ -4,5 +4,6 @@ var app = angular.module('app', [
 	'ngMap',
 	'ngMaterial',	
 	'rzModule',
-	'nvd3'	
+	'nvd3',
+	'angular-heatmap-js'	
 ]);

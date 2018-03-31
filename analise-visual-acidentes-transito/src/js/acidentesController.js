@@ -139,6 +139,27 @@ angular.module('acidentesController', [])
                     { "label": "G", "value": -13.925743130903 },
                     { "label": "H", "value": -5.1387322875705 }
                 ]
-            }]            
+            }]   
+            
+            $scope.heatmapData = function generateRandomData(len) {
+                var max = 100;
+                var min = 1;
+                var maxX = 500;
+                var maxY = 300;
+                var data = [];
+                while (len--) {
+                    data.push({
+                        x: ((Math.random() * maxX) >> 0),
+                        y: ((Math.random() * maxY) >> 0),
+                        value: ((Math.random() * max + min) >> 0),
+                        radius: ((Math.random() * 50 + min) >> 0)
+                    });
+                }
+                return {
+                    max: max,
+                    min: min,
+                    data: data
+                }
+            };
 
         }]);
