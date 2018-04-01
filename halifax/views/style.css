@@ -17,19 +17,19 @@
     width: 100%;
     height: 100%;
     color:black;
-    background: #95DB8F;
+    background: rgb(23, 196, 219);
   }
 
   #header {
-    z-index:99;
+    z-index:9;
     margin: 20px;
     position: fixed;
   }
 
   h1 {
-    font-size:45px;
-    font-weight:700;
-
+    font-size:30px;
+    font-weight:600;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 160%;
     margin:0 25px 0 10px;
 
@@ -57,10 +57,10 @@
   }
 
   #animation-control-button .pause {
-    width: 20px;
-    height: 50px;
-    border-left: 12px solid black;
-    border-right: 12px solid black;
+    width: 10px;
+    height: 25px;
+    border-left: 6px solid black;
+    border-right: 6px solid black;
   }
 
   #heatmapArea {
@@ -92,7 +92,7 @@
     bottom:0;
     right:0;
 
-    background:#87D69B;
+    background:rgb(239, 241, 239);
     margin-right: -45px;
     margin-bottom:20px;
     padding-top:17px;
