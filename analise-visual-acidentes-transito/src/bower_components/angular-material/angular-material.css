@@ -21,6 +21,27 @@ header{
   text-align: left;
 }
 
+h2{
+  margin-top: 0;
+  margin-bottom: 10px;
+  position: relative;
+  text-align: right;
+}
+
+p{
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+#check{
+  margin-top: 20px;
+}
+
+#botoes{
+  float: right;
+}
+
 [tabindex='-1']:focus {
   outline: none; }
 

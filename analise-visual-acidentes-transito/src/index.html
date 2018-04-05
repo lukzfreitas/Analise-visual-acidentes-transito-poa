@@ -47,37 +47,44 @@
 </head>
 
 <body ng-app="app">
-    <header>
+
+    <header>            
+            <h2>
+            <md-button class="md-primary" ng-href="https://github.com/allenhwkim/angularjs-google-maps" target="_blank">Sobre</md-button>
+            <md-button class="md-primary" ng-href="https://github.com/allenhwkim/angularjs-google-maps" target="_blank">Informações</md-button>
+            </h2>
             <h1>Análise </br>Visual de </br>Acidentes de Trânsito</h1>
-            
-           <md-button class="md-primary" ng-href="https://github.com/allenhwkim/angularjs-google-maps" target="_blank">Informações</md-button>
     </header>
+
     <section ng-app="app" ng-controller="acidentesController">
         <section>
-            <ng-map zoom="12" center="-30.0454, -51.1579" map-type-id="HYBRID" default-style="false" style="width:1000px; height:500px;text-align:center; position:relative ">
+            <ng-map zoom="12" center="-30.0454, -51.1579" map-type-id="HYBRID" default-style="false" style="width:1000px; height:500px;text-align:center; position:relative; margin-bottom: 40px ">
                 <heatmap-layer ng-if="!googleMaps.pauseLoading" id="cord" data="coordenadas"></heatmap-layer>
                 <marker ng-if="!googleMaps.pauseLoadingMarker" ng-repeat="p in markers" position="{{p.position}}" title="é uma string porra - {{p.title}}"></marker>
             </ng-map>
         </section>
         <section>
-            <md-button type="submit" ng-click="loadHeatmap()" class="md-primary md-raised">load heatmap</md-button>            
+            <p>Gráficos de acidentes em relação a...</p>        
+                <nvd3 options="options" data="data"></nvd3>
         </section>
         <section>
             <div>
+                <p>Linha do Tempo</p>
                 <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
             </div>
         </section>
-        <section>
-            <md-radio-group ng-model="regiao.regiaoSelecionada" class="md-primary">
-                <md-radio-button ng-repeat="regiao in regiao.regioes" ng-value="regiao">
-                    {{ regiao }}
-                </md-radio-button>
-            </md-radio-group>
-            <md-button type="submit" ng-click="carregarRegiao()" class="md-primary md-raised">carregar região</md-button>
-        </section>        
-        <section>            
-            <nvd3 options="options" data="data"></nvd3>
-        </section>
+        <section id="check">
+            <md-checkbox-group ng-model="regiao.regiaoSeleciona" class="md-primary">
+            <md-checkbox ng-repeat="regiao in regiao.regioes" ng-value="regiao">
+                    {{regiao}}
+            </md-checkbox>
+            </md-checkbox-group>
+        </section> 
+            <section id="botoes">
+                <md-button type="submit" ng-click="carregarRegiao()" class="md-primary md-raised">carregar região</md-button>
+                <md-button type="submit" ng-click="loadHeatmap()" class="md-primary md-raised">load heatmap</md-button>            
+            </section>       
+        
         <section>
             <angular-heatmap heatmap-data="heatmapData"></angular-heatmap>
         </section>
