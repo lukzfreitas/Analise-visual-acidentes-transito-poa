@@ -19,11 +19,11 @@ app.configure(function(){
   app.set('views', __dirname + '/src/views');
   app.engine('html', require('ejs').renderFile);
 
-  app.use(express.static(path.join(__dirname, 'controllers')));
-  app.use(express.static(path.join(__dirname, 'services')));  
-  app.use(express.static(path.join(__dirname, 'js')));
-  app.use(express.static(path.join(__dirname, 'img')));  
-  app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+  app.use(express.static(path.join(__dirname, '/frontend/controllers')));
+  app.use(express.static(path.join(__dirname, '/frontend/services')));  
+  app.use(express.static(path.join(__dirname, '/frontend/js')));
+  app.use(express.static(path.join(__dirname, '/frontend/img')));  
+  app.use('/bower_components',  express.static(__dirname + '/frontend/bower_components'));
   
   
   app.use(express.favicon(__dirname + '/images/favicon.ico'));
