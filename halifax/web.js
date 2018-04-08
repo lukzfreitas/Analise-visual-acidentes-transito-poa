@@ -16,11 +16,16 @@ var client = new elasticsearch.Client( {
 });
 
 app.configure(function(){
-  app.set('views', __dirname + '/views');
+  app.set('views', __dirname + '/src/views');
   app.engine('html', require('ejs').renderFile);
 
+  app.use(express.static(path.join(__dirname, 'controllers')));
+  app.use(express.static(path.join(__dirname, 'services')));  
   app.use(express.static(path.join(__dirname, 'js')));
-  app.use(express.static(path.join(__dirname, 'img')));
+  app.use(express.static(path.join(__dirname, 'img')));  
+  app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+  
+  
   app.use(express.favicon(__dirname + '/images/favicon.ico'));
 
   app.use(express.logger());
@@ -32,34 +37,6 @@ app.get('/:year', handleDataRequest);
 
 function handleDataRequest(req, res) {
   res.header("Content-Type", "text/html; charset=utf-8");
-
-  // pool.connect(function(err, client, done) {
-  //   if(err) {
-  //     return console.error('error fetching client from pool', err);
-  //   }
-
-  //   const currentYear = new Date().getFullYear();
-  //   const requestedYear = Number(req.params.year) || currentYear;
-  //   console.log(requestedYear);
-  //   client.query(`SELECT * from crimes where at between '${requestedYear}-01-01'::DATE and '${requestedYear+1}-01-01'::DATE order by at`, function(err, result) {
-  //     done();
-
-  //     if(err) {
-  //       return console.error('error running query', err);
-  //     }
-
-  //     const crimes = R.map((c) => {
-  //       const date = new Date(c.at);
-  //       return [Number(c.latitude), Number(c.longitude), crimeTypes[c.type], date.getMonth(), date.getDate()];
-  //     }, result.rows);
-
-  //     const years = R.prepend(2013, R.range(2017, currentYear+1));
-  //     const data = {
-  //       years: years,
-  //       crimes: crimes,
-  //       year: requestedYear,
-  //     };
-      
 
   client.search({
     "index": 'acidentes_transito_datapoa',
@@ -89,11 +66,7 @@ function handleDataRequest(req, res) {
       data = {years: anos, crimes: acidentes, year: 2000}
       res.render('index.html', {data: data});
     }
-  }); 
-  
-  
-  //   });
-  // });
+  });
 }
 
 var port = process.env.PORT || 5000;
