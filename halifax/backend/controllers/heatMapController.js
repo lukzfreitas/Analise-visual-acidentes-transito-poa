@@ -29,6 +29,7 @@ module.exports.getAcidentes = function (request, response) {
         return { LATITUDE: item._source.LATITUDE, LONGITUDE: item._source.LONGITUDE };
       });
       service.sendJSON(response, status, acidentes);
+      
     }
   })
 }

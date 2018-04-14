@@ -291,7 +291,8 @@
     #years li a {
       padding: 8px 15px;
       text-decoration: none;
-      color: black width:150px;
+      color: black;
+      width:150px;
       display: block;
       line-height: 2.2;
       background: #FFF
@@ -673,8 +674,7 @@
     /*
       * emits events after each animation frame and after animation is complete
      */
-    var CrimeAnimator = function (data, heatmap, map) {
-
+    var CrimeAnimator = function (data, heatmap, map) {      
       this.map = map;
       this.data = data;
       this.heatmap = heatmap;
@@ -828,7 +828,7 @@
       this.$progressBarPointer = $progressBarPointer;
     };
 
-    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     CrimeAnimator.prototype.updateProgressBar = function updateProgressBar() {
       var x = (this.progressBarStartPosition + (((this.currentDate - this.dateRange.start) / this.totalTimeRange) * this.totalPixelRange));
       if (x > this.progressBarEndPosition)

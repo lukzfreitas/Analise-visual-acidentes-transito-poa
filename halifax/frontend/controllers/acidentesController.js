@@ -20,8 +20,19 @@ angular.module('acidentesController', [])
                         i = parseInt(i);
                         intervaloAnos.push(i);
                     }
-                    if ($scope.regiao.regiaoSelecionada) {
-                        Acidentes.porRegiao(intervaloAnos, $scope.regiao.regiaoSelecionada).success(function (data) {
+                    // if ($scope.regiao.regiaoSelecionada) {
+                    //     Acidentes.porRegiao(intervaloAnos, $scope.regiao.regiaoSelecionada).success(function (data) {
+                    //         $scope.coordenadas = data.map(function (item) {
+                    //             return new google.maps.LatLng({ lat: item.LATITUDE, lng: item.LONGITUDE })
+                    //         });                            
+                    //         if ($scope.coordenadas.length) {
+                    //             deferred.resolve($scope.coordenadas);
+                    //         }
+                    //     });
+                    // } else {
+                        console.log('intevalo de anos', intervaloAnos);
+                        Acidentes.get(intervaloAnos).success(function (data) {
+                            console.log('dados', data);
                             $scope.coordenadas = data.map(function (item) {
                                 return new google.maps.LatLng({ lat: item.LATITUDE, lng: item.LONGITUDE })
                             });                            
@@ -29,17 +40,7 @@ angular.module('acidentesController', [])
                                 deferred.resolve($scope.coordenadas);
                             }
                         });
-                    } else {
-                        Acidentes.get(intervaloAnos).success(function (data) {
-                            $scope.coordenadas = data.map(function (item) {
-                                return new google.maps.LatLng({ lat: item.LATITUDE, lng: item.LONGITUDE })
-                            });
-                            // console.log($scope.coordenadas.length);
-                            if ($scope.coordenadas.length) {
-                                deferred.resolve($scope.coordenadas);
-                            }
-                        });
-                    }
+                    // }
                     return deferred.promise;
                 }
                 var promise = loadData();
