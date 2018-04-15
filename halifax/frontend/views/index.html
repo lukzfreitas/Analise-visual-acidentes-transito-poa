@@ -232,27 +232,48 @@
     }
 
     .button.button-right {
+      -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	    box-shadow:inset 0px 1px 0px 0px #ffffff;
+	    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+    	background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+    	background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+    	background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+      background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+    	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+    	background-color:#ededed;
+	    -moz-border-radius:6px;
+	    -webkit-border-radius:6px;
+	    border-radius:6px;
+    	border:1px solid #dcdcdc;
+    	display:inline-block;
+	    cursor:pointer;
+	    color:#777777;
+      font-family:Arial;
+    	font-size:15px;
+	    font-weight:bold;
+	    padding:6px 24px;
+      text-decoration:none;
+	    text-shadow:0px 1px 0px #ffffff;
       float: right;
-      display: block;
-      text-decoration: none;
-      color: black;
-      padding: 15px;
-      display: block;
-      background: white;
-      font-size: 16px;
-      -moz-box-shadow: 5px 5px #222;
-      -webkit-box-shadow: 5px 5px #222;
-      box-shadow: 5px 5px #222;
-      margin-right: 5px;
+      margin: 0px 5px 5px 0;
     }
 
     .button.button-right:hover {
-      background: #DFD;
+      background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+	    background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	    background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	    background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	    background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	    background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+	    background-color:#dfdfdf;
     }
 
     .button.button-right:active {
-      box-shadow: 2px 2px #222;
-      margin: 3px 2px -3px 3px;
+      position:relative;
+	    top:1px;
     }
 
     #options-button {
@@ -388,19 +409,19 @@
       text-align: left;
     }
 
-    .message-box .footer {
+    .message-box {
       margin: 40px 40px 0 40px;
       text-align: center;
       text-weight: 800;
     }
 
-    .message-box .footer a {
+    .message-box a {
       text-decoration: none;
       font-weight: 800;
       color: #333;
     }
 
-    .message-box .footer a:hover {
+    .message-box a:hover {
       color: #95DB8F;
     }
 
@@ -550,6 +571,14 @@
       }
     }
 
+    footer {
+      text-align: center;
+      font-size: 25px;
+      position: relative;;
+      bottom:0;
+      width:100%;
+    }
+
     @media (max-width: 1000px) {
       h1 {
         font-size: 20px;
@@ -586,10 +615,6 @@
         </div>
         We can only pack so much awesome into your mobile device, visit on a computer for the full effect.
       </div>
-
-      <p class="footer">By
-        <a href="http://www.davidhampgonsalves.com">David Hamp-Gonsalves.</a>
-      </p>
     </p>
   </div>
 
@@ -608,11 +633,11 @@
     <div id="animation-control-button" class="button">
       <div class="pause"></div>
     </div>
-    <ul id="years">
+    <!-- <ul id="years">
       <li class="title">Anos
-    </ul>
+    </ul> -->
 
-    <ul id="options">
+    <!-- <ul id="options">
       <li class="title">Filtros
         <li>
           <label for="filter-auto-theft">Auto Theft</label>
@@ -633,8 +658,9 @@
                   <li class="title">Crime Markers
                     <li>
                       <label for="options-markers">Show on Pause</label>
-                      <input id="options-markers" type="checkbox" name="crime-markers" checked>
-    </ul>
+                      <input id="options-markers" type="checkbox" name="crime-markers" checked> 
+                      </li>
+    </ul> -->
   </div>
 
   <div id="heatmapArea"></div>  
@@ -670,6 +696,7 @@
     </section>
     
   </section>
+  <footer>Footer aqui, em construção</footer>
 
   <script type="text/javascript" src="h-map.js"></script>
   <script type="text/javascript" src="h-gmap.js"></script>
