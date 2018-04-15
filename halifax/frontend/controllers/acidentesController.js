@@ -110,7 +110,7 @@ angular.module('acidentesController', [])
             x: function(d){return d.label;},
             y: function(d){return d.value;},
             //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
-            showControls: true,
+            showControls: false,
             showValues: true,
             duration: 500,
             xAxis: {
@@ -131,23 +131,23 @@ angular.module('acidentesController', [])
             "color": "#1f77b4",
             "values": [
                 {
-                    "label" : "Segunda-feira" ,
+                    "label" : "Segunda" ,
                     "value" : 25.307646510375
                 } ,
                 {
-                    "label" : "Terça-feira" ,
+                    "label" : "Terça" ,
                     "value" : 16.756779544553
                 } ,
                 {
-                    "label" : "Quarta-feira" ,
+                    "label" : "Quarta" ,
                     "value" : 18.451534877007
                 } ,
                 {
-                    "label" : "Quinta-feira" ,
+                    "label" : "Quinta" ,
                     "value" : 8.6142352811805
                 } ,
                 {
-                    "label" : "Sexta-feira" ,
+                    "label" : "Sexta" ,
                     "value" : 7.8082472075876
                 } ,
                 {
