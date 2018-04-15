@@ -58,49 +58,107 @@ angular.module('acidentesController', [])
                     ceil: 2016,
                     showTicksValues: true
                 }
-            };            
-
-            $scope.options = {
-                chart: {
-                    type: 'discreteBarChart',
-                    height: 450,
-                    margin: {
-                        top: 20,
-                        right: 20,
-                        bottom: 60,
-                        left: 55
-                    },
-                    x: function (d) { return d.label; },
-                    y: function (d) { return d.value; },
-                    showValues: true,
-                    valueFormat: function (d) {
-                        return d3.format(',.4f')(d);
-                    },
-                    transitionDuration: 500,
-                    xAxis: {
-                        axisLabel: 'X Axis'
-                    },
-                    yAxis: {
-                        axisLabel: 'Y Axis',
-                        axisLabelDistance: 30
+            };
+            
+            //Gráfico de Donut    
+            $scope.optionsDonut = {
+                
+                "chart": {
+                    "type": "pieChart",
+                    "height": 250,
+                    "width": 250,
+                    "donut": true,
+                    "showLabels": true,
+                    "pie": {},
+                    "duration": 500,
+                    "legend": {
+                    "margin": {
+                        "top": 5,
+                        "right": 140,
+                        "bottom": 5,
+                        "left": 0
+                    }
                     }
                 }
+                  
             };
 
-            $scope.data = [{
-                key: "Cumulative Return",
-                values: [
-                    { "label": "A", "value": -29.765957771107 },
-                    { "label": "B", "value": 0 },
-                    { "label": "C", "value": 32.807804682612 },
-                    { "label": "D", "value": 196.45946739256 },
-                    { "label": "E", "value": 0.19434030906893 },
-                    { "label": "F", "value": -98.079782601442 },
-                    { "label": "G", "value": -13.925743130903 },
-                    { "label": "H", "value": -5.1387322875705 }
-                ]
-            }]   
-            
-            
+            $scope.dataDonut = [
+                {
+                    key: "Um",
+                    y: 4
+                },
+                {
+                    key: "Dois",
+                    y: 4
+                },
+                {
+                    key: "Três",
+                    y: 4
+                },
+                {
+                    key: "Quatro",
+                    y: 4
+                }
+    ];
 
-        }]);
+    $scope.optionsMultiBar = {
+        chart: {
+            type: 'multiBarHorizontalChart',
+            height: 250,
+            width: 390,
+            x: function(d){return d.label;},
+            y: function(d){return d.value;},
+            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
+            showControls: true,
+            showValues: true,
+            duration: 500,
+            xAxis: {
+                showMaxMin: false
+            },
+            yAxis: {
+                axisLabel: 'Values',
+                tickFormat: function(d){
+                    return d3.format(',.2f')(d);
+                }
+            }
+        }
+    };
+
+    $scope.dataMultiBar = [
+        {
+            "key": "Dias da Semana",
+            "color": "#1f77b4",
+            "values": [
+                {
+                    "label" : "Segunda-feira" ,
+                    "value" : 25.307646510375
+                } ,
+                {
+                    "label" : "Terça-feira" ,
+                    "value" : 16.756779544553
+                } ,
+                {
+                    "label" : "Quarta-feira" ,
+                    "value" : 18.451534877007
+                } ,
+                {
+                    "label" : "Quinta-feira" ,
+                    "value" : 8.6142352811805
+                } ,
+                {
+                    "label" : "Sexta-feira" ,
+                    "value" : 7.8082472075876
+                } ,
+                {
+                    "label" : "Sábado" ,
+                    "value" : 5.259101026956
+                } ,
+                {
+                    "label" : "Domingo" ,
+                    "value" : 0.30947953487127
+                }
+            ]
+        }
+    ];
+}]);

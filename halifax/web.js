@@ -33,33 +33,29 @@ app.get('/:year', handleDataRequest);
 function handleDataRequest(req, res) {
   res.header("Content-Type", "text/html; charset=utf-8");
 
-  var ano1 = 2000;
-  var ano2 = 2005
-  var intervaloAnos = [ano1, ano2];
+  var ano1 = 2000;  
+  var intervaloAnos = [ano1];
 
   client.search({
     "index": 'acidentes_transito_datapoa',
-    "size": 349732,
+    "size": 1000,
     "from": 0,
-    "body": {
-      "sort" : [
-        {"DATA_HORA": {"order": "asc"}}
-      ],
+    "body": {      
       "query": {
-        "constant_score": {
-          "filter": {
-            "terms": {
-              "ANO": intervaloAnos
-            }
-          }
+        "bool": {
+          "must":
+            
+            { "match": { "ANO": "2000" } }
+          
         }
       }
     }
   }, function (error, result, status) {
+    console.log(result.hits);
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
-      var acidentes = result.hits.hits.map(function (item) {        
+      var acidentes = result.hits.hits.map(function (item) {                
         var date = new Date(item._source.DATA_HORA);
         return [item._source.LATITUDE, item._source.LONGITUDE, item._source.TIPO_ACID, date.getMonth(), date.getDate()];
       });     
