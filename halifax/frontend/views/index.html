@@ -47,7 +47,7 @@
 
     html,
     body {
-      width: 1000px;
+      width: 1000px ;
       height: 100%;
       color: #000;
       background: hsla(120, 33%, 98%, 0.973);
@@ -83,6 +83,12 @@
     h1 span {
       font-size: 53px;
       font-weight: 300;
+    }
+
+    h4 {
+      font-family: 'Times New Roman', Times, serif;
+      float: unset;
+      font-size: 18px;
     }
 
 
@@ -656,8 +662,8 @@
 <!-- Graficos -->
     <section>
       <p>Gráficos de acidentes em relação a...</p>
-      <div id="graf" title="Região"><p>Região</p><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
-      <div id="grafi" title="Dias da Semana"><p>Dias da Semana</p><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>
+      <div id="graf" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
+      <div id="grafi" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>
     </section>
     
   </section>

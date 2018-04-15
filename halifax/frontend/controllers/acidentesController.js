@@ -60,7 +60,7 @@ angular.module('acidentesController', [])
                 }
             };
             
-            //Gráfico de Donut    
+            //Gráfico Região    
             $scope.optionsDonut = {
                 
                 "chart": {
@@ -102,6 +102,7 @@ angular.module('acidentesController', [])
                 }
     ];
 
+    //Gráfico Dias da Semana
     $scope.optionsMultiBar = {
         chart: {
             type: 'multiBarHorizontalChart',
