@@ -59,23 +59,57 @@ angular.module('acidentesController', [])
                     showTicksValues: true
                 }
             };
+
+            // Gráfico Feridos e Mortos
+            $scope.optionsPie = {
+                chart: {
+                    type: 'pieChart',
+                    height: 230,
+                    width: 230,
+                    x: function(d){return d.key;},
+                    y: function(d){return d.y;},
+                    showLabels: true,
+                    duration: 500,
+                    labelThreshold: 0.01,
+                    labelSunbeamLayout: true,
+                    legend: {
+                        margin: {
+                            top: 5,
+                            right: 35,
+                            bottom: 5,
+                            left: 0
+                        }
+                    }
+                }
+            };
+    
+            $scope.dataPie = [
+                {
+                    key: "Feridos",
+                    y: 2
+                },
+                {
+                    key: "Mortos",
+                    y: 2
+                },
+    ];
             
             //Gráfico Região    
             $scope.optionsDonut = {
                 
                 "chart": {
                     "type": "pieChart",
-                    "height": 250,
-                    "width": 250,
+                    "height": 230,
+                    "width": 230,
                     "donut": true,
                     "showLabels": true,
                     "pie": {},
                     "duration": 500,
                     "legend": {
                     "margin": {
-                        "top": 5,
-                        "right": 140,
-                        "bottom": 5,
+                        "top": 0,
+                        "right": 35,
+                        "bottom": 0,
                         "left": 0
                     }
                     }
@@ -85,19 +119,19 @@ angular.module('acidentesController', [])
 
             $scope.dataDonut = [
                 {
-                    key: "Um",
+                    key: "Norte",
                     y: 4
                 },
                 {
-                    key: "Dois",
+                    key: "Sul",
                     y: 4
                 },
                 {
-                    key: "Três",
+                    key: "Leste",
                     y: 4
                 },
                 {
-                    key: "Quatro",
+                    key: "Centro",
                     y: 4
                 }
     ];
@@ -106,8 +140,8 @@ angular.module('acidentesController', [])
     $scope.optionsMultiBar = {
         chart: {
             type: 'multiBarHorizontalChart',
-            height: 250,
-            width: 390,
+            height: 200,
+            width: 340,
             x: function(d){return d.label;},
             y: function(d){return d.value;},
             //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
@@ -162,4 +196,70 @@ angular.module('acidentesController', [])
             ]
         }
     ];
+
+    $scope.optionsBarChart = {
+        chart: {
+            type: 'multiBarChart',
+            height: 250,
+            width: 250,
+            margin : {
+                top: 20,
+                right: 20,
+                bottom: 45,
+                left: 45
+            },
+            clipEdge: true,
+            //staggerLabels: true,
+            duration: 500,
+            stacked: true,
+            xAxis: {
+                axisLabel: 'Time (ms)',
+                showMaxMin: false,
+                tickFormat: function(d){
+                    return d3.format(',f')(d);
+                }
+            }
+        }
+    };
+
+    $scope.dataBarChart = function generateData() {
+        return stream_layers(3,50+Math.random()*50,.1).map(function(data, i) {
+            return {
+                key: 'Stream' + i,
+                values: data
+            };
+        });
+    }
+    
+    function stream_layers(n, m, o) {
+        if (arguments.length < 3) o = 0;
+        function bump(a) {
+            var x = 1 / (.1 + Math.random()),
+                y = 2 * Math.random() - .5,
+                z = 10 / (.1 + Math.random());
+            for (var i = 0; i < m; i++) {
+                var w = (i / m - y) * z;
+                a[i] += x * Math.exp(-w * w);
+            }
+        }
+        return d3.range(n).map(function() {
+            var a = [], i;
+            for (i = 0; i < m; i++) a[i] = o + o * Math.random();
+            for (i = 0; i < 5; i++) bump(a);
+            return a.map(stream_index);
+        });
+    }
+    // function stream_waves(n, m) {
+    //     return d3.range(n).map(function(i) {
+    //         return d3.range(m).map(function(j) {
+    //             var x = 20 * j / m - i / 3;
+    //             return 2 * x * Math.exp(-.5 * x);
+    //         }).map(stream_index);
+    //     });
+    // }
+
+    function stream_index(d, i) {
+        return {x: i, y: Math.max(0, d)};
+}
+    
 }]);

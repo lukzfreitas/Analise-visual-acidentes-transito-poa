@@ -47,37 +47,45 @@
 
     html,
     body {
-      /* width: 1000px ; */
       height: 100%;
       color: #000;
       background: hsla(120, 33%, 98%, 0.973);
     }
 
     #header {
-      /* z-index: 99; */
-      margin: 20px;
+      z-index: 99;
+      margin-top: 10px;
       position: relative;
       font-size: 30px;
     }
 
-    #graf {
-      display: inline;
+    #graficos{
+      width: 100%;
+      height: 500px;
+      margin-bottom: 10px;
+      display: table-row-group;
+    }
+    
+    #grafPie{
+      float: right;
+    }
+
+    #grafDonut {
+      float: right;
+    }
+
+    #grafMulti {
       float: left;
     }
 
-    #grafi {
-      display: inline;
-      float: center;
+    #grafBarChart{
+      float: right;
     }
 
     h1 {
       font-size: 35px;
       font-weight: 700;
-
       line-height: 160%;
-      margin: 0 20px 0 20px;
-
-      display: inline;
       float: left;
     }
 
@@ -509,12 +517,12 @@
     }
 
     #legend {
-      height: 100px;
+      height: 250px;
       width: 60px;
-      position: relative;
+      position: fixed;
       left: 0;
-      bottom: 60%;
-      margin-left: 2.5%;
+      bottom: 125px;
+      margin-left: 25px;
       overflow: visible;
     }
 
@@ -688,15 +696,15 @@
     </ul> -->
   </div>
 
-  <div id="heatmapArea"></div> 
-  <div id="legend">
+  <div id="heatmapArea"></div>
+  <!-- <div id="legend">
     <div id="numbers">
       <div><a title="Escala"></a></div>
     </div>
     <div id="colors">
       <div><span></span></div>
     </div>
-  </div>
+  </div> -->
 
   <div id="progress-bar-background"></div>
   <div id="progress-bar-container">
@@ -708,7 +716,7 @@
     <div id="progress-bar"></div>
   </div>
   
-  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 5px; margin-bottom: 0px;"/>
+  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 15px; margin-bottom: 0px;"/>
 
   <!-- Intervalo de anos -->
   <section ng-app="app" ng-controller="acidentesController">
@@ -724,10 +732,12 @@
     </section>  
 
 <!-- Graficos -->
-    <section>
+    <section id="graficos">
       <p>Gráficos de acidentes em relação a...</p>
-      <div id="graf" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
-      <div id="grafi" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>
+      <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
+      <div id="grafDonut" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
+      <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>
+      <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
     </section>
     
   </section>
