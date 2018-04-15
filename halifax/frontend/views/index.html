@@ -509,12 +509,12 @@
     }
 
     #legend {
-      height: 50px;
+      height: 100px;
       width: 60px;
       position: relative;
       left: 0;
-      bottom: 50%;
-      margin-left: 17%;
+      bottom: 60%;
+      margin-left: 2.5%;
       overflow: visible;
     }
 
@@ -649,6 +649,9 @@
 
   <div id="header">
     <h1>Análise Visual de</br>Acidentes de Trânsito</h1>
+    <div id="animation-control-button" class="button">
+      <div class="pause"></div>
+    </div>
   </div>
 
   <div id="options-area">
@@ -686,12 +689,9 @@
   </div>
 
   <div id="heatmapArea"></div>
-  <div id="animation-control-button" class="button">
-    <div class="pause"></div>
-  </div>
   <div id="legend">
     <div id="numbers">
-      <div><a title="FourCrimes">4</a></div>
+      <div><a title="Escala"></a></div>
     </div>
     <div id="colors">
       <div><span></span></div>
@@ -708,7 +708,7 @@
     <div id="progress-bar"></div>
   </div>
   
-  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 15px; margin-bottom: 0px;"/>
+  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 5px; margin-bottom: 0px;"/>
 
   <!-- Intervalo de anos -->
   <section ng-app="app" ng-controller="acidentesController">
