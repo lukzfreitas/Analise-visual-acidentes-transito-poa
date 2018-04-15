@@ -8,8 +8,8 @@ module.exports.getAcidentes = function (request, response) {
     "size": 349732,
     "from": 0,
     "body": {
-      "sort" : [
-        {"DATA_HORA": {"order": "asc"}}
+      "sort": [
+        { "DATA_HORA": { "order": "asc" } }
       ],
       "query": {
         "constant_score": {
@@ -22,99 +22,39 @@ module.exports.getAcidentes = function (request, response) {
       }
     }
   }, function (error, result, status) {
+    console.log(result);
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
       var acidentes = result.hits.hits.map(function (item) {
-        return { LATITUDE: item._source.LATITUDE, LONGITUDE: item._source.LONGITUDE };
+        return item._source;
       });
       service.sendJSON(response, status, acidentes);
-      
     }
   })
 }
 
-module.exports.getQtdAcidentesPorRegiao = function (request, response) {    
-  var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
-  console.log(request.query.regiao);
-  console.log(intervaloAnos);
+module.exports.qtdPorRegiao = function (request, response) {  
   client.search({
-    "index": 'acidentes_transito_datapoa_id',
-    "size": 349732,
-    "from": 0,
+    "index": 'acidentes_transito_datapoa',
+    "size": 0,
     "body": {
-      "query": {
-        "bool": {
-          "must": [
-            { "terms": { "ANO": intervaloAnos } },
-            { "match": { "REGIAO": request.query.regiao } }
-          ]
-        }
-      }
-    }
-  }, function (error, result, status) {
-    if (error) {
-      console.log("deu ruim no search" + error);
-    } else {
-      console.log(result.hits.total);
-      service.sendJSON(response, status, result.hits.total);
-    }
-  })
-}
-
-module.exports.getAcidentesPorRegiao = function (request, response) {
-  var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
-  client.search({
-    "index": 'acidentes_transito_datapoa_id',
-    "size": 349732,
-    "from": 0,
-    "body": {
-      "query": {
-        "bool": {
-          "must": [
-            { "terms": { "ANO": intervaloAnos } },
-            { "match": { "REGIAO": request.query.regiao } }
-          ]
-        }
-      }
-    }
-  }, function (error, result, status) {
-    if (error) {
-      console.log("deu ruim no search" + error);
-    } else {
-      var acidentes = result.hits.hits.map(function (item) {
-        return { LATITUDE: item._source.LATITUDE, LONGITUDE: item._source.LONGITUDE, ID: item._source.ID };
-      });
-      service.sendJSON(response, status, acidentes);
-    }
-  });
-}
-
-module.exports.acidentesLocaisErrados = function (request, response) {
-  client.search({
-    "index": 'acidentes_transito_datapoa_id',
-    "size": 349732,
-    "from": 0,
-    "body": {
-      "query": {
-        "bool": {
-          "must": {
-            "match": { "REGIAO": "CENTRO" }
-          },
-          "filter": {
-            "range": { "LATITUDE": { "gte": -30.020 } }
+      "aggregations": {
+        "REGIAO.keyword": {
+          "terms": {
+            "field": "REGIAO.keyword"
           }
         }
       }
     }
   }, function (error, result, status) {
     if (error) {
-      console.log("deu ruim no search" + error);
+      console.log('deu ruim no search', error);
     } else {
-      var acidentes = result.hits.hits.map(function (item) {
-        return { LATITUDE: item._source.LATITUDE, LONGITUDE: item._source.LONGITUDE, ID: item._source.ID };
-      });
-      service.sendJSON(response, status, acidentes);
+      var regioes = result.aggregations["REGIAO.keyword"].buckets.map( function (item) {
+        return {key: item.key, y: item.doc_count}
+      });       
+      service.sendJSON(response, status, regioes);
     }
   })
-} 
+}

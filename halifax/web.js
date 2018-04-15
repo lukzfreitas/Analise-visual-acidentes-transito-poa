@@ -14,8 +14,8 @@ var client = new elasticsearch.Client( {
   requestTimeout: 90000 
 });
 
-// var routeapi = require('./backend/routes/api');
-// app.use('/api', routeapi);
+var routeapi = require('./backend/routes/api');
+app.use('/api', routeapi);
 
 app.set('views', __dirname + '/frontend/views');
 app.engine('html', require('ejs').renderFile);  
@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, '/frontend/img')));
 app.use('/bower_components',  express.static(__dirname + '/frontend/bower_components'));
 app.use(express.static('./node_modules'));   
 
+// app.get('/');
 app.get('/', handleDataRequest);
 app.get('/:year', handleDataRequest);
 
@@ -38,20 +39,23 @@ function handleDataRequest(req, res) {
 
   client.search({
     "index": 'acidentes_transito_datapoa',
-    "size": 1000,
+    "size": 349732,
     "from": 0,
     "body": {      
+      "sort" : [
+        {"DATA_HORA": {"order": "asc"}}
+      ],
       "query": {
-        "bool": {
-          "must":
-            
-            { "match": { "ANO": "2000" } }
-          
+        "constant_score": {
+          "filter": {
+            "terms": {
+              "ANO": intervaloAnos
+            }
+          }
         }
       }
     }
-  }, function (error, result, status) {
-    console.log(result.hits);
+  }, function (error, result, status) {    
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
