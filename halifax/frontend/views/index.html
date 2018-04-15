@@ -744,6 +744,7 @@
 
 <!-- Graficos -->
   <p>Gráficos de acidentes em relação a...</p>
+  </br>
     <aside id="graficosAs">
       <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
       <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
@@ -753,6 +754,14 @@
       <div id="grafDonut" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
       <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
     </section>
+
+    <section id="check">
+      <md-checkbox-group ng-model="regiao.regiaoSeleciona" class="md-primary">
+      <md-checkbox ng-repeat="regiao in regiao.regioes" ng-value="regiao">
+              {{regiao}}
+      </md-checkbox>
+      </md-checkbox-group>
+  </section>
    
     <section id="footer">
     <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 15px; margin-bottom: 0px;"/>
