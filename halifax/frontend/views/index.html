@@ -109,6 +109,11 @@
       font-size: 18px;
     }
 
+    #check{
+      margin-bottom: 10px;
+      display: table-header-group;
+      float: left;
+    }
 
     #animation-control-button {
       float: left;
@@ -756,9 +761,24 @@
     </section>
 
     <section id="check">
-      <md-checkbox-group ng-model="regiao.regiaoSeleciona" class="md-primary">
-      <md-checkbox ng-repeat="regiao in regiao.regioes" ng-value="regiao">
-              {{regiao}}
+      <h4>Tipo de Veículo</h4>
+      <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
+      <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
+              {{veiculo}}
+      </md-checkbox>
+      </md-checkbox-group>
+
+      <h4>Faixa de Horário</h4>
+      <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
+      <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
+              {{horario}}
+      </md-checkbox>
+      </md-checkbox-group>
+
+      <h4>Condição do Tempo</h4>
+      <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
+      <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
+              {{tempo}}
       </md-checkbox>
       </md-checkbox-group>
   </section>

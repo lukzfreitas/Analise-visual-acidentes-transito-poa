@@ -7,9 +7,19 @@ angular.module('acidentesController', [])
         'Acidentes',        
         '$q',        
         function ($timeout, $scope, $http, Acidentes, $q) {
-            $scope.regiao = {                
-                regioes: ['NORTE', 'SUL', 'CENTRO', 'LESTE'],                
-                regiaoSelecionada: false
+            $scope.veiculo = {
+                veiculos: ['Automóvel','Moto','Caminhão','Táxi','Lotação','Ônibus','Bicicleta', 'Outro'],
+                veiculoSelecionada: false
+            }
+
+            $scope.horario = {                
+                horarios: ['Manhã (6h a 12h)', 'Tarde (12h a 18h)', 'Noite (18h a 24h)', 'Madrugada (24h a 6h)'],                
+                horarioSelecionada: false
+            }
+
+            $scope.tempo = {                
+                tempos: ['Bom', 'Chuvoso', 'Nublado'],                
+                tempoSelecionada: false
             }
 
             $scope.carregarHeatmap = function () {                
