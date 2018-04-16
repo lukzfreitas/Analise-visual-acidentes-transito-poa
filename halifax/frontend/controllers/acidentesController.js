@@ -9,42 +9,87 @@ angular.module('acidentesController', [])
         function ($timeout, $scope, $http, Acidentes, $q) {
 
             var init = function () {
-                console.log('olá sou eu o TCC');
 
-                var loadData = function () {
-                    var deferred = $q.defer();
-                    Acidentes.qtdPorRegiao().success(function (data) {                                                
-                        deferred.resolve(data);
-                    });
-                    return deferred.promise;
-                }
-                var promise = loadData();
-                promise.then(function (data) {                    
-                    //Gráfico Região    
-                    $scope.optionsDonut = {
-                        "chart": {
-                            "type": "pieChart",
-                            "height": 300,
-                            "width": 300,
-                            "donut": true,
-                            x: function (d) { return d.key; },
-                            y: function (d) { return d.y; },
-                            "showLabels": true,
-                            "pie": {},
-                            "duration": 500,
-                            "legend": {
-                                "margin": {
-                                    "top": 0,
-                                    "right": 35,
-                                    "bottom": 0,
-                                    "left": 0
+                // Gráficos
+
+                // Função para retornar quantidade de acidentes por região
+                var qtdPorRegiao = function () {
+                    var loadData = function () {
+                        var deferred = $q.defer();
+                        Acidentes.qtdPorRegiao().success(function (data) {
+                            deferred.resolve(data);
+                        });
+                        return deferred.promise;
+                    }
+                    var promise = loadData();
+                    promise.then(function (data) {
+                        //Gráfico Região    
+                        $scope.optionsDonut = {
+                            "chart": {
+                                "type": "pieChart",
+                                "height": 300,
+                                "width": 300,
+                                "donut": true,
+                                x: function (d) { return d.key; },
+                                y: function (d) { return d.y; },
+                                "showLabels": true,
+                                "pie": {},
+                                "duration": 500,
+                                "legend": {
+                                    "margin": {
+                                        "top": 0,
+                                        "right": 35,
+                                        "bottom": 0,
+                                        "left": 0
+                                    }
                                 }
                             }
-                        }
 
-                    };
-                    $scope.dataDonut = data;
-                });
+                        };
+                        $scope.dataDonut = data;
+                    });
+                }
+
+
+                var qtdFeridosEMortos = function () {
+                    var loadData = function () {
+                        var deferred = $q.defer();
+                        Acidentes.qtdPorRegiao().success(function (data) {
+                            deferred.resolve(data);
+                        });
+                        return deferred.promise;
+                    }
+                    var promise = loadData();
+                    promise.then(function (data) {
+                        // Gráfico Feridos e Mortos
+                        $scope.optionsPie = {
+                            chart: {
+                                type: 'pieChart',
+                                height: 300,
+                                width: 300,
+                                x: function (d) { return d.key; },
+                                y: function (d) { return d.y; },
+                                showLabels: true,
+                                duration: 500,
+                                labelThreshold: 0.01,
+                                labelSunbeamLayout: true,
+                                legend: {
+                                    margin: {
+                                        top: 5,
+                                        right: 35,
+                                        bottom: 5,
+                                        left: 0
+                                    }
+                                }
+                            }
+                        };
+
+                        $scope.dataPie = data;
+                    });
+                }
+
+                qtdPorRegiao();
+                qtdFeridosEMortos();
             }
 
             init();
@@ -75,30 +120,7 @@ angular.module('acidentesController', [])
                 }
             };
 
-            // Gráfico Feridos e Mortos
-            $scope.optionsPie = {
-                chart: {
-                    type: 'pieChart',
-                    height: 300,
-                    width: 300,
-                    x: function (d) { return d.key; },
-                    y: function (d) { return d.y; },
-                    showLabels: true,
-                    duration: 500,
-                    labelThreshold: 0.01,
-                    labelSunbeamLayout: true,
-                    legend: {
-                        margin: {
-                            top: 5,
-                            right: 35,
-                            bottom: 5,
-                            left: 0
-                        }
-                    }
-                }
-            };
 
-            $scope.dataPie = [{ key: "Feridos", y: 2 }, { key: "Mortos", y: 2 },];
 
 
 

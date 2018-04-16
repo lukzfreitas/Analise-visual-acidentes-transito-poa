@@ -34,7 +34,7 @@ module.exports.getAcidentes = function (request, response) {
   })
 }
 
-module.exports.qtdPorRegiao = function (request, response) {  
+module.exports.qtdPorRegiao = function (request, response) {
   client.search({
     "index": 'acidentes_transito_datapoa',
     "size": 0,
@@ -51,10 +51,37 @@ module.exports.qtdPorRegiao = function (request, response) {
     if (error) {
       console.log('deu ruim no search', error);
     } else {
-      var regioes = result.aggregations["REGIAO.keyword"].buckets.map( function (item) {
-        return {key: item.key, y: item.doc_count}
-      });       
+      var regioes = result.aggregations["REGIAO.keyword"].buckets.map(function (item) {
+        return { key: item.key, y: item.doc_count }
+      });
+      console.log(regioes);
       service.sendJSON(response, status, regioes);
     }
-  })
+  });
+
+  module.exports.qtdFeridosEMortos = function (request, response) {
+    client.search({
+      "index": 'acidentes_transito_datapoa',
+      "size": 0,
+      "body": {
+        "aggregations": {
+          "REGIAO.keyword": {
+            "terms": {
+              "field": "REGIAO.keyword"
+            }
+          }
+        }
+      }
+    }, function (erro, result, status) {
+      if (error) {
+        console.log('deu ruim no search', error);
+      } else {
+        var regioes = result.aggregations["REGIAO.keyword"].buckets.map(function (item) {
+          return { key: item.key, y: item.doc_count }
+        });
+        console.log(regioes);
+        service.sendJSON(response, status, regioes);
+      }
+    });
+  }
 }

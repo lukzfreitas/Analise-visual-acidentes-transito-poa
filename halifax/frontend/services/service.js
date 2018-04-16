@@ -9,5 +9,8 @@ angular.module('service', [])
             console.log('chegou aqui');
             return $http.get('/api/acidentes-por-regiao?anos=' + anos + '&regiao=' + regiao);
         },        
+        qtdFeridosEMortos : function() {
+            return $http.get('/api/acidentes-feridos-mortos');
+        }
     }
 }])

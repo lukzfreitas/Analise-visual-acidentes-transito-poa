@@ -3,6 +3,5 @@ var heatMapController = require('../controllers/heatMapController');
 var router = express.Router();
 router.get('/acidentes', heatMapController.getAcidentes);
 router.get('/acidentes-por-regiao', heatMapController.qtdPorRegiao);
-// router.get('/qtd-acidentes-por-regiao', heatMapController.getQtdAcidentesPorRegiao);
-// router.get('/acidentes-locais-errados', heatMapController.acidentesLocaisErrados);
+// router.get('/acidentes-feridos-mortos', heatMapController.qtdFeridosEMortos);
 module.exports = router;
