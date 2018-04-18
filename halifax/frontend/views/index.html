@@ -203,7 +203,7 @@
       position: absolute;
       content: ' ';
       top: 100%;
-      left: 50%;
+      /* left: 50%; */
       border: solid transparent;
       border-top-color: rgb(204, 206, 205);
       border-width: 15px;
@@ -663,8 +663,7 @@
 
 <body>
   <div id="about-message" class="message-box">
-
-    <h2>Sobre Análise Visual de Acidentes de Trânsito</h2>
+   <!-- <h2>Sobre Análise Visual de Acidentes de Trânsito</h2>
     <p>
       Halifax Crime Maps is an animated heatmap of crimes in Halifax powered by
       <a href="https://www.halifaxopendata.ca/">OpenDataHalifax</a>. Watch each week as new data is added and the animation grows.
@@ -685,10 +684,10 @@
         </div>
         We can only pack so much awesome into your mobile device, visit on a computer for the full effect.
       </div>
-    </p>
+    </p> -->
   </div>
 
-
+  <!-- Header -->
   <div id="header">
     <h1>Análise Visual de</br>Acidentes de Trânsito</h1>
     <div id="animation-control-button" class="button">
@@ -696,9 +695,10 @@
     </div>
   </div>
 
+  <!-- Sobre o trabalho -->
   <div id="options-area">
-    <a href="#" id="options-button" class="button button-right">Opções</a>
-    <a href="#" id="years-button" class="button button-right">Anos</a>
+    <!-- <a href="#" id="options-button" class="button button-right">Opções</a>
+    <a href="#" id="years-button" class="button button-right">Anos</a> -->
     <a href="#" id="about-button" class="button button-right">Sobre</a>
     <!-- <ul id="years">
       <li class="title">Anos
@@ -730,6 +730,7 @@
     </ul> -->
   </div>
 
+  <!-- Mapa -->
   <div id="heatmapArea"></div>
   <!-- <div id="legend">
     <div id="numbers">
@@ -740,23 +741,22 @@
     </div>
   </div> -->
 
+  <!-- Barra de progresso -->
   <div id="progress-bar-background"></div>
   <div id="progress-bar-container">
     <div id="progress-bar-pointer-container">
       <div id="progress-bar-pointer" onclick="void(0)"></div>
-      <div id="progress-bar-instructions">drag me<br>to skip days</div>
+      <div id="progress-bar-instructions">Arraste-me <br>para pular dias</div>
     </div>
     <div id="progress-bar"></div>
   </div>
   
-  <!-- Intervalo de anos -->
   <section ng-app="app" ng-controller="acidentesController">
-   
-    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 10px; margin-bottom: 0px;"/>
+      <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 10px; margin-bottom: 0px;"/>
     
-    <!-- Graficos -->
+  <!-- Graficos -->
   <p>Gráficos de acidentes em relação a...</p>
-</br>
+    </br>
   <aside id="graficosAs">
     <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
     <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
@@ -769,56 +769,61 @@
 
   <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 650px; margin-bottom: 0px;"/>
 
-    <section>
-      <div>
-        <p>Selecione um intervalo de anos</p>
-        <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
-      </div>
-    </section>
+ <!-- Barra de intervalo de anos -->
+  <!-- <section>
+    <div>
+      <p>Selecione um intervalo de anos</p>
+      <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
+    </div>
+  </section>
 
-    <section>        
-        <md-button type="submit" ng-click="carregarHeatmap()" class="md-primary md-raised">carregar heat map</md-button>            
-    </section>  
+  <section>        
+    <md-button type="submit" ng-click="carregarHeatmap()" class="md-primary md-raised">carregar heat map</md-button>            
+  </section>-->
 
 
-       
-      <section id="check">
-      <h4>Tipo de Veículo
+<!--Checkbox-->
+  <section id="check">
+    <h4>Tipo de Veículo
       </br>
       <div id="checks">
-      <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
-      <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
+        <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
               {{veiculo}}</br>
-      </md-checkbox>
-      </md-checkbox-group>
-      </div></h4>
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
 
-      <h4>Faixa de Horário
+    <h4>Faixa de Horário
       </br>
       <div id="checks">
-      <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
-      <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
+        <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
               {{horario}}
-      </md-checkbox>
-      </md-checkbox-group>
-      </div></h4>
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
 
-      <h4>Condição do Tempo
+    <h4>Condição do Tempo
       </br>
       <div id="checks">
-      <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
-      <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
+        <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
               {{tempo}}
-      </md-checkbox>
-      </md-checkbox-group>
-      </div></h4>
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
   </section>
    
-    <section id="footer">
+  <section id="footer">
     <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 15px; margin-bottom: 0px;"/>
-    <footer>Footer aqui, em construção</footer>
-    </section>
+    <footer>Footer aqui, em construção!</footer>
+  </section>
 
+<!-- Scripts -->
   <script type="text/javascript" src="h-map.js"></script>
   <script type="text/javascript" src="h-gmap.js"></script>
   <!-- controlller -->
