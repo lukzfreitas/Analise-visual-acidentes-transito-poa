@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                               <!DOCTYPE html>
 <html lang="pt-br" xml:lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -48,15 +48,19 @@
     html,
     body {
       height: 100%;
+      /* width: 100%; */
+      margin-left: 5%;
+      margin-right: 5%;
       color: #000;
       background: hsla(120, 33%, 98%, 0.973);
     }
 
     #header {
       z-index: 99;
-      margin-top: 10px;
+      margin-top: 8px;
       position: relative;
-      font-size: 30px;
+      font-size: 20px;
+      width: 100%;
     }
     
     #graficosAs{
@@ -155,12 +159,12 @@
     }
 
     #heatmapArea {
-      height: 90%;
+      height: 60%;
       width: 100%;
     }
 
     #progress-bar-background {
-      position: fixed;
+      position: relative;
       width: 100%;
       height: 3px;
       left: 0;
@@ -170,7 +174,7 @@
     }
 
     #progress-bar-container {
-      position: fixed;
+      position: relative;
       overflow: visible;
       left: 0;
       bottom: 0;
@@ -183,13 +187,13 @@
       bottom: 0;
       right: 0;
 
-      background: #87D69B;
+      background: rgb(204, 206, 205);
       margin-right: -45px;
       margin-bottom: 20px;
       padding-top: 17px;
       text-align: center;
-      height: 80px;
-      width: 90px;
+      height: 40px;
+      width: 45px;
       line-height: 150%;
 
       cursor: pointer;
@@ -201,7 +205,7 @@
       top: 100%;
       left: 50%;
       border: solid transparent;
-      border-top-color: #87D69B;
+      border-top-color: rgb(204, 206, 205);
       border-width: 15px;
       margin-left: -15px;
     }
@@ -740,14 +744,31 @@
   <div id="progress-bar-container">
     <div id="progress-bar-pointer-container">
       <div id="progress-bar-pointer" onclick="void(0)"></div>
-      <div id="progress-bar-instructions">drag me
-        <br>to skip days</div>
+      <div id="progress-bar-instructions">drag me<br>to skip days</div>
     </div>
     <div id="progress-bar"></div>
   </div>
   
   <!-- Intervalo de anos -->
   <section ng-app="app" ng-controller="acidentesController">
+   
+    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 10px; margin-bottom: 0px;"/>
+    
+    <!-- Graficos -->
+  <p>Gráficos de acidentes em relação a...</p>
+</br>
+  <aside id="graficosAs">
+    <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
+    <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
+  </aside>
+
+  <section id="graficos">
+    <div id="grafDonut" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
+    <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
+  </section>
+
+  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 650px; margin-bottom: 0px;"/>
+
     <section>
       <div>
         <p>Selecione um intervalo de anos</p>
@@ -759,20 +780,8 @@
         <md-button type="submit" ng-click="carregarHeatmap()" class="md-primary md-raised">carregar heat map</md-button>            
     </section>  
 
-<!-- Graficos -->
-  <p>Gráficos de acidentes em relação a...</p>
-  </br>
-    <aside id="graficosAs">
-      <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
-      <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
-    </aside>
 
-    <section id="graficos">
-      <div id="grafDonut" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
-      <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
-    </section>
        
-      <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 650px; margin-bottom: 0px;"/>
       <section id="check">
       <h4>Tipo de Veículo
       </br>

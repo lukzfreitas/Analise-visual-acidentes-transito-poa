@@ -58,7 +58,7 @@ module.exports.qtdPorRegiao = function (request, response) {
       service.sendJSON(response, status, regioes);
     }
   });
-
+}
   module.exports.qtdFeridosEMortos = function (request, response) {
     client.search({
       "index": 'acidentes_transito_datapoa',
@@ -84,4 +84,3 @@ module.exports.qtdPorRegiao = function (request, response) {
       }
     });
   }
-}
