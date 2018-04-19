@@ -75,8 +75,8 @@ angular.module('acidentesController', [])
             $scope.optionsPie = {
                 chart: {
                     type: 'pieChart',
-                    height: 300,
-                    width: 300,
+                    height: 250,
+                    width: 250,
                     x: function(d){return d.key;},
                     y: function(d){return d.y;},
                     showLabels: true,
@@ -110,8 +110,8 @@ angular.module('acidentesController', [])
                 
                 "chart": {
                     "type": "pieChart",
-                    "height": 300,
-                    "width": 300,
+                    "height": 250,
+                    "width": 250,
                     "donut": true,
                     "showLabels": true,
                     "pie": {},
@@ -152,7 +152,7 @@ angular.module('acidentesController', [])
         chart: {
             type: 'multiBarHorizontalChart',
             height: 250,
-            width: 390,
+            width: 350,
             x: function(d){return d.label;},
             y: function(d){return d.value;},
             //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
@@ -212,7 +212,7 @@ angular.module('acidentesController', [])
         chart: {
             type: 'discreteBarChart',
             height: 250,
-            width: 440,
+            width: 400,
             margin : {
                 top: 20,
                 right: 20,
