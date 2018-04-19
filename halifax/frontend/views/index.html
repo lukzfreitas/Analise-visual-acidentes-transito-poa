@@ -52,7 +52,7 @@
       margin-left: 5%;
       margin-right: 5%;
       color: #000;
-      background: hsla(120, 33%, 98%, 0.973);
+      background: hsla(120, 33%, 98%, 0.973); 
     }
 
     #header {
@@ -114,12 +114,11 @@
     }
 
     #check{
-      margin-bottom: 20px;
-      display: flex;
-      /* float: center; */
+      margin-top: 150px;
+      float: left;
       font-size: 25px;
-      position: relative;
-      width:90%;
+      position: absolute;
+      width:40%;
       height:40%;
     }
 
@@ -159,18 +158,21 @@
     }
 
     #heatmapArea {
+      margin-top: 100px;
       height: 60%;
-      width: 100%;
+      width: 60%;
+      float: right;
     }
 
     #progress-bar-background {
       position: relative;
-      width: 100%;
+      width: 60%;
       height: 3px;
       left: 0;
       bottom: 0;
       background: white;
       z-index: 98;
+      float: right;
     }
 
     #progress-bar-container {
@@ -178,7 +180,9 @@
       overflow: visible;
       left: 0;
       bottom: 0;
+      height: 10px;
       z-index: 99;
+      margin-top: 52%;
     }
 
     #progress-bar-pointer {
@@ -186,14 +190,15 @@
       right: -160px;
       bottom: 0;
       right: 0;
+      /* float:right; */
 
       background: rgb(213, 214, 214);
-      margin-right: -45px;
+      margin-right: -25px;
       margin-bottom: 20px;
-      padding-top: 17px;
+      padding-top: 100px;
       text-align: center;
-      height: 40px;
-      width: 45px;
+      height: 10px;
+      width: 60px;
       line-height: 150%;
 
       cursor: pointer;
@@ -203,11 +208,10 @@
       position: absolute;
       content: ' ';
       top: 100%;
-      /* left: 50%; */
+      left: 30%;
       border: solid transparent;
       border-top-color: rgb(204, 206, 205);
       border-width: 15px;
-      margin-left: -15px;
     }
 
     #progress-bar-pointer .date-prefix {
@@ -219,9 +223,10 @@
     }
 
     #progress-bar {
-      position: absolute;
+      position: relative;
       background: #327CCB;
-      width: 100%;
+      width: 60%;
+      float: right;
       left: 0;
       bottom: 0;
       height: 3px;
@@ -731,6 +736,8 @@
   </div>
 
   <!-- Mapa -->
+  
+
   <div id="heatmapArea"></div>
   <!-- <div id="legend">
     <div id="numbers">
@@ -740,6 +747,42 @@
       <div><span></span></div>
     </div>
   </div> -->
+
+<section id="check">
+    <h3>Filtros</h3>
+    <h4>Tipo de Veículo
+      </br>
+      <div id="checks">
+        <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
+              {{veiculo}}
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
+
+    <h4>Faixa de Horário
+      </br>
+      <div id="checks">
+        <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
+              {{horario}}
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
+
+    <h4>Condição do Tempo
+      </br>
+      <div id="checks">
+        <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
+          <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
+              {{tempo}}
+          </md-checkbox>
+        </md-checkbox-group>
+      </div>
+    </h4>
+  </section>
 
   <!-- Barra de progresso -->
   <div id="progress-bar-background"></div>
@@ -752,7 +795,7 @@
   </div>
   
   <section ng-app="app" ng-controller="acidentesController">
-      <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 10px; margin-bottom: 0px;"/>
+      <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 20px; margin-bottom: 0px;"/>
     
   <!-- Graficos -->
   <p>Gráficos de acidentes em relação a...</p>
@@ -767,8 +810,10 @@
     <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
   </section>
 
-  <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 650px; margin-bottom: 0px;"/>
-
+ <section id="footer">
+    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 620px; margin-bottom: 0px;"/>
+    <footer>Footer aqui, em construção!</footer>
+  </section>
  <!-- Barra de intervalo de anos -->
   <!-- <section>
     <div>
@@ -783,7 +828,7 @@
 
 
 <!--Checkbox-->
-  <section id="check">
+  <!-- <section id="check">
     <h4>Tipo de Veículo
       </br>
       <div id="checks">
@@ -816,12 +861,9 @@
         </md-checkbox-group>
       </div>
     </h4>
-  </section>
+  </section>-->
    
-  <section id="footer">
-    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 15px; margin-bottom: 0px;"/>
-    <footer>Footer aqui, em construção!</footer>
-  </section>
+   
 
 <!-- Scripts -->
   <script type="text/javascript" src="h-map.js"></script>

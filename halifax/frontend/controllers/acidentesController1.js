@@ -7,6 +7,7 @@ angular.module('acidentesController', [])
         'Acidentes',        
         '$q',        
         function ($timeout, $scope, $http, Acidentes, $q) {
+            
             $scope.veiculo = {
                 veiculos: ['Automóvel','Moto','Caminhão','Táxi','Lotação','Ônibus','Bicicleta', 'Outro'],
                 veiculoSelecionada: false
