@@ -106,53 +106,53 @@ angular.module('acidentesController', [])
     ];
             
             //Gráfico Região    
-            $scope.optionsDonut = {
+    //         $scope.optionsDonut = {
                 
-                "chart": {
-                    "type": "pieChart",
-                    "height": 250,
-                    "width": 250,
-                    "donut": true,
-                    "showLabels": true,
-                    "pie": {},
-                    "duration": 500,
-                    "legend": {
-                    "margin": {
-                        "top": 0,
-                        "right": 35,
-                        "bottom": 0,
-                        "left": 0
-                    }
-                    }
-                }
+    //             "chart": {
+    //                 "type": "pieChart",
+    //                 "height": 250,
+    //                 "width": 250,
+    //                 "donut": true,
+    //                 "showLabels": true,
+    //                 "pie": {},
+    //                 "duration": 500,
+    //                 "legend": {
+    //                 "margin": {
+    //                     "top": 0,
+    //                     "right": 35,
+    //                     "bottom": 0,
+    //                     "left": 0
+    //                 }
+    //                 }
+    //             }
                   
-            };
+    //         };
 
-            $scope.dataDonut = [
-                {
-                    key: "Norte",
-                    y: 4
-                },
-                {
-                    key: "Sul",
-                    y: 4
-                },
-                {
-                    key: "Leste",
-                    y: 4
-                },
-                {
-                    key: "Centro",
-                    y: 4
-                }
-    ];
+    //         $scope.dataDonut = [
+    //             {
+    //                 key: "Norte",
+    //                 y: 4
+    //             },
+    //             {
+    //                 key: "Sul",
+    //                 y: 4
+    //             },
+    //             {
+    //                 key: "Leste",
+    //                 y: 4
+    //             },
+    //             {
+    //                 key: "Centro",
+    //                 y: 4
+    //             }
+    // ];
 
     //Gráfico Dias da Semana
     $scope.optionsMultiBar = {
         chart: {
             type: 'multiBarHorizontalChart',
             height: 250,
-            width: 350,
+            width: 400,
             x: function(d){return d.label;},
             y: function(d){return d.value;},
             //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
@@ -208,88 +208,157 @@ angular.module('acidentesController', [])
         }
     ];
 
-    $scope.optionsBarChart = {
-        chart: {
-            type: 'discreteBarChart',
-            height: 250,
-            width: 400,
-            margin : {
-                top: 20,
-                right: 20,
-                bottom: 50,
-                left: 55
-            },
-            x: function(d){return d.label;},
-            y: function(d){return d.value;},
-            showValues: true,
-            valueFormat: function(d){
-                return d3.format(',.4f')(d);
-            },
-            duration: 500,
-            xAxis: {
-                axisLabel: 'Mês'
-            },
-            yAxis: {
-                axisLabel: '',
-                axisLabelDistance: -10
+    // Gráfico Meses
+//     $scope.optionsBarChart = {
+//         chart: {
+//             type: 'discreteBarChart',
+//             height: 250,
+//             width: 400,
+//             margin : {
+//                 top: 20,
+//                 right: 20,
+//                 bottom: 50,
+//                 left: 55
+//             },
+//             x: function(d){return d.label;},
+//             y: function(d){return d.value;},
+//             showValues: true,
+//             valueFormat: function(d){
+//                 return d3.format(',.4f')(d);
+//             },
+//             duration: 500,
+//             xAxis: {
+//                 axisLabel: 'Mês'
+//             },
+//             yAxis: {
+//                 axisLabel: '',
+//                 axisLabelDistance: -10
+//             }
+//         }
+//     };
+
+//     $scope.dataBarChart = [
+//         {
+//             key: "Cumulative Return",
+//             values: [
+//                 {
+//                     "label" : "Jan" ,
+//                     "value" : 5
+//                 } ,
+//                 {
+//                     "label" : "Fev" ,
+//                     "value" : 0
+//                 } ,
+//                 {
+//                     "label" : "Mar" ,
+//                     "value" : 7
+//                 } ,
+//                 {
+//                     "label" : "Abr" ,
+//                     "value" : 3
+//                 } ,
+//                 {
+//                     "label" : "Mai" ,
+//                     "value" : 12
+//                 } ,
+//                 {
+//                     "label" : "Jun" ,
+//                     "value" : 9
+//                 } ,
+//                 {
+//                     "label" : "Jul" ,
+//                     "value" : 1
+//                 } ,
+//                 {
+//                     "label" : "Ago" ,
+//                     "value" : 15
+//                 },
+//                 {
+//                     "label" : "Set" ,
+//                     "value" : 11
+//                 },
+//                 {
+//                     "label" : "Out" ,
+//                     "value" : 18
+//                 },
+//                 {
+//                     "label" : "Nov" ,
+//                     "value" : 10
+//                 },
+//                 {
+//                     "label" : "Dez" ,
+//                     "value" : 8
+//                 }
+//             ]
+//         }
+// ];
+
+//Grafico BubbleChart
+$scope.optionsBubble = {
+    chart: {
+        type: 'scatterChart',
+        height: 250,
+        width: 400,
+        color: d3.scale.category10().range(),
+        scatter: {
+            onlyCircles: false
+        },
+        showDistX: true,
+        showDistY: true,
+      //tooltipContent: function(d) {
+      //    return d.series && '<h3>' + d.series[0].key + '</h3>';
+      //},
+        duration: 350,
+        xAxis: {
+            axisLabel: 'Meses',
+            tickFormat: function(d){
+                return d3.format('.02f')(d);
             }
+        },
+        yAxis: {
+            axisLabel: 'Y Axis',
+            tickFormat: function(d){
+                return d3.format('.02f')(d);
+            },
+            axisLabelDistance: -5
+        },
+        zoom: {
+            //NOTE: All attributes below are optional
+            enabled: true,
+            scaleExtent: [1, 10],
+            useFixedDomain: false,
+            useNiceScale: false,
+            horizontalOff: false,
+            verticalOff: false,
+            unzoomEventType: 'dblclick.zoom'
+        }
+    }
+};
+
+$scope.dataBubble = generateData(4,40);
+
+/* Random Data Generator (took from nvd3.org) */
+function generateData(groups, points) {
+    var data = [],
+        shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+        random = d3.random.normal();
+
+    for (var i = 0; i < groups; i++) {
+        data.push({
+            key: 'Group ' + i,
+            values: []
+        });
+
+        for (var j = 0; j < points; j++) {
+            data[i].values.push({
+                x: random()
+                , y: random()
+                , size: Math.random()
+                , shape: shapes[j % 6]
+            });
         }
     };
-
-    $scope.dataBarChart = [
-        {
-            key: "Cumulative Return",
-            values: [
-                {
-                    "label" : "Jan" ,
-                    "value" : 5
-                } ,
-                {
-                    "label" : "Fev" ,
-                    "value" : 0
-                } ,
-                {
-                    "label" : "Mar" ,
-                    "value" : 7
-                } ,
-                {
-                    "label" : "Abr" ,
-                    "value" : 3
-                } ,
-                {
-                    "label" : "Mai" ,
-                    "value" : 12
-                } ,
-                {
-                    "label" : "Jun" ,
-                    "value" : 9
-                } ,
-                {
-                    "label" : "Jul" ,
-                    "value" : 1
-                } ,
-                {
-                    "label" : "Ago" ,
-                    "value" : 15
-                },
-                {
-                    "label" : "Set" ,
-                    "value" : 11
-                },
-                {
-                    "label" : "Out" ,
-                    "value" : 18
-                },
-                {
-                    "label" : "Nov" ,
-                    "value" : 10
-                },
-                {
-                    "label" : "Dez" ,
-                    "value" : 8
-                }
-            ]
-        }
-];
+return data;
+};
     
 }]);

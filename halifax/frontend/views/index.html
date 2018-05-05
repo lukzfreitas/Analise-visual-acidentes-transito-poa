@@ -48,7 +48,7 @@
     html,
     body {
       height: 100%;
-      /* width: 100%; */
+      width: 90%;
       margin-left: 5%;
       margin-right: 5%;
       color: #000;
@@ -79,23 +79,19 @@
       float: left;
     }
     
-    #grafPie{
-      float: center;
+    #grafBubble {
+      float: right;
     }
 
-    #grafDonut {
-      float: center;
+    #grafPie{
+      float: left;
     }
 
     #grafMulti {
       float: center;
     }
 
-    #grafBarChart{
-      float: center;
-    }
-
-    h1 {
+     h1 {
       font-size: 35px;
       font-weight: 700;
       line-height: 160%;
@@ -649,8 +645,8 @@
       font-size: 25px;
       position: relative;
       margin-bottom: 10%;
-      /* margin-top: 90%; */
-      width:100%;
+      margin-top: 5px;
+      /* width:100%; */
       height:20px;
       }   
 
@@ -800,18 +796,13 @@
   <!-- Graficos -->
   <p>Gráficos de acidentes em relação a...</p>
     </br>
-  <aside id="graficosAs">
+    <div id="grafBubble" title=""><h4>Teste</h4><nvd3 options="optionsBubble" data="dataBubble"></nvd3></div>
     <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
-    <div id="grafBarChart" title="Mês"><h4>Mês</h4><nvd3 options="optionsBarChart" data="dataBarChart"></nvd3></div>
-  </aside>
-
-  <section id="graficos">
-    <div id="grafDonut" title="Região"><h4>Região</h4><nvd3 options="optionsDonut" data="dataDonut"></nvd3></div>
     <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
-  </section>
+  
 
  <section id="footer">
-    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 620px; margin-bottom: 0px;"/>
+    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 20px; margin-bottom: 0px;"/>
     <footer>Footer aqui, em construção!</footer>
   </section>
  <!-- Barra de intervalo de anos -->
