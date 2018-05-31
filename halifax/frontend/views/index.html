@@ -1,4 +1,4 @@
-                               <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br" xml:lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -79,7 +79,7 @@
       float: left;
     }
     
-    #grafBubble {
+    #grafStackedArea {
       float: right;
     }
 
@@ -155,8 +155,8 @@
 
     #heatmapArea {
       margin-top: 100px;
-      height: 60%;
-      width: 60%;
+      height: 75%;
+      width: 100%;
       float: right;
     }
 
@@ -221,7 +221,7 @@
     #progress-bar {
       position: relative;
       background: #327CCB;
-      width: 60%;
+      width: 100%;
       float: right;
       left: 0;
       bottom: 0;
@@ -663,205 +663,184 @@
 </head>
 
 <body>
-  <div id="about-message" class="message-box">
-   <!-- <h2>Sobre Análise Visual de Acidentes de Trânsito</h2>
-    <p>
-      Halifax Crime Maps is an animated heatmap of crimes in Halifax powered by
-      <a href="https://www.halifaxopendata.ca/">OpenDataHalifax</a>. Watch each week as new data is added and the animation grows.
-      </br>
-      </br>
-      Our heatmap shows the density of crime in Halifax. You can apply filters, drag the progress bar to specific dates, or pause
-      the animation and see the individual crime markers.
-      </br>
-      </br>
-      This requires some heavy duty HTML5 features and works best in Google Chrome. We disable certain features on mobile devices
-      and other browsers.
-
-      <div class="mobile-only-content">
-        <div id="mobile-icon">
-          <div class="line"></div>
-          <div class="screen"></div>
-          <div class="dot"></div>
-        </div>
-        We can only pack so much awesome into your mobile device, visit on a computer for the full effect.
-      </div>
-    </p> -->
-  </div>
-
-  <!-- Header -->
-  <div id="header">
-    <h1>Análise Visual de</br>Acidentes de Trânsito</h1>
-    <div id="animation-control-button" class="button">
-      <div class="pause"></div>
-    </div>
-  </div>
-
-  <!-- Sobre o trabalho -->
-  <div id="options-area">
-    <!-- <a href="#" id="options-button" class="button button-right">Opções</a>
-    <a href="#" id="years-button" class="button button-right">Anos</a> -->
-    <a href="#" id="about-button" class="button button-right">Sobre</a>
-    <!-- <ul id="years">
-      <li class="title">Anos
-    </ul> -->
-
-    <!-- <ul id="options">
-      <li class="title">Filtros
-        <li>
-          <label for="filter-auto-theft">Auto Theft</label>
-          <input id="filter-auto-theft" type="checkbox" name="1" checked>
-          <li>
-            <label for="filter-theft-auto">Theft from Auto</label>
-            <input id="filter-theft-auto" type="checkbox" name="0" checked>
-            <li>
-              <label for="filter-break-enter">Break & Enter</label>
-              <input id="filter-break-enter" type="checkbox" name="2" checked>
-              <li>
-                <label for="filter-assult">Assault</label>
-                <input id="filter-assult" type="checkbox" name="3" checked>
-                <li>
-                  <label for="filter-robbery">Robbery</label>
-                  <input id="filter-robbery" type="checkbox" name="4" checked>
-
-                  <li class="title">Crime Markers
-                    <li>
-                      <label for="options-markers">Show on Pause</label>
-                      <input id="options-markers" type="checkbox" name="crime-markers" checked> 
-                      </li>
-    </ul> -->
-  </div>
-
-  <!-- Mapa -->
   
-
-  <div id="heatmapArea"></div>
-  <!-- <div id="legend">
-    <div id="numbers">
-      <div><a title="Escala"></a></div>
-    </div>
-    <div id="colors">
-      <div><span></span></div>
-    </div>
-  </div> -->
-
-<section id="check">
-    <h3>Filtros</h3>
-    <h4>Tipo de Veículo
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
-              {{veiculo}}
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-
-    <h4>Faixa de Horário
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
-              {{horario}}
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-
-    <h4>Condição do Tempo
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
-              {{tempo}}
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-  </section>
-
+  <!-- Mapa -->
+  <!-- <div id="heatmapArea"></div> -->
+     
   <!-- Barra de progresso -->
-  <div id="progress-bar-background"></div>
+  <!-- <div id="progress-bar-background"></div>
   <div id="progress-bar-container">
     <div id="progress-bar-pointer-container">
       <div id="progress-bar-pointer" onclick="void(0)"></div>
       <div id="progress-bar-instructions">Arraste-me <br>para pular dias</div>
     </div>
     <div id="progress-bar"></div>
-  </div>
-  
-  <section ng-app="app" ng-controller="acidentesController">
-      <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 20px; margin-bottom: 0px;"/>
+  </div> -->
+
+
+  <section ng-app="app" ng-controller="acidentesController" style="height: 500px;" ng-cloak>
     
   <!-- Graficos -->
   <p>Gráficos de acidentes em relação a...</p>
     </br>
-    <div id="grafBubble" title=""><h4>Teste</h4><nvd3 options="optionsBubble" data="dataBubble"></nvd3></div>
-    <div id="grafPie" title="Feridos e Mortos"><h4>Feridos e Mortos</h4><nvd3 options="optionsPie" data="dataPie"></nvd3></div>
-    <div id="grafMulti" title="Dias da Semana"><h4>Dias da Semana</h4><nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3></div>  
+    <section id="grafStackedArea" title=""><h4>Gravidade</h4>                          
+      <nvd3 options="optionsStackedArea" data="dataStackedArea"></nvd3>
+      <md-switch class="md-primary" ng-model="stackedAreaPredicao" aria-label="Switch 1">
+        <span ng-if="stackedAreaPredicao"> Com Predição </span>
+        <span ng-if="!stackedAreaPredicao"> Sem Predição </span>        
+      </md-switch>
+    </section>
+    
+    <section id="grafPie" title="Regiões"><h4>Regiões</h4>                    
+      <nvd3 options="optionsPie" data="dataPie"></nvd3>        
+      <md-switch class="md-primary" ng-model="regiaoPredicao" aria-label="Switch 1">
+        <span ng-if="regiaoPredicao"> Com Predição </span>
+        <span ng-if="!regiaoPredicao"> Sem Predição </span>
+        {{regiaoClassify}}
+      </md-switch>
+    </section>
+    
+    <section id="grafMulti" title="Dias da Semana"><h4>Tipo de Acidente</h4>                    
+      <nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3>      
+      <md-switch class="md-primary" ng-model="tipoAcidentePredicao" aria-label="Switch 1">
+        <span ng-if="tipoAcidentePredicao"> Com Predição </span>
+        <span ng-if="!tipoAcidentePredicao"> Sem Predição </span>
+      </md-switch>
+    </section>      
+
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left" md-component-id="closeEventsDisabled" md-whiteframe="4" md-disable-close-events>  
+          <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Filtros</h1>
+          </md-toolbar>
   
+          <md-content layout-margin>
+            <md-button ng-click="toggleSidenav()" class="md-accent">
+                Fechar
+              </md-button>
+              <md-button ng-click="aplicar()" class="md-raised md-primary">
+                Aplicar
+              </md-button>
+            <p>
+              <h4>Tipo de Veículo</h4>
+              <md-checkbox-group ng-model="false" class="md-primary">
+                <md-checkbox ng-repeat="veiculo in veiculos" ng-value="veiculo.selected" ng-model="veiculo.selected">
+                  {{veiculo.label}}
+                </md-checkbox>
+              </md-checkbox-group>
+  
+              <h4>Faixa de Horário</h4>
+              <md-checkbox-group ng-model="false" class="md-primary">
+                <md-checkbox ng-repeat="hora in faixasHora" ng-value="hora.selected" ng-model="hora.selected">
+                    {{hora.label}}
+                </md-checkbox>
+              </md-checkbox-group>
+  
+              <h4>Condição do Tempo</h4>
+              <md-checkbox-group ng-model="false" class="md-primary">
+                <md-checkbox ng-repeat="tempo in condicoesTempo" ng-value="tempo.selected" ng-model="tempo.selected">
+                  {{tempo.label}}
+                </md-checkbox>
+              </md-checkbox-group>
+              
+              <h4>Mês</h4>
+              <div flex="100" class="flex flex-col">
+                <md-input-container class="md-block">                  
+                  <md-select ng-model="mesSelected" md-selected-text="mesSelected.label">
+                    <md-optgroup label="meses">
+                      <md-option ng-repeat="mes in meses" ng-value="mes">{{mes.label}}</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>                                  
+              </div>            
+            
+              <h4>Dia</h4>
+              <div>
+                <md-input-container>                  
+                  <md-select ng-model="diaSelected" md-selected-text="diaSelected.label">
+                    <md-optgroup label="dias">
+                      <md-option ng-repeat="dia in dias" ng-if="$index < (dias.length / 2)" ng-value="dia">{{dia.label}}</md-option>
+                      
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>                                  
+              </div>                          
+          
+            <md-button ng-click="toggleSidenav()" class="md-accent">
+              Fechar
+            </md-button>
+            <md-button ng-click="aplicar()" class="md-raised md-primary">
+              Aplicar
+            </md-button>
+          </md-content>
+        </md-sidenav>
+        <md-content flex layout-padding>
+          <div layout="column" layout-align="left">
+            <div>
+              <md-button ng-click="toggleSidenav()" class="md-raised md-primary">
+                Filtros
+              </md-button>
+              <md-button ng-click="aplicar()" class="md-raised md-primary">
+                Aplicar
+              </md-button>
+            </div>
+          </div>
+        </md-content>        
 
- <section id="footer">
-    <hr style="height:2px; border:none; color:rgb(184, 184, 184); background-color:rgb(184, 184, 184); margin-top: 20px; margin-bottom: 0px;"/>
-    <footer>Footer aqui, em construção!</footer>
+        <section>
+            <md-checkbox-group ng-model="false" class="md-primary">        
+              <div layout-align="center center">
+                <md-checkbox ng-repeat="ano in anos" ng-if="$index < (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
+                  {{ano}}
+                </md-checkbox>
+              </div>
+              <div layout-align="center center">
+                <md-checkbox ng-repeat="ano in anos" ng-if="$index >= (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
+                  {{ano}}
+                </md-checkbox>
+              </div>
+            </md-checkbox-group>                      
+          </section>
+
+      </section>       
+
+      
+
   </section>
- <!-- Barra de intervalo de anos -->
-  <!-- <section>
-    <div>
-      <p>Selecione um intervalo de anos</p>
-      <rzslider rz-slider-model="slider.min" rz-slider-high="slider.max" rz-slider-options="slider.options"></rzslider>
-    </div>
-  </section>
 
-  <section>        
-    <md-button type="submit" ng-click="carregarHeatmap()" class="md-primary md-raised">carregar heat map</md-button>            
-  </section>-->
-
-
-<!--Checkbox-->
-  <!-- <section id="check">
-    <h4>Tipo de Veículo
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="veiculo.veiculoSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="veiculo in veiculo.veiculos" ng-value="veiculo">
-              {{veiculo}}</br>
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-
-    <h4>Faixa de Horário
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="horario.horarioSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="horario in horario.horarios" ng-value="horario">
-              {{horario}}
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-
-    <h4>Condição do Tempo
-      </br>
-      <div id="checks">
-        <md-checkbox-group ng-model="tempo.tempoSelecionada" class="md-primary">
-          <md-checkbox ng-repeat="tempo in tempo.tempos" ng-value="tempo">
-              {{tempo}}
-          </md-checkbox>
-        </md-checkbox-group>
-      </div>
-    </h4>
-  </section>-->
+  
+  
+  <div id="about-message" class="message-box"></div>
    
+     <!-- Header -->
+     <!-- <div id="header">
+       <h1>Análise Visual de</br>Acidentes de Trânsito</h1>
+       <div id="animation-control-button" class="button">
+         <div class="pause"></div>
+       </div>
+     </div> -->
    
+     
+   
+     <!-- Mapa -->
+     <div id="heatmapArea"></div>
+     
+     <!-- Barra de progresso -->
+     <div id="progress-bar-background"></div>
+     <div id="progress-bar-container">
+       <div id="progress-bar-pointer-container">
+         <div id="progress-bar-pointer" onclick="void(0)"></div>
+         <div id="progress-bar-instructions">Arraste-me <br>para pular dias</div>
+       </div>
+       <div id="progress-bar"></div>
+     </div>
 
 <!-- Scripts -->
   <script type="text/javascript" src="h-map.js"></script>
   <script type="text/javascript" src="h-gmap.js"></script>
   <!-- controlller -->
   <!-- <script src="acidentesController.js"></script> -->
-  <script src="acidentesController1.js"></script>
+  <script src="acidentesController.js"></script>
   <script src="app.js"></script>
   <script src="service.js"></script>
   

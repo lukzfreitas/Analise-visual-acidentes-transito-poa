@@ -1,16 +1,25 @@
 angular.module('service', [])
-.factory('Acidentes', ['$http', function ($http) {    
-    return {
-        get : function(anos) {
-            console.log('chegou aqui');
-            return $http.get('/api/acidentes?anos=' + anos);
-        },
-        qtdPorRegiao : function(anos, regiao) {
-            console.log('chegou aqui');
-            return $http.get('/api/acidentes-por-regiao?anos=' + anos + '&regiao=' + regiao);
-        },        
-        qtdFeridosEMortos : function() {
-            return $http.get('/api/acidentes-feridos-mortos');
+    .factory('Acidentes', ['$http', function ($http) {
+        return {            
+            porRegiao: function (anos, mes, dia, fxHora, condicoesTempo, veiculos) {                     
+                return $http.get('/api/acidentes-por-regiao?anos=' + anos + '&mes=' + mes +
+                    '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            },
+            porRegiaoPredicao: function (anos, mes, dia, fxHora, condicoesTempo, veiculos) {
+                return $http.get('/api/acidentes-por-regiao-predicao?anos=' + anos + '&mes=' + mes +
+                    '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            },
+            porTipoAcidente: function (anos, mes, dia, fxHora, condicoesTempo, veiculos) {
+                return $http.get('/api/acidentes-por-tipo?anos=' + anos + '&mes=' + mes +
+                    '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            },            
+            porTipoAcidentePredicao: function (anos, mes, dia, fxHora, condicoesTempo, veiculos) {
+                return $http.get('/api/acidentes-por-tipo-predicao?anos=' + anos + '&mes=' + mes +
+                    '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            },
+            porUPS: function (ups, anos, mes, dia, fxHora, condicoesTempo, veiculos) {
+                return $http.get('/api/acidentes-por-ups?ups=' + ups + '&anos=' + anos + '&mes=' + mes +
+                    '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            }
         }
-    }
-}])
+    }])
