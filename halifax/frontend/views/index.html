@@ -51,16 +51,17 @@
       width: 90%;
       margin-left: 5%;
       margin-right: 5%;
+      margin-top: 0%;
       color: #000;
-      background: hsla(120, 33%, 98%, 0.973); 
+      background: #ffffff; 
     }
 
     #header {
-      z-index: 99;
-      margin-top: 8px;
       position: relative;
+      margin-top: 20px;
       font-size: 20px;
       width: 100%;
+   
     }
     
     #graficosAs{
@@ -132,9 +133,9 @@
       float: left;
       position: relative;
       left: 0;
-      bottom: 80%;
       margin-left: 2%;
       overflow: visible;
+      margin-top: 0%;
     }
 
     #animation-control-button .play {
@@ -154,15 +155,16 @@
     }
 
     #heatmapArea {
-      margin-top: 100px;
-      height: 75%;
+      margin-top: 25px;
+      height: 60%;
       width: 100%;
       float: right;
+      position: relative;
     }
 
     #progress-bar-background {
       position: relative;
-      width: 60%;
+      width: 100%;
       height: 3px;
       left: 0;
       bottom: 0;
@@ -178,19 +180,17 @@
       bottom: 0;
       height: 10px;
       z-index: 99;
-      margin-top: 52%;
+      margin-top: 48%;
     }
 
     #progress-bar-pointer {
       position: absolute;
       right: -160px;
-      bottom: 0;
+      bottom: 20px;
       right: 0;
       /* float:right; */
-
       background: rgb(213, 214, 214);
       margin-right: -25px;
-      margin-bottom: 20px;
       padding-top: 100px;
       text-align: center;
       height: 10px;
@@ -218,14 +218,15 @@
       font-size: 13px;
     }
 
-    #progress-bar {
+    #progress-bar { 
       position: relative;
-      background: #327CCB;
       width: 100%;
-      float: right;
+      height: 3px;
       left: 0;
       bottom: 0;
-      height: 3px;
+      background: #327CCB;
+      z-index: 98;
+      float: right; 
     }
 
     #progress-bar-instructions {
@@ -235,7 +236,7 @@
       padding: 10px 10px;
       width: 80px;
       text-align: center;
-      background: white;
+      background: black;
       display: none;
     }
 
@@ -246,7 +247,7 @@
       left: 0px;
       border: solid transparent;
       border-right: none;
-      border-bottom-color: #FFF;
+      border-bottom-color: #000000;
       border-width: 15px;
       margin-left: -15px;
     }
@@ -640,14 +641,22 @@
       }
     }
 
+    #anos {
+      float: left;
+      position: relative;
+      margin-top: 50px;
+      margin-right: 150px;
+    }
+
     #footer {
-      text-align: center;
-      font-size: 25px;
+      text-align: left;
+      font-size: 15px;
       position: relative;
       margin-bottom: 10%;
       margin-top: 5px;
-      /* width:100%; */
-      height:20px;
+      width:100%;
+      height:10px;
+      float: left;
       }   
 
     @media (max-width: 1000px) {
@@ -664,24 +673,38 @@
 
 <body>
   
+  <!-- Header -->
+  <div id="header">
+      <h1><img src="https://i.imgur.com/lJpxvSd.png" width="250" height="110"/></h1>
+  </div>
+
+  <div id="options-are">
+    <a href="#" id="about-button" class="button button-right">Sobre</a>
+  </div>
+
   <!-- Mapa -->
-  <!-- <div id="heatmapArea"></div> -->
+  <div id="animation-control-button" class="button">
+      <div class="pause"></div>
+  </div>
+  <div id="heatmapArea"></div>
      
   <!-- Barra de progresso -->
-  <!-- <div id="progress-bar-background"></div>
+  <div id="progress-bar-background"></div>
   <div id="progress-bar-container">
     <div id="progress-bar-pointer-container">
       <div id="progress-bar-pointer" onclick="void(0)"></div>
       <div id="progress-bar-instructions">Arraste-me <br>para pular dias</div>
     </div>
     <div id="progress-bar"></div>
-  </div> -->
+  </div>
 
-
-  <section ng-app="app" ng-controller="acidentesController" style="height: 500px;" ng-cloak>
-    
+  
+  <section ng-app="app" ng-controller="acidentesController" ng-cloak>
+  
+  <hr style="height:2px; border:none; color: #000000; background-color: #000000; margin-top: 30px; margin-bottom: 30px"/>  
+  
   <!-- Graficos -->
-  <p>Gráficos de acidentes em relação a...</p>
+    <p>Gráficos de acidentes em relação a...</p>
     </br>
     <section id="grafStackedArea" title=""><h4>Gravidade</h4>                          
       <nvd3 options="optionsStackedArea" data="dataStackedArea"></nvd3>
@@ -708,6 +731,7 @@
       </md-switch>
     </section>      
 
+    <!--Filtros-->
     <section layout="row" flex>
         <md-sidenav class="md-sidenav-left" md-component-id="closeEventsDisabled" md-whiteframe="4" md-disable-close-events>  
           <md-toolbar class="md-theme-indigo">
@@ -774,68 +798,59 @@
             </md-button>
           </md-content>
         </md-sidenav>
-        <md-content flex layout-padding>
-          <div layout="column" layout-align="left">
-            <div>
-              <md-button ng-click="toggleSidenav()" class="md-raised md-primary">
-                Filtros
-              </md-button>
-              <md-button ng-click="aplicar()" class="md-raised md-primary">
-                Aplicar
-              </md-button>
-            </div>
-          </div>
-        </md-content>        
-
-        <section>
+        
+        <!--Linha do Tempo-->
+        
+        <section id="anos">
+          <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>
             <md-checkbox-group ng-model="false" class="md-primary">        
-              <div layout-align="center center">
+              <div layout-align="center">
                 <md-checkbox ng-repeat="ano in anos" ng-if="$index < (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
                   {{ano}}
                 </md-checkbox>
               </div>
-              <div layout-align="center center">
+              <div layout-align="center">
                 <md-checkbox ng-repeat="ano in anos" ng-if="$index >= (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
                   {{ano}}
                 </md-checkbox>
               </div>
             </md-checkbox-group>                      
-          </section>
+        </section> 
 
+            <md-content flex layout-padding>
+              <div layout="column" layout-align="left" style="margin-top: 90px; margin-left: 100px;">
+               <div>
+                 <md-button ng-click="toggleSidenav()" class="md-raised md-primary">
+                   Filtros
+                  </md-button>
+                  <md-button ng-click="aplicar()" class="md-raised md-primary">
+                    Aplicar
+                  </md-button>
+                 </div>
+                </div>
+            </md-content> 
+           
       </section>       
-
-      
-
-  </section>
-
   
+  </section>
   
   <div id="about-message" class="message-box"></div>
-   
-     <!-- Header -->
-     <!-- <div id="header">
-       <h1>Análise Visual de</br>Acidentes de Trânsito</h1>
-       <div id="animation-control-button" class="button">
-         <div class="pause"></div>
-       </div>
-     </div> -->
-   
-     
-   
-     <!-- Mapa -->
-     <div id="heatmapArea"></div>
-     
-     <!-- Barra de progresso -->
-     <div id="progress-bar-background"></div>
-     <div id="progress-bar-container">
-       <div id="progress-bar-pointer-container">
-         <div id="progress-bar-pointer" onclick="void(0)"></div>
-         <div id="progress-bar-instructions">Arraste-me <br>para pular dias</div>
-       </div>
-       <div id="progress-bar"></div>
-     </div>
 
-<!-- Scripts -->
+  <!--Footer-->
+  <section id="footer">
+    <hr style="height:2px; border:none; color: #000000; background-color: #000000; margin-top: 25px; margin-bottom: 20px"/>
+    <p style="float: left; margin-left: 50px;margin-bottom: 20px">Tecnologias utilizadas:</p>
+        <p style="float: left; margin-top: 20px;">
+          <img src="https://i.imgur.com/yj1gkJs.png" width="110" height="80" align="left"/>
+          <img src="https://i.imgur.com/CGPD4bh.png" width="130" height="130"/>
+          <img src="https://i.imgur.com/kWkdkCS.png" width="160" height="80"/>
+          <img src="https://i.imgur.com/JB6WizS.png" width="110" height="110"/>
+        </p>
+    <p style="float: right; margin-right: 140px;">Fonte de dados:</p>
+        <img src="https://i.imgur.com/PMpsuGP.png" width="160" height="80"/>
+   </section>
+
+  <!-- Scripts -->
   <script type="text/javascript" src="h-map.js"></script>
   <script type="text/javascript" src="h-gmap.js"></script>
   <!-- controlller -->

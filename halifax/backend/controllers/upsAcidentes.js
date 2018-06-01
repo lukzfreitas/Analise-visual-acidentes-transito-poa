@@ -45,7 +45,7 @@ module.exports.total = function (request, response) {
     // });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',
+        "index": 'acidentes_transito_datapoa_new_2',
         "size": 349732,
         "from": 0,
         "body": {
