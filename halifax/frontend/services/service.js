@@ -17,8 +17,8 @@ angular.module('service', [])
                 return $http.get('/api/acidentes-por-tipo-predicao?anos=' + anos + '&mes=' + mes +
                     '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
             },
-            porUPS: function (ups, anos, mes, dia, fxHora, condicoesTempo, veiculos) {
-                return $http.get('/api/acidentes-por-ups?ups=' + ups + '&anos=' + anos + '&mes=' + mes +
+            porUPS: function (anos, mes, dia, fxHora, condicoesTempo, veiculos) {
+                return $http.get('/api/acidentes-por-ups?anos=' + anos + '&mes=' + mes +
                     '&dia=' + dia + '&fxHora=' + fxHora + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
             }
         }

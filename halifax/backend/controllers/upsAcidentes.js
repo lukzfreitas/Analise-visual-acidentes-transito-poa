@@ -7,13 +7,10 @@ module.exports.total = function (request, response) {
     var fxHora = JSON.parse("[" + request.query.fxHora + "]");
     var condicoesTempo = request.query.condicoesTempo.split(",");
     var veiculos = request.query.veiculos.split(",");
-    var ups = request.query.ups;
-    var filtros = [
-        { "match": { "UPS": ups } },
-        { "terms": { "ANO": [2000, 2001] } }
-        // { "terms": { "ANO": intervaloAnos } },
-        // { "terms": { "FX_HORA": fxHora } },
-        // { "terms": { "TEMPO.keyword": condicoesTempo } }
+    
+    var filtros = [                        
+        { "terms": { "ANO": intervaloAnos } },
+        { "terms": { "TEMPO.keyword": condicoesTempo } }
     ];
     // veiculos.forEach(veiculo => {
     //     switch (veiculo) {
@@ -45,8 +42,8 @@ module.exports.total = function (request, response) {
     // });
 
     var query = {
-        "index": 'acidentes_transito_datapoa_new_2',
-        "size": 349732,
+        "index": 'acidentes_transito_datapoa',        
+        "size": 349729,
         "from": 0,
         "body": {
             "sort": [
@@ -56,6 +53,14 @@ module.exports.total = function (request, response) {
                 "bool": {
                     "must": filtros
                 }
+            },
+            "aggregations": {
+                "FX_HORA": {
+                    "terms": {
+                        "field": "FX_HORA.keyword",
+                        "size": 24
+                    }
+                }
             }
         }
     }
@@ -64,21 +69,12 @@ module.exports.total = function (request, response) {
         if (error) {
             console.log("deu ruim no search" + error);
         } else {
-            var acidentes = result.hits.hits.map(function (item) {
-                return [parseInt(item._source.DIA), parseFloat(item._source.FX_HORA)]                
-            });        
-            
-            switch (parseInt(ups)) {
-                case 1:
-                    service.sendJSON(response, status, {"key": "Danos Materiais", "values": acidentes});
-                    break;
-                case 5:
-                    service.sendJSON(response, status, {"key": "Feridos", "values": acidentes});
-                    break;
-                case 13:
-                    service.sendJSON(response, status, {"key": "Mortes", "values": acidentes});
-                    break;
-            }
+            var acidentes = result.aggregations["FX_HORA"].buckets.map(function (item) {
+                return [parseInt(item.key), parseInt(item.doc_count)];
+            });
+            result = [{"key": "Quantity", "bar": true, "values": acidentes}];
+            console.log(result);
+            service.sendJSON(response, status, result);                       
         }
     });
 }

@@ -9,7 +9,7 @@ module.exports.total = function (request, response) {
     var veiculos = request.query.veiculos.split(",");
     var filtros = [
         { "terms": { "ANO": intervaloAnos } },
-        { "terms": { "FX_HORA": fxHora } },
+        { "terms": { "FX_HORA.keyword": fxHora } },
         { "terms": { "TEMPO.keyword": condicoesTempo } }
     ];
     veiculos.forEach(veiculo => {
@@ -42,8 +42,8 @@ module.exports.total = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa_new_2',
-        "size": 349732,
+        "index": 'acidentes_transito_datapoa',        
+        "size": 349729,
         "from": 0,
         "body": {
             "sort": [
@@ -86,7 +86,7 @@ module.exports.predicao = function (request, response) {
     var dia = request.query.dia;
     var filtros = [
         { "terms": { "ANO": intervaloAnos } },
-        { "terms": { "FX_HORA": fxHora } },
+        { "terms": { "FX_HORA.keyword": fxHora } },
         { "terms": { "TEMPO.keyword": condicoesTempo } }
     ];
     veiculos.forEach(veiculo => {
@@ -119,7 +119,7 @@ module.exports.predicao = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',
+        "index": 'acidentes_transito_datapoa',        
         "size": 349729,
         "from": 0,
         "body": {

@@ -80,7 +80,7 @@
       float: left;
     }
     
-    #grafStackedArea {
+    #grafHistorical {
       float: right;
     }
 
@@ -704,13 +704,13 @@
   <hr style="height:2px; border:none; color: #000000; background-color: #000000; margin-top: 30px; margin-bottom: 30px"/>  
   
   <!-- Graficos -->
-    <p>Gráficos de acidentes em relação a...</p>
-    </br>
-    <section id="grafStackedArea" title=""><h4>Gravidade</h4>                          
-      <nvd3 options="optionsStackedArea" data="dataStackedArea"></nvd3>
-      <md-switch class="md-primary" ng-model="stackedAreaPredicao" aria-label="Switch 1">
-        <span ng-if="stackedAreaPredicao"> Com Predição </span>
-        <span ng-if="!stackedAreaPredicao"> Sem Predição </span>        
+    <p>Gráficos de acidentes em relação a...</p>    
+    
+    <section id="grafHistorical" title=""><h4>Gravidade</h4>                          
+      <nvd3 options="optionsHistorical" data="dataHistorical"></nvd3>
+      <md-switch class="md-primary" ng-model="historicalPredicao" aria-label="Switch 1">
+        <span ng-if="historicalPredicao"> Com Predição </span>
+        <span ng-if="!historicalPredicao"> Sem Predição </span>        
       </md-switch>
     </section>
     
@@ -718,8 +718,7 @@
       <nvd3 options="optionsPie" data="dataPie"></nvd3>        
       <md-switch class="md-primary" ng-model="regiaoPredicao" aria-label="Switch 1">
         <span ng-if="regiaoPredicao"> Com Predição </span>
-        <span ng-if="!regiaoPredicao"> Sem Predição </span>
-        {{regiaoClassify}}
+        <span ng-if="!regiaoPredicao"> Sem Predição </span>        
       </md-switch>
     </section>
     
@@ -730,6 +729,8 @@
         <span ng-if="!tipoAcidentePredicao"> Sem Predição </span>
       </md-switch>
     </section>      
+    
+    
 
     <!--Filtros-->
     <section layout="row" flex>
