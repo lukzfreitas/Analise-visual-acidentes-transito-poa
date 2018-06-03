@@ -3,15 +3,22 @@ var service = require('../services/service');
 var limdu = require('limdu');
 
 module.exports.total = function (request, response) {
+  
+  var filtros = [];
   var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
-  var fxHora = JSON.parse("[" + request.query.fxHora + "]");
+  if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
+    filtros.push({ "terms": { "ANO": intervaloAnos } });
+  }
   var condicoesTempo = request.query.condicoesTempo.split(",");
-  var veiculos = request.query.veiculos.split(",");
-  var filtros = [
-    { "terms": { "ANO": intervaloAnos } },
-    { "terms": { "FX_HORA.keyword": fxHora } },
-    { "terms": { "TEMPO.keyword": condicoesTempo } }
-  ];
+  if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
+    filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
+  }
+  var mes = request.query.mes;
+  var dia = request.query.dia;
+  var fxHora = request.query.fxHora;
+
+  var veiculos = request.query.veiculos.split(",");    
+
   veiculos.forEach(veiculo => {
     switch (veiculo) {
       case "AUTOMOVEL":
@@ -42,7 +49,7 @@ module.exports.total = function (request, response) {
   });
 
   var query = {
-    "index": 'acidentes_transito_datapoa',    
+    "index": 'acidentes_transito_datapoa',
     "size": 349729,
     "from": 0,
     "body": {
@@ -55,7 +62,7 @@ module.exports.total = function (request, response) {
         }
       },
       "aggregations": {
-        "REGIAO.keyword": {
+        "REGIAO": {
           "terms": {
             "field": "REGIAO.keyword"
           }
@@ -68,7 +75,7 @@ module.exports.total = function (request, response) {
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
-      var regioes = result.aggregations["REGIAO.keyword"].buckets.map(function (item) {
+      var regioes = result.aggregations["REGIAO"].buckets.map(function (item) {
         return { key: item.key, y: item.doc_count }
       });
       service.sendJSON(response, status, regioes);
@@ -77,18 +84,22 @@ module.exports.total = function (request, response) {
 }
 
 module.exports.predicao = function (request, response) {
+  
+  var filtros = [];
   var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
-  var fxHora = JSON.parse("[" + request.query.fxHora + "]");
+  if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
+    filtros.push({ "terms": { "ANO": intervaloAnos } });
+  }
   var condicoesTempo = request.query.condicoesTempo.split(",");
-  var veiculos = request.query.veiculos.split(",");
+  if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
+    filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
+  }
   var mes = request.query.mes;
   var dia = request.query.dia;
-  console.log(dia);
-  var filtros = [
-    { "terms": { "ANO": intervaloAnos } },
-    { "terms": { "FX_HORA.keyword": fxHora } },
-    { "terms": { "TEMPO.keyword": condicoesTempo } }
-  ];
+  var fxHora = request.query.fxHora;
+
+  var veiculos = request.query.veiculos.split(",");    
+  
   veiculos.forEach(veiculo => {
     switch (veiculo) {
       case "AUTOMOVEL":
@@ -119,7 +130,7 @@ module.exports.predicao = function (request, response) {
   });
 
   var query = {
-    "index": 'acidentes_transito_datapoa',    
+    "index": 'acidentes_transito_datapoa',
     "size": 349729,
     "from": 0,
     "body": {
@@ -142,7 +153,7 @@ module.exports.predicao = function (request, response) {
             DIA: item._source.DIA,
             FX_HORA: parseInt(item._source.FX_HORA)
           },
-          output: item._source.REGIAO
+          output: item._source.REGIAO.keyword
         }
       });
 

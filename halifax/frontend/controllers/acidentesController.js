@@ -17,9 +17,17 @@ angular.module('acidentesController', [])
                 };
             }
 
+            $scope.toggleSidenav1 = buildToggler('closeEventsDisabled1');
+
+            function buildToggler(componentId) {
+                return function () {
+                    $mdSidenav(componentId).toggle();
+                };
+            }
+
             $scope.regiaoPredicao = false;
             $scope.tipoAcidentePredicao = false;
-            $scope.historicalPredicao = true;
+            $scope.faixaHoraPredicao = true;
 
             $scope.anos = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
             $scope.anosSelecionados = [2016];
@@ -38,17 +46,15 @@ angular.module('acidentesController', [])
                 return listaAnos.indexOf(anoSelec) > -1;
             }
 
-
-
             $scope.faixasHora = [
-                { label: "Manhã (6h a 12h)", selected: true, value: [6, 7, 8, 9, 10, 11] },
-                { label: "Tarde (12h a 18h)", selected: true, value: [12, 13, 14, 15, 16, 17] },
-                { label: "Manhã (18h a 24h)", selected: false, value: [18, 19, 20, 21, 22, 23] },
-                { label: "Manhã (24h a 6h)", selected: false, value: [24, 1, 2, 3, 4, 5] }
+                { label: "Manhã (6h a 12h)", selected: false, value: [6, 7, 8, 9, 10, 11] },
+                { label: "Tarde (12h a 18h)", selected: false, value: [12, 13, 14, 15, 16, 17] },
+                { label: "Manhã (18h a 0h)", selected: false, value: [18, 19, 20, 21, 22, 23] },
+                { label: "Manhã (0h a 6h)", selected: false, value: [0, 1, 2, 3, 4, 5] }
             ]
 
             $scope.condicoesTempo = [
-                { label: "Bom", selected: true, value: "BOM" },
+                { label: "Bom", selected: false, value: "BOM" },
                 { label: "Chuvoso", selected: false, value: "CHUVOSO" },
                 { label: "Nublado", selected: false, value: "NUBLADO" }
             ]
@@ -56,7 +62,7 @@ angular.module('acidentesController', [])
             $scope.veiculos = [
                 { label: 'Automóvel', selected: false, value: "AUTOMOVEL" },
                 { label: 'Moto', selected: false, value: "MOTO" },
-                { label: 'Caminhão', selected: true, value: "CAMINHAO" },
+                { label: 'Caminhão', selected: false, value: "CAMINHAO" },
                 { label: 'Táxi', selected: false, value: "TAXI" },
                 { label: 'Lotação', selected: false, value: "LOTACAO" },
                 { label: 'Ônibus', selected: false, value: "ONIBUS" },
@@ -84,8 +90,14 @@ angular.module('acidentesController', [])
                 $scope.dias.push({ label: "Dia " + i, value: i });
             }
 
+            $scope.faixasHoraPredicao = [];
+            for (i = 0; i <=23; i++) {
+                $scope.faixasHoraPredicao.push({label : i+"h", value: i});    
+            }            
+
             $scope.mesSelected = { label: "Janeiro", value: 1 };
             $scope.diaSelected = { label: "Dia 1", value: 1 };
+            $scope.faixaHoraSelected = {label: "8h", value: 8};
 
             $scope.aplicar = function () {
                 $scope.init();
@@ -116,11 +128,12 @@ angular.module('acidentesController', [])
                 var porRegiaoPredicao = function () {
                     var loadData = function () {
                         var deferred = $q.defer();
-                        Acidentes.porRegiaoPredicao(
-                            $scope.anosSelecionados,
+                        // mes, dia, fxHora, anos, condicoesTempo, veiculos
+                        Acidentes.porRegiaoPredicao(                            
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
-                            fxHora,
+                            $scope.faixaHoraSelected.value,
+                            $scope.anosSelecionados,
                             condicoesTempo,
                             veiculos
                         ).success(function (data) {
@@ -158,10 +171,9 @@ angular.module('acidentesController', [])
                 var porRegiao = function () {
                     var loadData = function () {
                         var deferred = $q.defer();
+                        // anos, fxHora, condicoesTempo, veiculos
                         Acidentes.porRegiao(
-                            $scope.anosSelecionados,
-                            $scope.mesSelected.value,
-                            $scope.diaSelected.value,
+                            $scope.anosSelecionados,                            
                             fxHora,
                             condicoesTempo,
                             veiculos
@@ -176,7 +188,7 @@ angular.module('acidentesController', [])
                             chart: {
                                 type: 'pieChart',
                                 height: 300,
-                                width: 300,
+                                width: 450,
                                 x: function (d) { return d.key; },
                                 y: function (d) { return d.y; },
                                 showLabels: true,
@@ -200,13 +212,15 @@ angular.module('acidentesController', [])
                 var porTipoAcidentePredicao = function () {
                     var loadData = function () {
                         var deferred = $q.defer();
-                        Acidentes.porTipoAcidentePredicao(
-                            $scope.anosSelecionados,
+                        // mes, dia, fxHora, anos, condicoesTempo, veiculos, regioes
+                        Acidentes.porTipoAcidentePredicao(                            
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
                             fxHora,
+                            $scope.anosSelecionados,
                             condicoesTempo,
-                            veiculos
+                            veiculos,
+                            ["NORTE"]
                         ).success(function (data) {
                             deferred.resolve(data);
                         });
@@ -218,7 +232,7 @@ angular.module('acidentesController', [])
                             chart: {
                                 type: 'multiBarHorizontalChart',
                                 height: 300,
-                                width: 350,
+                                width: 450,
                                 x: function (d) { return d.label; },
                                 y: function (d) { return d.value; },
                                 //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
@@ -231,7 +245,7 @@ angular.module('acidentesController', [])
                                 yAxis: {
                                     axisLabel: 'Values',
                                     tickFormat: function (d) {
-                                        return d3.format(',.2f')(d);
+                                        return d;
                                     }
                                 }
                             }
@@ -243,13 +257,13 @@ angular.module('acidentesController', [])
                 var porTipoAcidente = function () {
                     var loadData = function () {
                         var deferred = $q.defer();
+                        // anos, fxHora, condicoesTempo, veiculos, regioes
                         Acidentes.porTipoAcidente(
-                            $scope.anosSelecionados,
-                            $scope.mesSelected.value,
-                            $scope.diaSelected.value,
+                            $scope.anosSelecionados,                            
                             fxHora,
                             condicoesTempo,
-                            veiculos
+                            veiculos,
+                            ["NORTE"]
                         ).success(function (data) {
                             deferred.resolve(data);
                         });
@@ -261,7 +275,7 @@ angular.module('acidentesController', [])
                             chart: {
                                 type: 'multiBarHorizontalChart',
                                 height: 300,
-                                width: 350,
+                                width: 450,
                                 x: function (d) { return d.label; },
                                 y: function (d) { return d.value; },
                                 //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
@@ -274,7 +288,7 @@ angular.module('acidentesController', [])
                                 yAxis: {
                                     axisLabel: 'Total',
                                     tickFormat: function (d) {
-                                        return d3.format(',.2f')(d);
+                                        return d
                                     }
                                 }
                             }
@@ -283,27 +297,29 @@ angular.module('acidentesController', [])
                     });
                 }
 
-                var porAno = function () {
+                var porFaixaHoraPredicao = function () {
                     var loadData = function () {
                         var deferred = $q.defer();
-                        Acidentes.porUPS(
-                            $scope.anosSelecionados,
+                        // mes, dia, anos, condicoesTempo, veiculos, regioes
+                        Acidentes.porFaixaHoraPredicao(                            
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
-                            fxHora,
+                            $scope.anosSelecionados,                            
                             condicoesTempo,
-                            veiculos
+                            veiculos,
+                            ["NORTE"]
                         ).success(function (data) {
                             deferred.resolve(data);
                         });
                         return deferred.promise;
                     }
                     var promise = loadData();
-                    promise.then(function (data) {                        
+                    promise.then(function (data) {
                         $scope.optionsHistorical = {
                             chart: {
                                 type: 'historicalBarChart',
-                                height: 350,
+                                height: 300,
+                                width: 400,
                                 margin: {
                                     top: 20,
                                     right: 20,
@@ -318,7 +334,7 @@ angular.module('acidentesController', [])
 
                                 duration: 100,
                                 xAxis: {
-                                    axisLabel: 'Faixa de Horária',
+                                    axisLabel: 'Faixa Horária',
                                     tickFormat: function (d) {
                                         return d;
                                     },
@@ -326,7 +342,7 @@ angular.module('acidentesController', [])
                                     showMaxMin: false
                                 },
                                 yAxis: {
-                                    axisLabel: 'Y Axis',
+                                    axisLabel: 'Total',
                                     axisLabelDistance: -10,
                                     tickFormat: function (d) {
                                         return d;
@@ -349,16 +365,86 @@ angular.module('acidentesController', [])
                             }
                         };
 
-                        $scope.dataHistorical = data;                        
+                        $scope.dataHistorical = data;
                     });
                 }
 
-                $scope.$watch('historicalPredicao', function (predicao) {
-                    console.log("chegou aqui")
+                var porFaixaHora = function () {
+                    var loadData = function () {
+                        var deferred = $q.defer();
+                        // anos, condicoesTempo, veiculos, regioes
+                        Acidentes.porFaixaHora(
+                            $scope.anosSelecionados,                            
+                            condicoesTempo,
+                            veiculos,
+                            ["NORTE"]
+                        ).success(function (data) {
+                            deferred.resolve(data);
+                        });
+                        return deferred.promise;
+                    }
+                    var promise = loadData();
+                    promise.then(function (data) {
+                        $scope.optionsHistorical = {
+                            chart: {
+                                type: 'historicalBarChart',
+                                height: 300,
+                                width: 400,
+                                margin: {
+                                    top: 20,
+                                    right: 20,
+                                    bottom: 65,
+                                    left: 50
+                                },
+                                x: function (d) { return d[0]; },
+                                y: function (d) { return d[1]; },
+                                // useVoronoi: false,
+                                // showControls: false,
+                                // clipEdge: true,
+
+                                duration: 100,
+                                xAxis: {
+                                    axisLabel: 'Faixa Horária',
+                                    tickFormat: function (d) {
+                                        return d;
+                                    },
+                                    rotateLabels: 30,
+                                    showMaxMin: false
+                                },
+                                yAxis: {
+                                    axisLabel: 'Total',
+                                    axisLabelDistance: -10,
+                                    tickFormat: function (d) {
+                                        return d;
+                                    }
+                                },
+                                tooltip: {
+                                    keyFormatter: function (d) {
+                                        return d;
+                                    }
+                                },
+                                zoom: {
+                                    enabled: true,
+                                    scaleExtent: [1, 10],
+                                    useFixedDomain: false,
+                                    useNiceScale: false,
+                                    horizontalOff: false,
+                                    verticalOff: true,
+                                    unzoomEventType: 'dblclick.zoom'
+                                }
+                            }
+                        };
+
+                        $scope.dataHistorical = data;
+                    });
+                }
+
+                $scope.$watch('faixaHoraPredicao', function (predicao) {
                     if (predicao) {
-                        porAno();
+                        // porFaixaHoraPredicao();
+                        porFaixaHora();
                     } else {
-                        porAno();
+                        porFaixaHora();
                     }
                 });
                 $scope.$watch('regiaoPredicao', function (predicao) {
