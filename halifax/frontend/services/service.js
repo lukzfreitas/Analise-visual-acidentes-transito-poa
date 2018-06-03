@@ -21,8 +21,8 @@ angular.module('service', [])
                 return $http.get('/api/acidentes-por-faixa-hora?anos=' + anos +'&condicoesTempo=' +
                  condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
             },
-            porFaixaHoraPredicao: function (mes, dia, anos, condicoesTempo, veiculos, regioes) {
-                return $http.get('/api/acidentes-por-faixa-hora-predicao?mes=' + mes + '&dia=' + dia + 
+            porFaixaHoraPredicao: function (mes, dia, fxHora, anos, condicoesTempo, veiculos, regioes) {
+                return $http.get('/api/acidentes-por-faixa-hora-predicao?mes=' + mes + '&dia=' + dia + '&fxHora=' + fxHora +
                 '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
             }
         }

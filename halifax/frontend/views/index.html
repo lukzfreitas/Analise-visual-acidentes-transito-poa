@@ -831,19 +831,22 @@
       <!--Linha do Tempo-->
       <section class="row" flex>
         <section class="col-sm-8" id="anos">
-            <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>
+            <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>           
+
             <md-checkbox-group ng-model="false" class="md-primary">
-              <section layout-align="center">
-                <md-checkbox ng-repeat="ano in anos" ng-if="$index < (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
-                  {{ano}}
-                </md-checkbox>
-              </section>
-              <section layout-align="center">
-                <md-checkbox ng-repeat="ano in anos" ng-if="$index >= (anos.length / 2)" ng-click="selecionaAno(ano, anosSelecionados)" ng-checked="exists(ano, anosSelecionados)">
-                  {{ano}}
-                </md-checkbox>
-              </section>
+                <section layout-align="center">
+                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-if="$index < (anos.length / 2)" ng-model="ano.selected">
+                    {{ano.value}}
+                  </md-checkbox>
+                </section>
+                <section layout-align="center">
+                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-if="$index >= (anos.length / 2)" ng-model="ano.selected">
+                    {{ano.value}}
+                  </md-checkbox>
+                </section>
+                
             </md-checkbox-group>
+
           </section>
           <section class="col-sm-4" layout="column" layout-align="left" style="margin-top: 90px; margin-left: 100px;">
             <section>

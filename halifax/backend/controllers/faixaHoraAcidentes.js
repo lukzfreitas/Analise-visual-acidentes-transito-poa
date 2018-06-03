@@ -49,9 +49,9 @@ module.exports.total = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa_new_2',        
-        //"size": 349729,
-        //"from": 0,
+        "index": 'acidentes_transito_datapoa',        
+        "size": 349729,
+        "from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
@@ -70,7 +70,7 @@ module.exports.total = function (request, response) {
                 }
             }
         }
-    }
+    }    
 
     client.search(query, function (error, result, status) {
         if (error) {
@@ -79,7 +79,7 @@ module.exports.total = function (request, response) {
             var acidentes = result.aggregations["FX_HORA"].buckets.map(function (item) {
                 return [parseInt(item.key), parseInt(item.doc_count)];
             });
-            result = [{"key": "Quantity", "bar": true, "values": acidentes}];            
+            result = [{"key": "Quantity", "bar": true, "values": acidentes}];                        
             service.sendJSON(response, status, result);                       
         }
     });
@@ -100,11 +100,11 @@ module.exports.predicao = function (request, response) {
         filtros.push({ "terms": { "REGIAO.keyword": regioes } });
     }
     var mes = request.query.mes;
-    var dia = request.query.dia;
-    var fxHora = request.query.fxHora;
+    var dia = request.query.dia;    
+    var fxHora = request.query.fxHora;    
 
     var veiculos = request.query.veiculos.split(",");    
-    
+
     veiculos.forEach(veiculo => {
         switch (veiculo) {
             case "AUTOMOVEL":
@@ -135,9 +135,9 @@ module.exports.predicao = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa_new_2',        
-        //"size": 349729,
-        //"from": 0,
+        "index": 'acidentes_transito_datapoa',        
+        "size": 349729,
+        "from": 0,
         "body": {
             "query": {
                 "bool": {
@@ -160,15 +160,15 @@ module.exports.predicao = function (request, response) {
                     },
                     output: item._source.FX_HORA
                 }
-            });
+            });            
             var classifier = new limdu.classifiers.Bayesian();
-            classifier.trainBatch(acidentes);
-            var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);
-            var values = classify.explanation.map(function (item) {
+            classifier.trainBatch(acidentes);                        
+            var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);            
+            var values = classify.explanation.map(function (item) {                                
                 var index = item.substring(0, item.indexOf(":"));
-                var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));
-                return { label: index, value: value }
-            });
+                var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));                
+                return [index, value];
+            });            
             resultado = [{"key": "Quantity", "bar": true, "values": values}];
             service.sendJSON(response, status, resultado);
         }

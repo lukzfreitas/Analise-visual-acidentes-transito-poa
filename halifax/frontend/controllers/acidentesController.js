@@ -27,34 +27,18 @@ angular.module('acidentesController', [])
 
             $scope.regiaoPredicao = false;
             $scope.tipoAcidentePredicao = false;
-            $scope.faixaHoraPredicao = true;
-
-            $scope.anos = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
-            $scope.anosSelecionados = [2016];
-
-            $scope.selecionaAno = function (anoSelec, listaAnos) {
-                var index = listaAnos.indexOf(anoSelec);
-                if (index > -1) {
-                    listaAnos.splice(idx, 1);
-                }
-                else {
-                    listaAnos.push(anoSelec);
-                }
-            };
-
-            $scope.exists = function (anoSelec, listaAnos) {
-                return listaAnos.indexOf(anoSelec) > -1;
-            }
+            $scope.faixaHoraPredicao = false;            
+            
 
             $scope.faixasHora = [
-                { label: "Manhã (6h a 12h)", selected: false, value: [6, 7, 8, 9, 10, 11] },
-                { label: "Tarde (12h a 18h)", selected: false, value: [12, 13, 14, 15, 16, 17] },
+                { label: "Manhã (6h a 12h)", selected: true, value: [6, 7, 8, 9, 10, 11] },
+                { label: "Tarde (12h a 18h)", selected: true, value: [12, 13, 14, 15, 16, 17] },
                 { label: "Manhã (18h a 0h)", selected: false, value: [18, 19, 20, 21, 22, 23] },
                 { label: "Manhã (0h a 6h)", selected: false, value: [0, 1, 2, 3, 4, 5] }
             ]
 
             $scope.condicoesTempo = [
-                { label: "Bom", selected: false, value: "BOM" },
+                { label: "Bom", selected: true, value: "BOM" },
                 { label: "Chuvoso", selected: false, value: "CHUVOSO" },
                 { label: "Nublado", selected: false, value: "NUBLADO" }
             ]
@@ -69,6 +53,11 @@ angular.module('acidentesController', [])
                 { label: 'Bicicleta', selected: false, value: "BICICLETA" },
                 { label: 'Outro', selected: false, value: "OUTRO" }
             ]
+
+            $scope.anos = [];
+            for (var i = 2000; i <= 2016; i++) {
+                $scope.anos.push({value: i, selected: false});
+            }
 
             $scope.meses = [
                 { label: "Janeiro", value: 1 },
@@ -95,6 +84,7 @@ angular.module('acidentesController', [])
                 $scope.faixasHoraPredicao.push({label : i+"h", value: i});    
             }            
 
+            // Predição
             $scope.mesSelected = { label: "Janeiro", value: 1 };
             $scope.diaSelected = { label: "Dia 1", value: 1 };
             $scope.faixaHoraSelected = {label: "8h", value: 8};
@@ -105,6 +95,18 @@ angular.module('acidentesController', [])
             }
 
             $scope.init = function () {
+
+                
+                var anos = [];
+                for (var i = 0; i < $scope.anos.length; i++) {
+                    if ($scope.anos[i].selected) {
+                        anos.push($scope.anos[i].value);
+                    }
+                }          
+
+                if (anos.length == 0) {
+                    anos.push(2016);
+                }
 
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
@@ -133,7 +135,7 @@ angular.module('acidentesController', [])
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
                             $scope.faixaHoraSelected.value,
-                            $scope.anosSelecionados,
+                            anos,
                             condicoesTempo,
                             veiculos
                         ).success(function (data) {
@@ -173,7 +175,7 @@ angular.module('acidentesController', [])
                         var deferred = $q.defer();
                         // anos, fxHora, condicoesTempo, veiculos
                         Acidentes.porRegiao(
-                            $scope.anosSelecionados,                            
+                            anos,                            
                             fxHora,
                             condicoesTempo,
                             veiculos
@@ -216,8 +218,8 @@ angular.module('acidentesController', [])
                         Acidentes.porTipoAcidentePredicao(                            
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
-                            fxHora,
-                            $scope.anosSelecionados,
+                            $scope.faixaHoraSelected.value,
+                            anos,
                             condicoesTempo,
                             veiculos,
                             ["NORTE"]
@@ -259,7 +261,7 @@ angular.module('acidentesController', [])
                         var deferred = $q.defer();
                         // anos, fxHora, condicoesTempo, veiculos, regioes
                         Acidentes.porTipoAcidente(
-                            $scope.anosSelecionados,                            
+                            anos,                            
                             fxHora,
                             condicoesTempo,
                             veiculos,
@@ -299,12 +301,13 @@ angular.module('acidentesController', [])
 
                 var porFaixaHoraPredicao = function () {
                     var loadData = function () {
-                        var deferred = $q.defer();
-                        // mes, dia, anos, condicoesTempo, veiculos, regioes
+                        var deferred = $q.defer();                        
+                        console.log($scope.faixaHoraSelected.value);
                         Acidentes.porFaixaHoraPredicao(                            
                             $scope.mesSelected.value,
                             $scope.diaSelected.value,
-                            $scope.anosSelecionados,                            
+                            $scope.faixaHoraSelected.value,
+                            anos,                            
                             condicoesTempo,
                             veiculos,
                             ["NORTE"]
@@ -374,7 +377,7 @@ angular.module('acidentesController', [])
                         var deferred = $q.defer();
                         // anos, condicoesTempo, veiculos, regioes
                         Acidentes.porFaixaHora(
-                            $scope.anosSelecionados,                            
+                            anos,                            
                             condicoesTempo,
                             veiculos,
                             ["NORTE"]
@@ -441,8 +444,7 @@ angular.module('acidentesController', [])
 
                 $scope.$watch('faixaHoraPredicao', function (predicao) {
                     if (predicao) {
-                        // porFaixaHoraPredicao();
-                        porFaixaHora();
+                        porFaixaHoraPredicao();                        
                     } else {
                         porFaixaHora();
                     }

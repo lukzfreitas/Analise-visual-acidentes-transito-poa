@@ -48,10 +48,11 @@ module.exports.total = function (request, response) {
     }
   });
 
+
   var query = {
-    "index": 'acidentes_transito_datapoa_new_2',
-    //"size": 349729,
-    //"from": 0,
+    "index": 'acidentes_transito_datapoa',
+    "size": 349729,
+    "from": 0,
     "body": {
       "sort": [
         { "DATA_HORA": { "order": "asc" } }
@@ -130,9 +131,9 @@ module.exports.predicao = function (request, response) {
   });
 
   var query = {
-    "index": 'acidentes_transito_datapoa_new_2',
-    //"size": 349729,
-    //"from": 0,
+    "index": 'acidentes_transito_datapoa',
+    "size": 349729,
+    "from": 0,
     "body": {
       "query": {
         "bool": {
@@ -153,18 +154,19 @@ module.exports.predicao = function (request, response) {
             DIA: item._source.DIA,
             FX_HORA: parseInt(item._source.FX_HORA)
           },
-          output: item._source.REGIAO.keyword
+          output: item._source.REGIAO
         }
       });
 
       var classifier = new limdu.classifiers.Bayesian();
-      classifier.trainBatch(acidentes);
+      classifier.trainBatch(acidentes);      
       var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);
-      var resultado = classify.explanation.map(function (item) {
+      console.log(classify.explanation);
+      var resultado = classify.explanation.map(function (item) {        
         var index = item.substring(0, item.indexOf(":"));
         var value = parseFloat(JSON.stringify(eval("{" + item + "}")));
         return { key: index, y: value }
-      });
+      });            
       service.sendJSON(response, status, resultado);
     }
   })
