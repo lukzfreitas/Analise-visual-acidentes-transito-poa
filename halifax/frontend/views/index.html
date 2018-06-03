@@ -739,7 +739,7 @@
     <!--Filtros-->
     <section layout="row" flex>
 
-      <md-sidenav class="md-sidenav-left" md-component-id="closeEventsDisabled" md-whiteframe="4" md-disable-close-events>
+      <md-sidenav class="md-sidenav-left" md-component-id="closeEventsDisabledFiltros" md-whiteframe="4" md-disable-close-events>
         <md-toolbar class="md-theme-indigo">
           <h1 class="md-toolbar-tools">Filtros</h1>
         </md-toolbar>
@@ -767,16 +767,16 @@
               </md-checkbox>
             </md-checkbox-group>
 
-            <md-button ng-click="toggleSidenav()" class="md-accent">
+            <md-button ng-click="toggleSidenavFiltros()" class="md-accent">
               Fechar
             </md-button>
-            <md-button ng-click="aplicar()" class="md-raised md-primary">
+            <md-button ng-click="aplicarFiltrosESair()" class="md-raised md-primary">
               Aplicar
             </md-button>
         </md-content>
       </md-sidenav>
 
-      <md-sidenav class="md-sidenav-right" md-component-id="closeEventsDisabled1" md-whiteframe="4" md-disable-close-events>
+      <md-sidenav class="md-sidenav-right" md-component-id="closeEventsDisabledPredicao" md-whiteframe="4" md-disable-close-events>
        
         <md-toolbar class="md-theme-indigo">
           <h1 class="md-toolbar-tools">Predição</h1>
@@ -817,10 +817,10 @@
 
         <section style="text-align:center" flex="100" class="flex flex-col">
           <md-content layout-margin>
-              <md-button ng-click="toggleSidenav1()" class="md-accent">
+              <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
                 Fechar
               </md-button>
-              <md-button ng-click="aplicar()" class="md-raised md-primary">
+              <md-button ng-click="aplicarPredicaoESair()" class="md-raised md-primary">
                 Aplicar
               </md-button>
             </md-content>
@@ -850,10 +850,10 @@
           </section>
           <section class="col-sm-4" layout="column" layout-align="left" style="margin-top: 90px; margin-left: 100px;">
             <section>
-              <md-button ng-click="toggleSidenav()" class="md-raised md-primary">
+              <md-button ng-click="toggleSidenavFiltros()" class="md-raised md-primary">
                 Filtros
               </md-button>
-              <md-button ng-click="toggleSidenav1()" class="md-raised md-primary">
+              <md-button ng-click="toggleSidenavPredicao()" class="md-raised md-primary">
                   Predição
               </md-button>
               <md-button ng-click="aplicar()" class="md-raised md-primary">

@@ -160,8 +160,7 @@ module.exports.predicao = function (request, response) {
 
       var classifier = new limdu.classifiers.Bayesian();
       classifier.trainBatch(acidentes);      
-      var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);
-      console.log(classify.explanation);
+      var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);      
       var resultado = classify.explanation.map(function (item) {        
         var index = item.substring(0, item.indexOf(":"));
         var value = parseFloat(JSON.stringify(eval("{" + item + "}")));
