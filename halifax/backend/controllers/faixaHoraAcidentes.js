@@ -49,9 +49,9 @@ module.exports.total = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
@@ -135,9 +135,9 @@ module.exports.predicao = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "query": {
                 "bool": {

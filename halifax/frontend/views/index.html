@@ -132,10 +132,10 @@
     #animation-control-button {
       float: left;
       position: relative;
+      margin-top: 80px;
       left: 0;
       margin-left: 2%;
       overflow: visible;
-      margin-top: 0%;
     }
 
     #animation-control-button .play {
@@ -155,7 +155,7 @@
     }
 
     #heatmapArea {
-      margin-top: 25px;
+      margin-top: 20px;
       height: 60%;
       width: 100%;
       float: right;
@@ -167,7 +167,7 @@
       width: 100%;
       height: 3px;
       left: 0;
-      bottom: 0;
+      bottom: 3px;
       background: white;
       z-index: 98;
       float: right;
@@ -178,25 +178,25 @@
       overflow: visible;
       left: 0;
       bottom: 0;
-      height: 10px;
+      height: 30px;
       z-index: 99;
-      margin-top: 48%;
+      margin-top: 35%;
     }
 
     #progress-bar-pointer {
-      position: absolute;
+      position: relative;
       right: -160px;
-      bottom: 20px;
+      bottom: 0;
       right: 0;
       /* float:right; */
       background: rgb(213, 214, 214);
       margin-right: -25px;
-      padding-top: 100px;
+      padding-top: 65px;
       text-align: center;
       height: 10px;
       width: 60px;
       line-height: 150%;
-
+      
       cursor: pointer;
     }
 
@@ -223,8 +223,9 @@
       width: 100%;
       height: 3px;
       left: 0;
-      bottom: 0;
+      margin-bottom: 10px;
       background: #327CCB;
+      bottom: 3px;
       z-index: 98;
       float: right;
     }
@@ -232,7 +233,7 @@
     #progress-bar-instructions {
       position: absolute;
       right: -160px;
-      bottom: 80px;
+      bottom: 0%;
       padding: 10px 10px;
       width: 80px;
       text-align: center;
@@ -676,12 +677,12 @@
   <!-- Header -->
   <div id="header">
     <h1>
-      <img src="https://i.imgur.com/lJpxvSd.png" width="250" height="110" />
+      <a href="#"><img src="https://i.imgur.com/lJpxvSd.png" width="250" height="110" /></a>
     </h1>
   </div>
 
   <div id="options-are">
-    <a href="#" id="about-button" class="button button-right">Sobre</a>
+    <a href="https://github.com/lukzfreitas/Analise-visual-acidentes-transito-poa" target=”_blank” id="about-button" class="button button-right">Sobre</a>
   </div>
 
   <!-- Mapa -->
@@ -704,7 +705,7 @@
 
   <section ng-app="app" ng-controller="acidentesController" ng-cloak>
 
-    <hr style="height:2px; border:none; color: #000000; background-color: #000000; margin-top: 30px; margin-bottom: 30px" />
+    <hr style="height:2px; border:none; color: #cecece; background-color: #cecece; margin-top: 90px; margin-bottom: 15px" />
 
     <!-- Graficos -->
     <p>Gráficos de acidentes em relação a...</p>
@@ -744,12 +745,6 @@
         </md-toolbar>
 
         <md-content layout-margin>
-          <md-button ng-click="toggleSidenav()" class="md-accent">
-            Fechar
-          </md-button>
-          <md-button ng-click="aplicar()" class="md-raised md-primary">
-            Aplicar
-          </md-button>
           <p>
             <h4>Tipo de Veículo</h4>
             <md-checkbox-group ng-model="false" class="md-primary">
@@ -831,12 +826,9 @@
             </md-content>
         </section>       
 
-      </md-sidenav>
-              
+      </md-sidenav>    
     
-
       <!--Linha do Tempo-->
-
       <section class="row" flex>
         <section class="col-sm-8" id="anos">
             <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>
@@ -859,7 +851,7 @@
                 Filtros
               </md-button>
               <md-button ng-click="toggleSidenav1()" class="md-raised md-primary">
-                  Predicao
+                  Predição
               </md-button>
               <md-button ng-click="aplicar()" class="md-raised md-primary">
                 Aplicar
@@ -874,16 +866,43 @@
 
   <!--Footer-->
   <section id="footer">
-    <hr style="height:2px; border:none; color: #000000; background-color: #000000; margin-top: 25px; margin-bottom: 20px" />
-    <p style="float: left; margin-left: 50px;margin-bottom: 20px">Tecnologias utilizadas:</p>
-    <p style="float: left; margin-top: 20px;">
-      <img src="https://i.imgur.com/yj1gkJs.png" width="110" height="80" align="left" />
-      <img src="https://i.imgur.com/CGPD4bh.png" width="130" height="130" />
-      <img src="https://i.imgur.com/kWkdkCS.png" width="160" height="80" />
-      <img src="https://i.imgur.com/JB6WizS.png" width="110" height="110" />
+    <hr style="height:2px; border:none; color: #cecece; background-color: #cecece; margin-top: 25px; margin-bottom: 20px" />
+    <p style="float: left; margin-left: 80px;margin-bottom: 20px">Tecnologias utilizadas:</p>
+    
+    <!--Node JS-->
+    <p style="float: left; margin-top: 60px; margin-left: -80px;">
+      <a href="https://nodejs.org/en/" target=”_blank”>
+        <img src="https://i.imgur.com/yj1gkJs.png" width="90" height="60" align="left"/>
+      </a>
     </p>
-    <p style="float: right; margin-right: 140px;">Fonte de dados:</p>
-    <img src="https://i.imgur.com/PMpsuGP.png" width="160" height="80" />
+    <!--Elastic-->
+    <p style="float: left; margin-top: 15px;">
+      <a href="https://www.elastic.co/" target=”_blank”>
+        <img src="https://i.imgur.com/CGPD4bh.png" width="140" height="140" align="left"/>
+      </a>
+    </p>
+
+    <!--Angular JS-->
+    <p style="float: left; margin-top: 60px;">
+      <a href="https://angular.io/" target=”_blank”>   
+        <img src="https://i.imgur.com/kWkdkCS.png" width="140" height="50" align="left"/>
+      </a>
+    </p> 
+
+    <!--Brain JS-->
+    <p style="float: left; margin-top: 50px; margin-left: 20px;"> 
+      <a href="https://github.com/BrainJS" target=”_blank”>
+        <img src="https://i.imgur.com/JB6WizS.png" width="70" height="70" align="left"/>
+      </a>
+    </p>
+
+    <p style="float: right; margin-right: 250px;">Fonte de dados:</p>
+    <!--DataPoa-->
+    <p style="float: right; margin-top: 50px; margin-right: -200px;">
+      <a href="http://datapoa.com.br/dataset/acidentes-de-transito" target=”_blank”>
+        <img src="https://i.imgur.com/PMpsuGP.png" width="140" height="50" align="right"/>
+      </a>
+    </p>
   </section>
 
   <!-- Scripts -->
