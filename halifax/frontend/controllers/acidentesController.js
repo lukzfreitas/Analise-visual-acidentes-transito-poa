@@ -81,6 +81,22 @@ angular.module('acidentesController', [])
                 };
             }
 
+            $scope.heatMap = function () {
+                var anos = [];
+                var anos = [];
+                for (var i = 0; i < $scope.anos.length; i++) {
+                    if ($scope.anos[i].selected) {
+                        anos.push($scope.anos[i].value);
+                    }
+                }
+                if (anos.length == 0) {
+                    anos.push(2016);
+                }
+                Acidentes.heatMap(anos).success(function (data) {
+                    console.log(data);
+                });
+            }
+
             $scope.porRegiaoPredicao = function () {
                 var anos = [];
                 for (var i = 0; i < $scope.anos.length; i++) {
@@ -88,11 +104,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -131,7 +145,7 @@ angular.module('acidentesController', [])
                         chart: {
                             type: 'pieChart',
                             height: 300,
-                            width: 300,
+                            width: 450,
                             x: function (d) { return d.key; },
                             y: function (d) { return d.y; },
                             showLabels: true,
@@ -160,11 +174,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -229,11 +241,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -261,8 +271,7 @@ angular.module('acidentesController', [])
                         $scope.faixaHoraSelected.value,
                         anos,
                         condicoesTempo,
-                        veiculos,
-                        ["NORTE"]
+                        veiculos                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -303,11 +312,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -333,8 +340,7 @@ angular.module('acidentesController', [])
                         anos,
                         fxHora,
                         condicoesTempo,
-                        veiculos,
-                        ["NORTE"]
+                        veiculos                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -375,11 +381,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -407,8 +411,7 @@ angular.module('acidentesController', [])
                         $scope.faixaHoraSelected.value,
                         anos,
                         condicoesTempo,
-                        veiculos,
-                        ["NORTE"]
+                        veiculos                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -477,11 +480,9 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-
                 if (anos.length == 0) {
                     anos.push(2016);
                 }
-
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -506,8 +507,7 @@ angular.module('acidentesController', [])
                     Acidentes.porFaixaHora(
                         anos,
                         condicoesTempo,
-                        veiculos,
-                        ["NORTE"]
+                        veiculos                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -615,6 +615,7 @@ angular.module('acidentesController', [])
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.tipoAcidentePredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
                 $scope.faixaHoraPredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
+                $scope.heatMap();
             }
 
             $scope.init();

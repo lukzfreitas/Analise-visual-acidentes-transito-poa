@@ -3,11 +3,14 @@ var service = require('../services/service');
 var limdu = require('limdu');
 
 module.exports.total = function (request, response) {
-  
   var filtros = [];
   var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
   if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
     filtros.push({ "terms": { "ANO": intervaloAnos } });
+  }
+  var fxHora = JSON.parse("[" + request.query.fxHora + "]");
+  if (fxHora.length > 0 && fxHora[0] !== "") {
+    filtros.push({ "terms": { "FX_HORA.keyword": fxHora } });
   }
   var condicoesTempo = request.query.condicoesTempo.split(",");
   if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
@@ -17,7 +20,7 @@ module.exports.total = function (request, response) {
   var dia = request.query.dia;
   var fxHora = request.query.fxHora;
 
-  var veiculos = request.query.veiculos.split(",");    
+  var veiculos = request.query.veiculos.split(",");
 
   veiculos.forEach(veiculo => {
     switch (veiculo) {
@@ -41,7 +44,7 @@ module.exports.total = function (request, response) {
         break;
       case "BICICLETA":
         filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
-        break;
+        break;var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
       case "OUTRO":
         filtros.push({ "range": { "OUTRO": { "gte": 1 } } });
         break;
@@ -76,8 +79,9 @@ module.exports.total = function (request, response) {
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
-      var regioes = result.aggregations["REGIAO"].buckets.map(function (item) {
-        return { key: item.key, y: item.doc_count }
+      var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
+      var regioes = result.aggregations["REGIAO"].buckets.map(function (item, index) {
+        return { key: item.key, y: item.doc_count, color: cores[index] }
       });
       service.sendJSON(response, status, regioes);
     }
@@ -85,7 +89,7 @@ module.exports.total = function (request, response) {
 }
 
 module.exports.predicao = function (request, response) {
-  
+
   var filtros = [];
   var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
   if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
@@ -99,8 +103,8 @@ module.exports.predicao = function (request, response) {
   var dia = request.query.dia;
   var fxHora = request.query.fxHora;
 
-  var veiculos = request.query.veiculos.split(",");    
-  
+  var veiculos = request.query.veiculos.split(",");
+
   veiculos.forEach(veiculo => {
     switch (veiculo) {
       case "AUTOMOVEL":
@@ -159,13 +163,14 @@ module.exports.predicao = function (request, response) {
       });
 
       var classifier = new limdu.classifiers.Bayesian();
-      classifier.trainBatch(acidentes);      
-      var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);      
-      var resultado = classify.explanation.map(function (item) {        
+      classifier.trainBatch(acidentes);
+      var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);
+      var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
+      var resultado = classify.explanation.map(function (item, index) {
         var index = item.substring(0, item.indexOf(":"));
         var value = parseFloat(JSON.stringify(eval("{" + item + "}")));
-        return { key: index, y: value }
-      });            
+        return { key: index, y: value, color: cores[index] }
+      });
       service.sendJSON(response, status, resultado);
     }
   })

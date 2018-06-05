@@ -15,11 +15,7 @@ module.exports.total = function (request, response) {
     var condicoesTempo = request.query.condicoesTempo.split(",");
     if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
         filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
-    }
-    var regioes = request.query.regioes.split(",");
-    if (regioes.length > 0 && regioes[0] !== "") {
-        filtros.push({ "terms": { "REGIAO.keyword": regioes } });
-    }
+    }    
 
     var veiculos = request.query.veiculos.split(",");    
     
@@ -83,7 +79,7 @@ module.exports.total = function (request, response) {
             var tiposDeAcidentes = result.aggregations["TIPO_ACID"].buckets.map(function (item) {
                 return { label: item.key, value: item.doc_count }
             });
-            resultado = [{ "key": "Tipos de acidentes", "color": "#1f77b4", "values": tiposDeAcidentes }];            
+            resultado = [{ "key": "Tipos de acidentes", "color": "#2ECCFA", "values": tiposDeAcidentes }];            
             service.sendJSON(response, status, resultado);
         }
     });
@@ -100,10 +96,7 @@ module.exports.predicao = function (request, response) {
     if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
         filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
     }
-    var regioes = request.query.regioes.split(",");
-    if (regioes.length > 0 && regioes[0] !== "") {
-        filtros.push({ "terms": { "REGIAO.keyword": regioes } });
-    }
+    
     var mes = request.query.mes;
     var dia = request.query.dia;
     var fxHora = request.query.fxHora;
@@ -174,7 +167,7 @@ module.exports.predicao = function (request, response) {
                 var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));
                 return { label: index, value: value }
             });            
-            resultado = [{ "key": "Tipos de acidentes", "color": "#1f77b4", "values": values }]
+            resultado = [{ "key": "Tipos de acidentes", "color": "#5F04B4", "values": values }]
             service.sendJSON(response, status, resultado);
         }
     })

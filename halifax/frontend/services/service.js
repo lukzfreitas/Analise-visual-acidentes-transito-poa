@@ -9,21 +9,24 @@ angular.module('service', [])
                 return $http.get('/api/acidentes-por-regiao-predicao?mes=' + mes + '&dia=' + dia +
                  '&fxHora=' + fxHora + '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
             },
-            porTipoAcidente: function (anos, fxHora, condicoesTempo, veiculos, regioes) {
+            porTipoAcidente: function (anos, fxHora, condicoesTempo, veiculos) {
                 return $http.get('/api/acidentes-por-tipo?anos=' + anos + '&fxHora=' + fxHora +
-                '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
+                '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
             },            
-            porTipoAcidentePredicao: function (mes, dia, fxHora, anos, condicoesTempo, veiculos, regioes) {
+            porTipoAcidentePredicao: function (mes, dia, fxHora, anos, condicoesTempo, veiculos) {
                 return $http.get('/api/acidentes-por-tipo-predicao?mes=' + mes + '&dia=' + dia + '&fxHora=' + fxHora +
-                 '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
+                 '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
             },
-            porFaixaHora: function (anos, condicoesTempo, veiculos, regioes) {
+            porFaixaHora: function (anos, condicoesTempo, veiculos) {
                 return $http.get('/api/acidentes-por-faixa-hora?anos=' + anos +'&condicoesTempo=' +
-                 condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
+                 condicoesTempo + '&veiculos=' + veiculos);
             },
-            porFaixaHoraPredicao: function (mes, dia, fxHora, anos, condicoesTempo, veiculos, regioes) {
+            porFaixaHoraPredicao: function (mes, dia, fxHora, anos, condicoesTempo, veiculos) {
                 return $http.get('/api/acidentes-por-faixa-hora-predicao?mes=' + mes + '&dia=' + dia + '&fxHora=' + fxHora +
-                '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos + '&regioes=' + regioes);
+                '&anos=' + anos + '&condicoesTempo=' + condicoesTempo + '&veiculos=' + veiculos);
+            },
+            heatMap: function (anos) {
+                return $http.get('/api/heat-map?anos=' + anos);
             }
         }
     }])

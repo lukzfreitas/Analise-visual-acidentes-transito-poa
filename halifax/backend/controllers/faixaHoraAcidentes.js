@@ -11,11 +11,7 @@ module.exports.total = function (request, response) {
     var condicoesTempo = request.query.condicoesTempo.split(",");
     if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
         filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
-    }
-    var regioes = request.query.regioes.split(",");
-    if (regioes.length > 0 && regioes[0] !== "") {
-        filtros.push({ "terms": { "REGIAO.keyword": regioes } });
-    }
+    }    
 
     var veiculos = request.query.veiculos.split(",");    
 
@@ -79,7 +75,7 @@ module.exports.total = function (request, response) {
             var acidentes = result.aggregations["FX_HORA"].buckets.map(function (item) {
                 return [parseInt(item.key), parseInt(item.doc_count)];
             });
-            result = [{"key": "Quantity", "bar": true, "values": acidentes}];                        
+            result = [{"key": "Quantity", "bar": true, "values": acidentes, "color": "#2ECCFA"}];                        
             service.sendJSON(response, status, result);                       
         }
     });
@@ -95,10 +91,7 @@ module.exports.predicao = function (request, response) {
     if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
         filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
     }
-    var regioes = request.query.regioes.split(",");
-    if (regioes.length > 0 && regioes[0] !== "") {
-        filtros.push({ "terms": { "REGIAO.keyword": regioes } });
-    }
+    
     var mes = request.query.mes;
     var dia = request.query.dia;    
     var fxHora = request.query.fxHora;    
@@ -169,7 +162,7 @@ module.exports.predicao = function (request, response) {
                 var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));                
                 return [index, value];
             });            
-            resultado = [{"key": "Quantity", "bar": true, "values": values}];
+            resultado = [{"key": "Quantity", "bar": true, "values": values, "color": "#5F04B4"}];
             service.sendJSON(response, status, resultado);
         }
     })
