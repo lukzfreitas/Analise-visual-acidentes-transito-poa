@@ -49,9 +49,9 @@ module.exports.total = function (request, response) {
     });    
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
@@ -79,7 +79,7 @@ module.exports.total = function (request, response) {
             var tiposDeAcidentes = result.aggregations["TIPO_ACID"].buckets.map(function (item) {
                 return { label: item.key, value: item.doc_count }
             });
-            resultado = [{ "key": "Tipos de acidentes", "color": "#2ECCFA", "values": tiposDeAcidentes }];            
+            resultado = [{ "key": "Tipos de acidentes", "color": "#0aa2ce", "values": tiposDeAcidentes }];            
             service.sendJSON(response, status, resultado);
         }
     });
@@ -133,9 +133,9 @@ module.exports.predicao = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "query": {
                 "bool": {
@@ -167,7 +167,7 @@ module.exports.predicao = function (request, response) {
                 var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));
                 return { label: index, value: value }
             });            
-            resultado = [{ "key": "Tipos de acidentes", "color": "#5F04B4", "values": values }]
+            resultado = [{ "key": "Tipos de acidentes", "color": "#73578e", "values": values }]
             service.sendJSON(response, status, resultado);
         }
     })

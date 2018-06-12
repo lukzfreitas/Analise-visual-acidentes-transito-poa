@@ -45,9 +45,9 @@ module.exports.total = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
@@ -75,7 +75,7 @@ module.exports.total = function (request, response) {
             var acidentes = result.aggregations["FX_HORA"].buckets.map(function (item) {
                 return [parseInt(item.key), parseInt(item.doc_count)];
             });
-            result = [{"key": "Quantity", "bar": true, "values": acidentes, "color": "#2ECCFA"}];                        
+            result = [{"key": "Quantity", "bar": true, "values": acidentes, "color": "#0aa2ce"}];                        
             service.sendJSON(response, status, result);                       
         }
     });
@@ -128,9 +128,9 @@ module.exports.predicao = function (request, response) {
     });
 
     var query = {
-        "index": 'acidentes_transito_datapoa',        
-        "size": 349729,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',        
+        //"size": 349729,
+        //"from": 0,
         "body": {
             "query": {
                 "bool": {
@@ -162,7 +162,7 @@ module.exports.predicao = function (request, response) {
                 var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));                
                 return [index, value];
             });            
-            resultado = [{"key": "Quantity", "bar": true, "values": values, "color": "#5F04B4"}];
+            resultado = [{"key": "Quantity", "bar": true, "values": values, "color": "#73578e"}];
             service.sendJSON(response, status, resultado);
         }
     })

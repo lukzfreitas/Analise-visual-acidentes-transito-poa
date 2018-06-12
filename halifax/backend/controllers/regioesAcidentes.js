@@ -44,7 +44,7 @@ module.exports.total = function (request, response) {
         break;
       case "BICICLETA":
         filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
-        break;var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
+        break;var cores = ["#0aa2ce", "#d1be9c", "#82b7ad", "#f7c59f", "#c7ccdb"];
       case "OUTRO":
         filtros.push({ "range": { "OUTRO": { "gte": 1 } } });
         break;
@@ -53,9 +53,9 @@ module.exports.total = function (request, response) {
 
 
   var query = {
-    "index": 'acidentes_transito_datapoa',
-    "size": 349729,
-    "from": 0,
+    "index": 'acidentes_transito_datapoa_new_2',
+    //"size": 349729,
+    //"from": 0,
     "body": {
       "sort": [
         { "DATA_HORA": { "order": "asc" } }
@@ -79,7 +79,7 @@ module.exports.total = function (request, response) {
     if (error) {
       console.log("deu ruim no search" + error);
     } else {
-      var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
+      var cores = ["#73578e", "#a25e67", "#e1dd8f", "#4c86a8", "#2e4d5c"];
       var regioes = result.aggregations["REGIAO"].buckets.map(function (item, index) {
         return { key: item.key, y: item.doc_count, color: cores[index] }
       });
@@ -135,9 +135,9 @@ module.exports.predicao = function (request, response) {
   });
 
   var query = {
-    "index": 'acidentes_transito_datapoa',
-    "size": 349729,
-    "from": 0,
+    "index": 'acidentes_transito_datapoa_new_2',
+    //"size": 349729,
+    //"from": 0,
     "body": {
       "query": {
         "bool": {

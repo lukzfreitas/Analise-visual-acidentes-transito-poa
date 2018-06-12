@@ -10,9 +10,9 @@ module.exports.populate = function (request, response) {
     var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
 
     client.search({
-        "index": 'acidentes_transito_datapoa',
-        "size": 349732,
-        "from": 0,
+        "index": 'acidentes_transito_datapoa_new_2',
+        //"size": 349732,
+        //"from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
