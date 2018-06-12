@@ -290,6 +290,7 @@ angular.module('acidentesController', [])
                             showControls: false,
                             showValues: true,
                             duration: 500,
+                            maxKeyLength: 100,
                             xAxis: {
                                 showMaxMin: false
                             },
@@ -298,7 +299,8 @@ angular.module('acidentesController', [])
                                 tickFormat: function (d) {
                                     return d;
                                 }
-                            }
+                            }                         
+                            
                         }
                     };
                     $scope.dataMultiBar = data;

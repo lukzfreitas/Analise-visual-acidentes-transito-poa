@@ -44,6 +44,20 @@
       -ms-user-select: none;
       user-select: none;
     }
+      
+    .nv-x text{
+      font-family: "Times New Roman", Times, serif;  
+      font-size: 12px;  
+      text-transform:lowercase;
+      vertical-align: sub;
+	  	}
+
+    .nv-y text{
+		  font-family: "Times New Roman", Times, serif;
+      font-size: 14px;
+      text-transform: lowercase;
+      vertical-align: sub;
+		  }
 
     html,
     body {
@@ -712,7 +726,7 @@
     <p style="margin-bottom: 20px;">Gráficos de acidentes em relação a...</p>
     
     <section layout="row" flex>
-      <section class="col-sm-4"  title=""><h4>Faixa Horária</h4>                          
+      <section class="col-sm-4"  title="Faixa de Horário"><h4>Faixa Horária</h4>                          
         <nvd3 options="optionsHistorical" data="dataHistorical"></nvd3>
         <md-switch class="md-primary" ng-model="faixaHoraPredicao" aria-label="Switch 1">
           <span ng-if="faixaHoraPredicao"> Com Predição </span>
