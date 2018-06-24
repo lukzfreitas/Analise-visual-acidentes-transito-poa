@@ -34,43 +34,43 @@ app.get('/:year', handleDataRequest);
 function handleDataRequest(req, res) {
   res.header("Content-Type", "text/html; charset=utf-8");
 
-  var ano1 = 2000;  
-  var intervaloAnos = [ano1];
+  // var ano1 = 2000;  
+  // var intervaloAnos = [ano1];
 
-  client.search({
-    "index": 'acidentes_transito_datapoa',
-    "size": 349732,
-    "from": 0,
-    "body": {      
-      "sort" : [
-        {"DATA_HORA": {"order": "asc"}}
-      ],
-      "query": {
-        "constant_score": {
-          "filter": {
-            "terms": {
-              "ANO": intervaloAnos
-            }
-          }
-        }
-      }
-    }
-  }, function (error, result, status) {    
-    if (error) {
-      console.log("deu ruim no search" + error);
-    } else {
-      var acidentes = result.hits.hits.map(function (item) {                
-        var date = new Date(item._source.DATA_HORA);
-        return [item._source.LATITUDE, item._source.LONGITUDE, item._source.TIPO_ACID, date.getMonth(), date.getDate()];
-      });     
-      var anos = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];       
-      data = {years: anos, crimes: acidentes, year: 2000}      
-      console.log(data);
+  // client.search({
+  //   "index": 'acidentes_transito_datapoa',
+  //   "size": 349732,
+  //   "from": 0,
+  //   "body": {      
+  //     "sort" : [
+  //       {"DATA_HORA": {"order": "asc"}}
+  //     ],
+  //     "query": {
+  //       "constant_score": {
+  //         "filter": {
+  //           "terms": {
+  //             "ANO": intervaloAnos
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, function (error, result, status) {    
+  //   if (error) {
+  //     console.log("deu ruim no search" + error);
+  //   } else {
+  //     var acidentes = result.hits.hits.map(function (item) {                
+  //       var date = new Date(item._source.DATA_HORA);
+  //       return [item._source.LATITUDE, item._source.LONGITUDE, item._source.TIPO_ACID, date.getMonth(), date.getDate()];
+  //     });     
+  //     var anos = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];       
+  //     data = {years: anos, crimes: acidentes, year: 2000}      
+  //     console.log(data);
+  //     res.render('index.html', {data: data});
+  //   }
+  // });
+      data = {};
       res.render('index.html', {data: data});
-    }
-  });
-      // data = {};
-      // res.render('index.html', {data: data});
 }
 
 var port = process.env.PORT || 5000;

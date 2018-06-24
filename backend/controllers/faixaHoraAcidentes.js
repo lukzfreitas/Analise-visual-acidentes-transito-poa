@@ -372,18 +372,6 @@ module.exports.predicao = function (request, response) {
 
             var resultado = [{ "key": "Quantity", "bar": true, "values": values, "color": "#73578e" }];
             service.sendJSON(response, status, resultado);
-
-
-            // var classifier = new limdu.classifiers.Bayesian();
-            // classifier.trainBatch(acidentes);
-            // var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: fxHora }, 1);
-            // var values = classify.explanation.map(function (item) {
-            //     var index = item.substring(0, item.indexOf(":"));
-            //     var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));
-            //     return [index, value];
-            // });
-            // resultado = [{ "key": "Quantity", "bar": true, "values": values, "color": "#73578e" }];
-            // service.sendJSON(response, status, resultado);
         }
     })
 }

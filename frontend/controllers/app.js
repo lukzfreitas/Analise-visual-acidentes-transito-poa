@@ -1,7 +1,6 @@
 var app = angular.module('app', [       
     'service',    	
 	'acidentesController',	
-	'ngMaterial',	
-	'rzModule',
+	'ngMaterial',		
 	'nvd3'	
 ]);

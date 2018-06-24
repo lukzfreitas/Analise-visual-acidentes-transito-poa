@@ -89,8 +89,7 @@ module.exports.total = function (request, response) {
   });
 }
 
-module.exports.predicao = function (request, response) {
-  console.log('predição região');
+module.exports.predicao = function (request, response) {  
   var filtros = [];
   var intervaloAnos = JSON.parse("[" + request.query.anos + "]");  
   if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
@@ -335,9 +334,7 @@ module.exports.predicao = function (request, response) {
       var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
       var resultado = Object.keys(output).map(function (item, index) {
         return { key: item, y: output[item], color: cores[index] };
-      });
-
-      console.log(resultado);
+      });     
 
       service.sendJSON(response, status, resultado);
     }

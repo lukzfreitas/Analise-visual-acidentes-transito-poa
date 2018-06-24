@@ -11,8 +11,8 @@ module.exports.populate = function (request, response) {
 
     client.search({
         "index": 'acidentes_transito_datapoa_new_2',
-        //"size": 349732,
-        //"from": 0,
+        "size": 349732,
+        "from": 0,
         "body": {
             "sort": [
                 { "DATA_HORA": { "order": "asc" } }
@@ -29,7 +29,7 @@ module.exports.populate = function (request, response) {
         }
     }, function (error, result, status) {
         if (error) {
-            console.log("deu ruim no search" + error);
+            console.error("deu ruim no search" + error);
         } else {
             var acidentes = result.hits.hits.map(function (item) {
                 var date = new Date(item._source.DATA_HORA);

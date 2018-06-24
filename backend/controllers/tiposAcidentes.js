@@ -179,8 +179,7 @@ module.exports.predicao = function (request, response) {
 
     var query = {
         "index": 'acidentes_transito_datapoa',
-        // "size": 349729,
-        "size" : 100,
+        "size": 349729,        
         "from": 0,
         "body": {
             "query": {
@@ -190,7 +189,6 @@ module.exports.predicao = function (request, response) {
             }
         }
     }
-
     client.search(query, function (error, result, status) {
         if (error) {
             console.error("deu ruim no search" + error);
@@ -288,7 +286,7 @@ module.exports.predicao = function (request, response) {
                     output: item._source.TIPO_ACID
                 }
             });
-            console.log(acidentes);
+            
             var net = new brain.NeuralNetwork();
             net.train(acidentes, {
               // Defaults values --> expected validation
@@ -303,31 +301,14 @@ module.exports.predicao = function (request, response) {
               timeout: Infinity     // the max number of milliseconds to train for --> number greater than 0
             });
       
-            var output = net.run({ REGIAO: regiao, TEMPO: tempo, NOITE_DIA: noite_dia, DIA_SEM: dia_semana, UPS: ups });
-            console.log(output);
+            var output = net.run({ REGIAO: regiao, TEMPO: tempo, NOITE_DIA: noite_dia, DIA_SEM: dia_semana, UPS: ups });            
             var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
             var values = Object.keys(output).map(function (item, index) {
-                return {label: item, value: output[item]};
-            //   return { key: "Tipos de acidentes", values: output[item], color: cores[index] };
+                return {label: item, value: output[item]};            
             });
-            resultado = [{ key: "Tipos de acidentes", values: values, color: "#73578e" }]
-            // console.log(resultado);
+            resultado = [{ key: "Tipos de acidentes", values: values, color: "#73578e" }]           
       
             service.sendJSON(response, status, resultado);
-
-
-
-
-            // var classifier = new limdu.classifiers.Bayesian();
-            // classifier.trainBatch(acidentes);
-            // var classify = classifier.classify({ MES: mes, DIA: dia, FX_HORA: parseInt(fxHora) }, 1);
-            // var values = classify.explanation.map(function (item) {
-            //     var index = item.substring(0, item.indexOf(":"));
-            //     var value = parseFloat(item.substring(item.indexOf(index) + index.length + 1));
-            //     return { label: index, value: value }
-            // });
-            // resultado = [{ "key": "Tipos de acidentes", "color": "#73578e", "values": values }]
-            // service.sendJSON(response, status, resultado);
         }
     })
 }

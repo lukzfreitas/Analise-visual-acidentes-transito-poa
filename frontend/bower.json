@@ -1,0 +1,21 @@
+{
+  "name": "analise_visual_acidentes_poa",
+  "homepage": "https://github.com/lukzfreitas/Analise-visual-acidentes-transito-poa",
+  "authors": [
+    "Camila e Lucas"
+  ],
+  "description": "dependencias para projeto tcc analise visual de acidentes de transito poa",
+  "main": "analise_visual_acidentes_poa",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.7.2"
+  }
+}
