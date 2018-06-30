@@ -25,8 +25,8 @@ angular.module('service', [])
                 return $http.get('/api/acidentes-por-faixa-hora-predicao?anos=' + anos + '&tempo=' + tempo + '&noite_dia=' + noite_dia +
                 '&tipo_acidente=' + tipo_acidente + '&dia_semana=' + dia_semana + '&ups=' + ups);
             },
-            heatMap: function (anos) {
-                return $http.get('/api/heat-map?anos=' + anos);
-            }
+            // heatMap: function (anos) {
+            //     return $http.get('/api/heat-map?anos=' + anos);
+            // }
         }
     }])

@@ -10,5 +10,5 @@ router.get('/acidentes-por-tipo', tiposAcidentes.total);
 router.get('/acidentes-por-tipo-predicao', tiposAcidentes.predicao);
 router.get('/acidentes-por-faixa-hora', faixaHoraAcidentes.total);
 router.get('/acidentes-por-faixa-hora-predicao', faixaHoraAcidentes.predicao);
-router.get('/heat-map', heatMap.populate);
+// router.get('/heat-map', heatMap.populate);
 module.exports = router;

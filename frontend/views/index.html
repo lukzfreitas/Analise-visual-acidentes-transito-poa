@@ -169,7 +169,7 @@
 
     #heatmapArea {
       margin-top: 20px;
-      height: 60%;
+      height: 65%;
       width: 100%;
       float: right;
       position: relative;
@@ -181,8 +181,8 @@
       height: 3px;
       left: 0;
       bottom: 3px;
-      background: white;
-      z-index: 98;
+      background: white;      
+      /* z-index: 98; */
       float: right;
     }
 
@@ -192,26 +192,27 @@
       left: 0;
       bottom: 0;
       height: 30px;
-      z-index: 99;
-      margin-top: 35%;
+      opacity: 0.8;
+      /* z-index: 99; */
+      margin-top: 42%;
     }
 
     #progress-bar-pointer {
-      position: relative;
+      position: absolute;
       right: -160px;
       bottom: 0;
-      right: 0;
-      /* float:right; */
+      right: 0;      
       background: rgb(213, 214, 214);
       margin-right: -25px;
-      padding-top: 65px;
+      padding-top: 20px;
       text-align: center;
-      height: 10px;
-      width: 60px;
+      height: 80px;
+      width: 90px;
       line-height: 150%;
       
       cursor: pointer;
     }
+    
 
     #progress-bar-pointer:after {
       position: absolute;
@@ -239,7 +240,7 @@
       margin-bottom: 10px;
       background: #327CCB;
       bottom: 3px;
-      z-index: 98;
+      /* z-index: 98; */
       float: right;
     }
 
@@ -259,7 +260,7 @@
       content: ' ';
       top: 50px;
       left: 0px;
-      border: solid transparent;
+      /* border: solid transparent; */
       border-right: none;
       border-bottom-color: #000000;
       border-width: 15px;
@@ -373,7 +374,7 @@
       position: relative;
       top: 60px;
       right: 0;
-      z-index: 97;
+      /* z-index: 97; */
       text-align: right;
     }
 
@@ -381,7 +382,7 @@
       position: relative;
       top: 0;
       right: 10px;
-      z-index: 101;
+      /* z-index: 101; */
     }
 
     #options-area li {
@@ -472,7 +473,7 @@
       background: #FFF;
       position: fixed;
 
-      z-index: 100;
+      /* z-index: 100; */
       width: 700px;
       top: 50%;
       left: 50%;
@@ -582,11 +583,11 @@
       display: table;
       height: 100%;
       width: 100%;
-      z-index: 97;
+      /* z-index: 97; */
     }
 
     #numbers {
-      z-index: 98;
+      /* z-index: 98; */
     }
 
     #numbers div,
@@ -749,6 +750,7 @@
     </section>
 
     <!--Filtros-->
+    <a name="ancoraFiltros"></a> 
     <section layout="row" flex>
 
       <md-sidenav class="md-sidenav-left" md-component-id="closeEventsDisabledFiltros" md-whiteframe="4" md-disable-close-events>
@@ -852,6 +854,7 @@
       </md-sidenav>    
     
       <!--Linha do Tempo-->
+      <a name="ancoraPredicao"></a> 
       <section class="row" flex>
         <section class="col-sm-8" id="anos">
             <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>           
@@ -873,10 +876,10 @@
           </section>
           <section class="col-sm-4" layout="column" layout-align="left" style="margin-top: 90px; margin-left: 100px;">
             <section>
-              <md-button ng-click="toggleSidenavFiltros()" class="md-raised md-primary">
+              <md-button ng-click="toggleSidenavFiltros()" ng-href="#ancoraFiltros" class="md-raised md-primary">
                 Filtros
               </md-button>
-              <md-button ng-click="toggleSidenavPredicao()" class="md-raised md-primary">
+              <md-button ng-click="toggleSidenavPredicao()" ng-href="#ancoraPredicao" class="md-raised md-primary">
                   Predição
               </md-button>
               <md-button ng-click="aplicar()" class="md-raised md-primary">

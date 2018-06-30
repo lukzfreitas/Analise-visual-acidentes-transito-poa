@@ -95,21 +95,21 @@ angular.module('acidentesController', [])
                 };
             }
 
-            $scope.heatMap = function () {
-                var anos = [];
-                var anos = [];
-                for (var i = 0; i < $scope.anos.length; i++) {
-                    if ($scope.anos[i].selected) {
-                        anos.push($scope.anos[i].value);
-                    }
-                }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
-                Acidentes.heatMap(anos).success(function (data) {
-                    console.log(data);
-                });
-            }
+            // $scope.heatMap = function () {
+            //     var anos = [];
+            //     var anos = [];
+            //     for (var i = 0; i < $scope.anos.length; i++) {
+            //         if ($scope.anos[i].selected) {
+            //             anos.push($scope.anos[i].value);
+            //         }
+            //     }
+            //     if (anos.length == 0) {
+            //         anos.push(2016);
+            //     }
+            //     Acidentes.heatMap(anos).success(function (data) {
+            //         console.log(data);
+            //     });
+            // }
 
             $scope.porRegiaoPredicao = function () {
                 var anos = [];
@@ -664,7 +664,7 @@ angular.module('acidentesController', [])
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.tipoAcidentePredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
                 $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
-                $scope.heatMap();
+                // $scope.heatMap();
             }
 
             $scope.init();

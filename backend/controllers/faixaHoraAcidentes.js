@@ -73,7 +73,7 @@ module.exports.total = function (request, response) {
 
     client.search(query, function (error, result, status) {
         if (error) {
-            console.error("deu ruim no search" + error);
+            console.error("Erro consulta faixa hora" + error);
         } else {
             var acidentes = result.aggregations["FX_HORA"].buckets.map(function (item) {
                 return [parseInt(item.key), parseInt(item.doc_count)];
@@ -222,7 +222,7 @@ module.exports.predicao = function (request, response) {
 
     client.search(query, function (error, result, status) {
         if (error) {
-            console.error("deu ruim no search" + error);
+            console.error("Erro consulta predição tipo de acidentes" + error);
         } else {
             var acidentes = result.hits.hits.map(function (item) {
                 var regiao_entrada, tempo_entrada, noite_dia_entrada, tipo_acidente_entrada, dia_semana_entrada, ups_entrada = 0;

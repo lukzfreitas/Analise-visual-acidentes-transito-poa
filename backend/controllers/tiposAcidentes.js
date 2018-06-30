@@ -77,7 +77,7 @@ module.exports.total = function (request, response) {
 
     client.search(query, function (error, result, status) {
         if (error) {
-            console.error("deu ruim no search" + error);
+            console.error("Erro consulta tipo de acidentes" + error);
         } else {
             var tiposDeAcidentes = result.aggregations["TIPO_ACID"].buckets.map(function (item) {
                 return { label: item.key, value: item.doc_count }
@@ -191,7 +191,7 @@ module.exports.predicao = function (request, response) {
     }
     client.search(query, function (error, result, status) {
         if (error) {
-            console.error("deu ruim no search" + error);
+            console.error("Erro consulta predição tipo de acidentes" + error);
         } else {
             var acidentes = result.hits.hits.map(function (item) {
                 var regiao_entrada, tempo_entrada, noite_dia_entrada, dia_semana_entrada, ups_entrada = 0;
