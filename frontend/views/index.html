@@ -782,7 +782,7 @@
             <md-button ng-click="toggleSidenavFiltros()" class="md-accent">
               Fechar
             </md-button>
-            <md-button ng-click="aplicarFiltrosESair()" class="md-raised md-primary">
+            <md-button ng-click="aplicarFiltrosESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
               Aplicar
             </md-button>
             <p style="font-size:80%">*não se aplica ao gráfico de acidentes por faixa horária</p>
@@ -800,7 +800,7 @@
               <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
                 Fechar
               </md-button>
-              <md-button ng-click="aplicarPredicaoESair()" class="md-raised md-primary">
+              <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar
               </md-button>
             </md-content>
@@ -877,7 +877,7 @@
               <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
                 Fechar
               </md-button>
-              <md-button ng-click="aplicarPredicaoESair()" class="md-raised md-primary">
+              <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar
               </md-button>
             </md-content>
@@ -893,16 +893,27 @@
 
             <md-checkbox-group ng-model="false" class="md-primary">
                 <section layout-align="center">
-                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-if="$index < (anos.length / 2)" ng-model="ano.selected">
+                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-click="selecionouAno(ano)" ng-disabled="desabilitarAnos" 
+                  ng-if="$index < (anos.length / 2)" ng-model="ano.selected">
                     {{ano.value}}
                   </md-checkbox>
                 </section>
                 <section layout-align="center">
-                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-if="$index >= (anos.length / 2)" ng-model="ano.selected">
+                  <md-checkbox ng-repeat="ano in anos" ng-value="ano.selected" ng-click="selecionouAno(ano)" ng-disabled="desabilitarAnos"
+                  ng-if="$index >= (anos.length / 2)" ng-model="ano.selected">
                     {{ano.value}}
                   </md-checkbox>
                 </section>
                 
+                <section ng-show="desabilitarAnos" layout="row" flex>
+                    <p style="font-weight: bold; color:red">Deve selecionar apenas 3 anos</p>  
+                    <md-button ng-click="habilitarAnos()" class="md-raised md-primary">
+                      Entendi
+                    </md-button>                    
+                </section>                
+                <section ng-show="totalAnosSelecionados === 0" layout="row" flex>
+                    <p style="font-weight: bold; color:red">Deve selecionar ao menos um ano</p>                                
+                </section>                
             </md-checkbox-group>
 
           </section>
@@ -914,7 +925,7 @@
               <md-button ng-click="toggleSidenavPredicao()" ng-href="#ancoraPredicao" class="md-raised md-primary">
                   Predição
               </md-button>
-              <md-button ng-click="aplicar()" class="md-raised md-primary">
+              <md-button ng-click="aplicar()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar
               </md-button>
             </section>

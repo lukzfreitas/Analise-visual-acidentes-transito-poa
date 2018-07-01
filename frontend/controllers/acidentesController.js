@@ -7,7 +7,8 @@ angular.module('acidentesController', [])
         'Acidentes',
         '$q',
         '$mdSidenav',
-        function ($timeout, $scope, $http, Acidentes, $q, $mdSidenav) {
+        '$mdDialog',
+        function ($timeout, $scope, $http, Acidentes, $q, $mdSidenav, $mdDialog) {
 
             $scope.veiculos = [
                 { label: 'Automóvel', selected: false, value: "AUTO" },
@@ -19,13 +20,12 @@ angular.module('acidentesController', [])
                 { label: 'Bicicleta', selected: true, value: "BICICLETA" },
                 { label: 'Outro', selected: false, value: "OUTRO" }
             ]
-            $scope.veiculoSelectedPredicao =
 
-                $scope.condicoesTempoPredicao = [
-                    { label: "Bom", value: "BOM" },
-                    { label: "Chuvoso", value: "CHUVOSO" },
-                    { label: "Nublado", value: "NUBLADO" }
-                ]
+            $scope.condicoesTempoPredicao = [
+                { label: "Bom", value: "BOM" },
+                { label: "Chuvoso", value: "CHUVOSO" },
+                { label: "Nublado", value: "NUBLADO" }
+            ]
             $scope.condicoesTempoPredicaoSelected = { label: "Chuvoso", value: "CHUVOSO" };
 
             $scope.noiteOuDiaPredicao = [
@@ -63,8 +63,8 @@ angular.module('acidentesController', [])
                 { label: "Leste", value: "LESTE" },
                 { label: "Centro", value: "CENTRO" }
             ]
-            $scope.regiaoPredicaoSelected = {label: "Centro", "value": "CENTRO"};
-            
+            $scope.regiaoPredicaoSelected = { label: "Centro", "value": "CENTRO" };
+
             $scope.listaUpsPredicao = [
                 { label: "1 - Acidentes com danos materiais", value: 1 },
                 { label: "5 - Acidentes com feridos", value: 5 },
@@ -92,7 +92,24 @@ angular.module('acidentesController', [])
 
             $scope.anos = [];
             for (i = 2000; i <= 2016; i++) {
-                $scope.anos.push({ label: i, value: i });
+                if (i === 2016) {
+                $scope.anos.push({ label: i, value: i, selected: true });
+                } else {
+                $scope.anos.push({ label: i, value: i, selected: false });
+                }
+            }
+
+            $scope.totalAnosSelecionados = 1;
+            $scope.selecionouAno = function (ano) {
+                ano.selected ? $scope.totalAnosSelecionados-- : $scope.totalAnosSelecionados++;                                
+                if ($scope.totalAnosSelecionados > 3) {
+                    $scope.totalAnosSelecionados--;
+                    $scope.desabilitarAnos = true;                    
+                } 
+            }
+
+            $scope.habilitarAnos = function () {
+                $scope.desabilitarAnos = false;
             }
 
             $scope.regiaoPredicao = false;
@@ -163,7 +180,7 @@ angular.module('acidentesController', [])
                         $scope.noiteOuDiaPredicaoSelected.value,
                         $scope.tiposAcidentesPredicaoSelected.value,
                         $scope.diaDaSemanaPredicaoSelected.value,
-                        $scope.upsPredicaoSelected.value                        
+                        $scope.upsPredicaoSelected.value
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -171,7 +188,6 @@ angular.module('acidentesController', [])
                 }
                 var promise = loadData();
                 promise.then(function (data) {
-                    console.log(data);
                     $scope.optionsPie = {
                         chart: {
                             type: 'pieChart',
@@ -455,7 +471,7 @@ angular.module('acidentesController', [])
                         $scope.tiposAcidentesPredicaoSelected.value,
                         $scope.diaDaSemanaPredicaoSelected.value,
                         $scope.upsPredicaoSelected.value,
-                        $scope.regiaoPredicaoSelected.value                        
+                        $scope.regiaoPredicaoSelected.value
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -679,7 +695,7 @@ angular.module('acidentesController', [])
                 }
             });
 
-            $scope.init = function () {
+            $scope.init = function () {                
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.tipoAcidentePredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
                 $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
