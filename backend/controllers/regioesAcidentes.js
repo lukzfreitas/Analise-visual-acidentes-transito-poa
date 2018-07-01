@@ -20,7 +20,7 @@ module.exports.total = function (request, response) {
   if (condicoesTempo.length > 0 && condicoesTempo[0] !== "") {
     filtros.push({ "terms": { "TEMPO.keyword": condicoesTempo } });
   }
-  var veiculos = request.query.veiculos.split(",");  
+  var veiculos = request.query.veiculos.split(",");
 
   veiculos.forEach(veiculo => {
     switch (veiculo) {
@@ -89,13 +89,46 @@ module.exports.total = function (request, response) {
   });
 }
 
-module.exports.predicao = function (request, response) {  
+module.exports.predicao = function (request, response) {
   var filtros = [];
-  var intervaloAnos = JSON.parse("[" + request.query.anos + "]");  
+  var intervaloAnos = JSON.parse("[" + request.query.anos + "]");
   if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
     filtros.push({ "terms": { "ANO": intervaloAnos } });
   }
-  filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
+
+  var veiculos = request.query.veiculos.split(",");
+
+  veiculos.forEach(veiculo => {
+    switch (veiculo) {
+      case "AUTO":
+        filtros.push({ "range": { "AUTO": { "gte": 1 } } });
+        break;
+      case "MOTO":
+        filtros.push({ "range": { "MOTO": { "gte": 1 } } });
+        break;
+      case "CAMINHAO":
+        filtros.push({ "range": { "CAMINHAO": { "gte": 1 } } });
+        break;
+      case "TAXI":
+        filtros.push({ "range": { "TAXI": { "gte": 1 } } });
+        break;
+      case "LOTACAO":
+        filtros.push({ "range": { "LOTACAO": { "gte": 1 } } });
+        break
+      case "ONIBUS":
+        filtros.push({ "range": { "ONIBUS_URB": { "gte": 1 } } });
+        filtros.push({ "range": { "ONIBUS_INT": { "gte": 1 } } });
+        filtros.push({ "range": { "ONIBUS_MET": { "gte": 1 } } });
+        break;
+      case "BICICLETA":
+        filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
+        break;
+      case "OUTRO":
+        filtros.push({ "range": { "OUTRO": { "gte": 1 } } });
+        break;
+    }
+  });
+
   var tempo, noite_dia, tipo_acidente, dia_semana, ups = 0;
   switch (parseInt(request.query.ups)) {
     case 1:
@@ -191,7 +224,7 @@ module.exports.predicao = function (request, response) {
       break;
     default:
       dia_semana = 0;
-  }  
+  }
   var query = {
     "index": 'acidentes_transito_datapoa',
     "size": 349729,
@@ -208,7 +241,7 @@ module.exports.predicao = function (request, response) {
   client.search(query, function (error, result, status) {
     if (error) {
       console.error("Erro consulta predição regiões" + error);
-    } else {      
+    } else {
       var acidentes = result.hits.hits.map(function (item) {
         var tempo_entrada, noite_dia_entrada, tipo_acidente_entrada, dia_semana_entrada, ups_entrada = 0;
         switch (item._source.TEMPO) {
@@ -307,7 +340,7 @@ module.exports.predicao = function (request, response) {
             ups_entrada = 0;
         }
         return {
-          input: {            
+          input: {
             TEMPO: tempo_entrada,
             NOITE_DIA: noite_dia_entrada,
             TIPO_ACID: tipo_acidente_entrada,
@@ -316,7 +349,7 @@ module.exports.predicao = function (request, response) {
           },
           output: { [item._source.REGIAO]: 1 }
         }
-      });      
+      });
       var net = new brain.NeuralNetwork();
       net.train(acidentes, {
         // Defaults values --> expected validation
@@ -329,12 +362,12 @@ module.exports.predicao = function (request, response) {
         callback: null,       // a periodic call back that can be triggered while training --> null or function
         callbackPeriod: 10,   // the number of iterations through the training data between callback calls --> number greater than 0
         timeout: Infinity     // the max number of milliseconds to train for --> number greater than 0
-      });      
-      var output = net.run({ TEMPO: tempo, NOITE_DIA: noite_dia, TIPO_ACID: tipo_acidente, DIA_SEM: dia_semana, UPS: ups });      
+      });
+      var output = net.run({ TEMPO: tempo, NOITE_DIA: noite_dia, TIPO_ACID: tipo_acidente, DIA_SEM: dia_semana, UPS: ups });
       var cores = ["#FE9A2E", "#5882FA", "#3ADF00", "#4C0B5F", "#1B2A0A"];
       var resultado = Object.keys(output).map(function (item, index) {
         return { key: item, y: output[item], color: cores[index] };
-      });     
+      });
 
       service.sendJSON(response, status, resultado);
     }

@@ -94,7 +94,40 @@ module.exports.predicao = function (request, response) {
     if (intervaloAnos.length > 0 && intervaloAnos[0] !== "") {
         filtros.push({ "terms": { "ANO": intervaloAnos } });
     }
-    filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
+
+    var veiculos = request.query.veiculos.split(",");
+
+    veiculos.forEach(veiculo => {
+        switch (veiculo) {
+            case "AUTO":
+                filtros.push({ "range": { "AUTO": { "gte": 1 } } });
+                break;
+            case "MOTO":
+                filtros.push({ "range": { "MOTO": { "gte": 1 } } });
+                break;
+            case "CAMINHAO":
+                filtros.push({ "range": { "CAMINHAO": { "gte": 1 } } });
+                break;
+            case "TAXI":
+                filtros.push({ "range": { "TAXI": { "gte": 1 } } });
+                break;
+            case "LOTACAO":
+                filtros.push({ "range": { "LOTACAO": { "gte": 1 } } });
+                break
+            case "ONIBUS":
+                filtros.push({ "range": { "ONIBUS_URB": { "gte": 1 } } });
+                filtros.push({ "range": { "ONIBUS_INT": { "gte": 1 } } });
+                filtros.push({ "range": { "ONIBUS_MET": { "gte": 1 } } });
+                break;
+            case "BICICLETA":
+                filtros.push({ "range": { "BICICLETA": { "gte": 1 } } });
+                break;
+            case "OUTRO":
+                filtros.push({ "range": { "OUTRO": { "gte": 1 } } });
+                break;
+        }
+    });
+    
     var regiao, tempo, noite_dia, dia_semana, ups = 0;
     switch (request.query.regiao) {
         case "NORTE":

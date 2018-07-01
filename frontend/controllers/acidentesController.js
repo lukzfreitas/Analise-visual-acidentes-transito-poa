@@ -57,6 +57,20 @@ angular.module('acidentesController', [])
             ]
             $scope.diaDaSemanaPredicaoSelected = { label: "Sexta-feira", value: "SEXTA-FEIRA" };
 
+            $scope.regioesPredicao = [
+                { label: "Norte", value: "NORTE" },
+                { label: "Sul", value: "SUL" },
+                { label: "Leste", value: "LESTE" },
+                { label: "Centro", value: "CENTRO" }
+            ]
+            $scope.regiaoPredicaoSelected = {label: "Centro", "value": "CENTRO"};
+            
+            $scope.listaUpsPredicao = [
+                { label: "1 - Acidentes com danos materiais", value: 1 },
+                { label: "5 - Acidentes com feridos", value: 5 },
+                { label: "13 - Acidentes com mortes", value: 13 }
+            ]
+            $scope.upsPredicaoSelected = { label: "1 - Acidentes com danos materiais", value: 1 };
 
             $scope.faixasHora = [
                 { label: "Manhã (6h a 12h)", selected: true, value: [6, 7, 8, 9, 10, 11] },
@@ -141,14 +155,15 @@ angular.module('acidentesController', [])
                 }
                 var loadData = function () {
                     var deferred = $q.defer();
-                    // anos, tempo, noite_dia, tipo_acidente, dia_semana, ups
+                    // anos, veiculos, tempo, noite_dia, tipo_acidente, dia_semana, ups
                     Acidentes.porRegiaoPredicao(
                         anos,
+                        veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
                         $scope.tiposAcidentesPredicaoSelected.value,
                         $scope.diaDaSemanaPredicaoSelected.value,
-                        1
+                        $scope.upsPredicaoSelected.value                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -284,13 +299,15 @@ angular.module('acidentesController', [])
                 }
                 var loadData = function () {
                     var deferred = $q.defer();
-                    // anos, tempo, noite_dia, dia_semana, ups
+                    // anos, veiculos, tempo, noite_dia, dia_semana, ups, regiao
                     Acidentes.porTipoAcidentePredicao(
                         anos,
+                        veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
                         $scope.diaDaSemanaPredicaoSelected.value,
-                        1
+                        $scope.upsPredicaoSelected.value,
+                        $scope.regiaoPredicaoSelected.value
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -429,14 +446,16 @@ angular.module('acidentesController', [])
                 }
                 var loadData = function () {
                     var deferred = $q.defer();
-                    // anos, tempo, noite_dia, tipo_acidente, dia_semana, ups
+                    // anos, veiculos, tempo, noite_dia, tipo_acidente, dia_semana, ups, regiao
                     Acidentes.porFaixaHoraPredicao(
                         anos,
+                        veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
                         $scope.tiposAcidentesPredicaoSelected.value,
                         $scope.diaDaSemanaPredicaoSelected.value,
-                        1
+                        $scope.upsPredicaoSelected.value,
+                        $scope.regiaoPredicaoSelected.value                        
                     ).success(function (data) {
                         deferred.resolve(data);
                     });
@@ -588,32 +607,32 @@ angular.module('acidentesController', [])
                 });
             }
 
-            $scope.showAlert = function() {
+            $scope.showAlert = function () {
                 // Appending dialog to document.body to cover sidenav in docs app
                 // Modal dialogs should fully cover application
                 // to prevent interaction outside of dialog
                 $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('This is an alert title')
-                    .textContent('You can specify some description text in here.')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Got it!')
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('This is an alert title')
+                        .textContent('You can specify some description text in here.')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Got it!')
                     // .targetEvent(ev)
                 );
-              };
+            };
 
             $scope.aplicarFiltrosESair = function () {
-                for (var i = 0; i < $scope.anos.length; i++) {
-                    if ($scope.anos[i].selected) {
-                        anos.push($scope.anos[i].value);
-                    }
-                }
-                if (anos.length > 2) {
-                    $scope.showAlert();
-                    return;
-                }
+                // for (var i = 0; i < $scope.anos.length; i++) {
+                //     if ($scope.anos[i].selected) {
+                //         anos.push($scope.anos[i].value);
+                //     }
+                // }
+                // if (anos.length > 2) {
+                //     $scope.showAlert();
+                //     return;
+                // }
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
                 $scope.tipoAcidentePredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
@@ -640,7 +659,7 @@ angular.module('acidentesController', [])
                     $scope.porFaixaHora();
                 }
             });
-            $scope.$watch('regiaoPredicao', function (predicao) {                
+            $scope.$watch('regiaoPredicao', function (predicao) {
                 if (predicao) {
                     for (var i = 0; i < $scope.anos.length; i++) {
                         if ($scope.anos[i].selected) {

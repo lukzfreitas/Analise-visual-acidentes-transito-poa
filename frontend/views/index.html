@@ -268,41 +268,40 @@
     }
 
     .button {
-      -moz-box-shadow: inset 0px 1px 0px 0px #caefab;
-      -webkit-box-shadow: inset 0px 1px 0px 0px #caefab;
-      box-shadow: inset 0px 1px 0px 0px #caefab;
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77d42a), color-stop(1, #5cb811));
-      background: -moz-linear-gradient(top, #77d42a 5%, #5cb811 100%);
-      background: -webkit-linear-gradient(top, #77d42a 5%, #5cb811 100%);
-      background: -o-linear-gradient(top, #77d42a 5%, #5cb811 100%);
-      background: -ms-linear-gradient(top, #77d42a 5%, #5cb811 100%);
-      background: linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#5cb811', GradientType=0);
-      background-color: #77d42a;
-      -moz-border-radius: 6px;
-      -webkit-border-radius: 6px;
-      border-radius: 6px;
-      border: 1px solid #268a16;
-      display: inline-block;
-      cursor: pointer;
-      color: #306108;
-      font-family: Arial;
-      font-size: 15px;
-      font-weight: bold;
-      padding: 6px 24px;
-      text-decoration: none;
-      text-shadow: 0px 1px 0px #aade7c;
+      -moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
+      -webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
+      box-shadow:inset 0px -3px 7px 0px #29bbff;
+      background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #2dabf9), color-stop(1, #0688fa));
+      background:-moz-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+      background:-webkit-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+      background:-o-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+      background:-ms-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+      background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2dabf9', endColorstr='#0688fa',GradientType=0);
+      background-color:#2dabf9;
+      -moz-border-radius:3px;
+      -webkit-border-radius:3px;
+      border-radius:3px;
+      border:1px solid #f9faf8;
+      display:inline-block;
+      cursor:pointer;
+      color:#ffffff;
+      font-family:Arial;
+      font-size:15px;
+      padding:9px 23px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px #263666;
     }
 
     .button:hover {
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cb811), color-stop(1, #77d42a));
-      background: -moz-linear-gradient(top, #5cb811 5%, #77d42a 100%);
-      background: -webkit-linear-gradient(top, #5cb811 5%, #77d42a 100%);
-      background: -o-linear-gradient(top, #5cb811 5%, #77d42a 100%);
-      background: -ms-linear-gradient(top, #5cb811 5%, #77d42a 100%);
-      background: linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cb811', endColorstr='#77d42a', GradientType=0);
-      background-color: #5cb811;
+      background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0688fa), color-stop(1, #2dabf9));
+      background:-moz-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+      background:-webkit-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+      background:-o-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+      background:-ms-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+      background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#2dabf9',GradientType=0);
+      background-color:#0688fa;
     }
 
     .button:active {
@@ -767,13 +766,12 @@
               </md-checkbox>
             </md-checkbox-group>
 
-            <h4>Faixa de Horário</h4>
+            <h4>Faixa de Horário*</h4>
             <md-checkbox-group ng-model="false" class="md-primary">
               <md-checkbox ng-repeat="hora in faixasHora" ng-value="hora.selected" ng-model="hora.selected">
                 {{hora.label}}
               </md-checkbox>
-            </md-checkbox-group>
-
+            </md-checkbox-group>            
             <h4>Condição do Tempo</h4>
             <md-checkbox-group ng-model="false" class="md-primary">
               <md-checkbox ng-repeat="tempo in condicoesTempo" ng-value="tempo.selected" ng-model="tempo.selected">
@@ -787,6 +785,7 @@
             <md-button ng-click="aplicarFiltrosESair()" class="md-raised md-primary">
               Aplicar
             </md-button>
+            <p style="font-size:80%">*não se aplica ao gráfico de acidentes por faixa horária</p>
         </md-content>
       </md-sidenav>
 
@@ -795,6 +794,17 @@
         <md-toolbar class="md-theme-indigo">
           <h1 class="md-toolbar-tools">Predição</h1>
         </md-toolbar>
+
+        <section style="text-align:center" flex="100" class="flex flex-col">
+          <md-content layout-margin>
+              <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
+                Fechar
+              </md-button>
+              <md-button ng-click="aplicarPredicaoESair()" class="md-raised md-primary">
+                Aplicar
+              </md-button>
+            </md-content>
+        </section>       
         
         <section style="text-align:center" flex="100" class="flex flex-col">
           <h4>Condições do tempo</h4>
@@ -835,6 +845,28 @@
             <md-select ng-model="tiposAcidentesPredicao" md-selected-text="tiposAcidentesPredicaoSelected.label">
               <md-optgroup label="Tipos de acidentes">
                 <md-option ng-repeat="tipoDeAcidente in tiposAcidentesPredicao" ng-value="tipoDeAcidente">{{tipoDeAcidente.label}}</md-option>
+              </md-optgroup>
+            </md-select>
+          </md-input-container>
+        </section>
+
+        <section style="text-align:center" flex="100" class="flex flex-col">
+          <h4>Regiões</h4>
+          <md-input-container>
+            <md-select ng-model="regioesPredicao" md-selected-text="regiaoPredicaoSelected.label">
+              <md-optgroup label="Regiões">
+                <md-option ng-repeat="regiao in regioesPredicao" ng-value="regiao">{{regiao.label}}</md-option>
+              </md-optgroup>
+            </md-select>
+          </md-input-container>
+        </section>
+
+        <section style="text-align:center" flex="100" class="flex flex-col">
+          <h4>UPS</h4>
+          <md-input-container>
+            <md-select ng-model="listaUpsPredicao" md-selected-text="upsPredicaoSelected.label">
+              <md-optgroup label="UPS">
+                <md-option ng-repeat="ups in listaUpsPredicao" ng-value="ups">{{ups.label}}</md-option>
               </md-optgroup>
             </md-select>
           </md-input-container>
@@ -974,7 +1006,8 @@
 
       //create marker array to track displayed markers and the info window that displays when they are clicked
       this.markers = [];
-      this.showMarkers = true;
+      // this.showMarkers = true;
+      this.showMarkers = false; // desabilitado os marcadores no mapa
       this.markerInfoWindow = new google.maps.InfoWindow();
 
       //figure out the date range
@@ -1007,7 +1040,7 @@
 
       //handle the filter click events
       $('#options input:not(#options-markers)').on('change', this.changeFilters.bind(this));
-      $('#options-markers').on('change', this.toggleCrimeMarkers.bind(this));
+      // $('#options-markers').on('change', this.toggleCrimeMarkers.bind(this));
 
       //hookup spacebar pauser/resume
       $(window).keypress(this.togglePause.bind(this));
