@@ -725,7 +725,8 @@
     <section layout="row" flex>
       <section class="col-sm-4"  title="Faixa de Horário"><h4>Faixa Horária</h4>                          
         <nvd3 options="optionsHistorical" data="dataHistorical"></nvd3>
-        <md-switch class="md-primary" ng-model="faixaHoraPredicao" aria-label="Switch 1">
+        <md-switch class="md-primary" ng-model="faixaHoraPredicao" aria-label="Switch 1"
+        ng-disabled="totalAnosSelecionados === 0">
           <span ng-if="faixaHoraPredicao"> Com Predição </span>
           <span ng-if="!faixaHoraPredicao"> Sem Predição </span>
         </md-switch>
@@ -733,7 +734,8 @@
 
       <section class="col-sm-4"  title="Regiões"><h4>Regiões</h4>                    
         <nvd3 options="optionsPie" data="dataPie"></nvd3>
-        <md-switch class="md-primary" ng-model="regiaoPredicao" aria-label="Switch 2">
+        <md-switch class="md-primary" ng-model="regiaoPredicao" aria-label="Switch 2"
+        ng-disabled="totalAnosSelecionados === 0">
           <span ng-if="regiaoPredicao"> Com Predição </span>
           <span ng-if="!regiaoPredicao"> Sem Predição </span>
         </md-switch>
@@ -741,7 +743,8 @@
 
       <section class="col-sm-4" title="Tipos de Acidentes"><h4>Tipos de Acidente</h4>                    
         <nvd3 options="optionsMultiBar" data="dataMultiBar"></nvd3>
-        <md-switch class="md-primary" ng-model="tipoAcidentePredicao" aria-label="Switch 3">
+        <md-switch class="md-primary" ng-model="tipoAcidentePredicao" aria-label="Switch 3"
+        ng-disabled="totalAnosSelecionados === 0">
           <span ng-if="tipoAcidentePredicao"> Com Predição </span>
           <span ng-if="!tipoAcidentePredicao"> Sem Predição </span>
         </md-switch>
@@ -831,7 +834,7 @@
         <section style="text-align:center" flex="100" class="flex flex-col">
           <h4>Dias da Semana</h4>
           <md-input-container>
-            <md-select ng-model="diasDaSemanaPredicao" md-selected-text="diaDaSemanaPredicaoSelected.label">
+            <md-select ng-model="diaDaSemanaPredicaoSelected" md-selected-text="diaDaSemanaPredicaoSelected.label">
               <md-optgroup label="Dias da semana">
                 <md-option ng-repeat="diaDaSemana in diasDaSemanaPredicao" ng-value="diaDaSemana">{{diaDaSemana.label}}</md-option>
               </md-optgroup>
@@ -842,7 +845,7 @@
         <section style="text-align:center" flex="100" class="flex flex-col">
           <h4>Tipos de Acidente</h4>
           <md-input-container>
-            <md-select ng-model="tiposAcidentesPredicao" md-selected-text="tiposAcidentesPredicaoSelected.label">
+            <md-select ng-model="tiposAcidentesPredicaoSelected" md-selected-text="tiposAcidentesPredicaoSelected.label">
               <md-optgroup label="Tipos de acidentes">
                 <md-option ng-repeat="tipoDeAcidente in tiposAcidentesPredicao" ng-value="tipoDeAcidente">{{tipoDeAcidente.label}}</md-option>
               </md-optgroup>
@@ -853,7 +856,7 @@
         <section style="text-align:center" flex="100" class="flex flex-col">
           <h4>Regiões</h4>
           <md-input-container>
-            <md-select ng-model="regioesPredicao" md-selected-text="regiaoPredicaoSelected.label">
+            <md-select ng-model="regiaoPredicaoSelected" md-selected-text="regiaoPredicaoSelected.label">
               <md-optgroup label="Regiões">
                 <md-option ng-repeat="regiao in regioesPredicao" ng-value="regiao">{{regiao.label}}</md-option>
               </md-optgroup>
@@ -864,7 +867,7 @@
         <section style="text-align:center" flex="100" class="flex flex-col">
           <h4>UPS</h4>
           <md-input-container>
-            <md-select ng-model="listaUpsPredicao" md-selected-text="upsPredicaoSelected.label">
+            <md-select ng-model="upsPredicaoSelected" md-selected-text="upsPredicaoSelected.label">
               <md-optgroup label="UPS">
                 <md-option ng-repeat="ups in listaUpsPredicao" ng-value="ups">{{ups.label}}</md-option>
               </md-optgroup>
@@ -906,7 +909,7 @@
                 </section>
                 
                 <section ng-show="desabilitarAnos" layout="row" flex>
-                    <p style="font-weight: bold; color:red">Deve selecionar apenas 3 anos</p>  
+                    <p style="font-weight: bold; color:red">Deve selecionar apenas 4 anos</p>  
                     <md-button ng-click="habilitarAnos()" class="md-raised md-primary">
                       Entendi
                     </md-button>                    
@@ -1428,7 +1431,7 @@
         var myLatlng = new google.maps.LatLng(-30.0454, -51.1579);
 
         var myOptions = {
-          zoom: 12,
+          zoom: 13,
           center: myLatlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           disableDefaultUI: true,

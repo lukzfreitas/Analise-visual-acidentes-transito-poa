@@ -6,21 +6,35 @@ angular.module('acidentesController', [])
         '$http',
         'Acidentes',
         '$q',
-        '$mdSidenav',
-        '$mdDialog',
-        function ($timeout, $scope, $http, Acidentes, $q, $mdSidenav, $mdDialog) {
+        '$mdSidenav',        
+        function ($timeout, $scope, $http, Acidentes, $q, $mdSidenav) {
 
+            ///// ------------------------ Filtros ------------------------ /////
             $scope.veiculos = [
-                { label: 'Automóvel', selected: false, value: "AUTO" },
+                { label: 'Automóvel', selected: true, value: "AUTO" },
                 { label: 'Moto', selected: false, value: "MOTO" },
                 { label: 'Caminhão', selected: false, value: "CAMINHAO" },
                 { label: 'Táxi', selected: false, value: "TAXI" },
                 { label: 'Lotação', selected: false, value: "LOTACAO" },
                 { label: 'Ônibus', selected: false, value: "ONIBUS" },
-                { label: 'Bicicleta', selected: true, value: "BICICLETA" },
+                { label: 'Bicicleta', selected: false, value: "BICICLETA" },
                 { label: 'Outro', selected: false, value: "OUTRO" }
             ]
 
+            $scope.faixasHora = [
+                { label: "Manhã (6h a 12h)", selected: true, value: [6, 7, 8, 9, 10, 11] },
+                { label: "Tarde (12h a 18h)", selected: true, value: [12, 13, 14, 15, 16, 17] },
+                { label: "Noite (18h a 0h)", selected: true, value: [18, 19, 20, 21, 22, 23] },
+                { label: "Madrugada (0h a 6h)", selected: true, value: [0, 1, 2, 3, 4, 5] }
+            ]
+
+            $scope.condicoesTempo = [
+                { label: "Bom", selected: true, value: "BOM" },
+                { label: "Chuvoso", selected: true, value: "CHUVOSO" },
+                { label: "Nublado", selected: true, value: "NUBLADO" }
+            ]
+
+            ///// ------------------------ Atributos Predição ------------------------ /////
             $scope.condicoesTempoPredicao = [
                 { label: "Bom", value: "BOM" },
                 { label: "Chuvoso", value: "CHUVOSO" },
@@ -63,33 +77,16 @@ angular.module('acidentesController', [])
                 { label: "Leste", value: "LESTE" },
                 { label: "Centro", value: "CENTRO" }
             ]
-            $scope.regiaoPredicaoSelected = { label: "Centro", "value": "CENTRO" };
+            $scope.regiaoPredicaoSelected = { label: "Centro", value: "CENTRO" };
 
             $scope.listaUpsPredicao = [
                 { label: "1 - Acidentes com danos materiais", value: 1 },
                 { label: "5 - Acidentes com feridos", value: 5 },
                 { label: "13 - Acidentes com mortes", value: 13 }
             ]
-            $scope.upsPredicaoSelected = { label: "1 - Acidentes com danos materiais", value: 1 };
+            $scope.upsPredicaoSelected = { label: "1 - Acidentes com danos materiais", value: 1 };                        
 
-            $scope.faixasHora = [
-                { label: "Manhã (6h a 12h)", selected: true, value: [6, 7, 8, 9, 10, 11] },
-                { label: "Tarde (12h a 18h)", selected: true, value: [12, 13, 14, 15, 16, 17] },
-                { label: "Noite (18h a 0h)", selected: true, value: [18, 19, 20, 21, 22, 23] },
-                { label: "Madrugada (0h a 6h)", selected: true, value: [0, 1, 2, 3, 4, 5] }
-            ]
-
-            $scope.condicoesTempo = [
-                { label: "Bom", selected: true, value: "BOM" },
-                { label: "Chuvoso", selected: true, value: "CHUVOSO" },
-                { label: "Nublado", selected: true, value: "NUBLADO" }
-            ]
-
-            $scope.faixasHoraPredicao = [];
-            for (i = 0; i <= 23; i++) {
-                $scope.faixasHoraPredicao.push({ label: i + "h", value: i });
-            }
-
+            ///// ------------------------ Filtro de anos ------------------------ /////
             $scope.anos = [];
             for (i = 2000; i <= 2016; i++) {
                 if (i === 2016) {
@@ -102,7 +99,7 @@ angular.module('acidentesController', [])
             $scope.totalAnosSelecionados = 1;
             $scope.selecionouAno = function (ano) {
                 ano.selected ? $scope.totalAnosSelecionados-- : $scope.totalAnosSelecionados++;                                
-                if ($scope.totalAnosSelecionados > 3) {
+                if ($scope.totalAnosSelecionados > 4) {
                     $scope.totalAnosSelecionados--;
                     $scope.desabilitarAnos = true;                    
                 } 
@@ -124,24 +121,9 @@ angular.module('acidentesController', [])
                 return function () {
                     $mdSidenav(componentId).toggle();
                 };
-            }
+            }            
 
-            // $scope.heatMap = function () {
-            //     var anos = [];
-            //     var anos = [];
-            //     for (var i = 0; i < $scope.anos.length; i++) {
-            //         if ($scope.anos[i].selected) {
-            //             anos.push($scope.anos[i].value);
-            //         }
-            //     }
-            //     if (anos.length == 0) {
-            //         anos.push(2016);
-            //     }
-            //     Acidentes.heatMap(anos).success(function (data) {
-            //         console.log(data);
-            //     });
-            // }
-
+            ///// ------------------------ Gráficos ------------------------ /////
             $scope.porRegiaoPredicao = function () {
                 var anos = [];
                 for (var i = 0; i < $scope.anos.length; i++) {
@@ -149,9 +131,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;                                
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -174,7 +154,7 @@ angular.module('acidentesController', [])
                     var deferred = $q.defer();
                     // anos, veiculos, tempo, noite_dia, tipo_acidente, dia_semana, ups
                     Acidentes.porRegiaoPredicao(
-                        anos,
+                        [2016],
                         veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
@@ -223,9 +203,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -292,9 +270,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;                
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -317,7 +293,7 @@ angular.module('acidentesController', [])
                     var deferred = $q.defer();
                     // anos, veiculos, tempo, noite_dia, dia_semana, ups, regiao
                     Acidentes.porTipoAcidentePredicao(
-                        anos,
+                        [2016],
                         veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
@@ -368,9 +344,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;                
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -439,9 +413,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -464,7 +436,7 @@ angular.module('acidentesController', [])
                     var deferred = $q.defer();
                     // anos, veiculos, tempo, noite_dia, tipo_acidente, dia_semana, ups, regiao
                     Acidentes.porFaixaHoraPredicao(
-                        anos,
+                        [2016],
                         veiculos,
                         $scope.condicoesTempoPredicaoSelected.value,
                         $scope.noiteOuDiaPredicaoSelected.value,
@@ -537,9 +509,7 @@ angular.module('acidentesController', [])
                         anos.push($scope.anos[i].value);
                     }
                 }
-                if (anos.length == 0) {
-                    anos.push(2016);
-                }
+                if (anos.length == 0) return;
                 var condicoesTempo = [];
                 for (var i = 0; i < $scope.condicoesTempo.length; i++) {
                     if ($scope.condicoesTempo[i].selected) {
@@ -621,34 +591,9 @@ angular.module('acidentesController', [])
 
                     $scope.dataHistorical = data;
                 });
-            }
+            }            
 
-            $scope.showAlert = function () {
-                // Appending dialog to document.body to cover sidenav in docs app
-                // Modal dialogs should fully cover application
-                // to prevent interaction outside of dialog
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('#popupContainer')))
-                        .clickOutsideToClose(true)
-                        .title('This is an alert title')
-                        .textContent('You can specify some description text in here.')
-                        .ariaLabel('Alert Dialog Demo')
-                        .ok('Got it!')
-                    // .targetEvent(ev)
-                );
-            };
-
-            $scope.aplicarFiltrosESair = function () {
-                // for (var i = 0; i < $scope.anos.length; i++) {
-                //     if ($scope.anos[i].selected) {
-                //         anos.push($scope.anos[i].value);
-                //     }
-                // }
-                // if (anos.length > 2) {
-                //     $scope.showAlert();
-                //     return;
-                // }
+            $scope.aplicarFiltrosESair = function () {                
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
                 $scope.tipoAcidentePredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
@@ -677,12 +622,7 @@ angular.module('acidentesController', [])
             });
             $scope.$watch('regiaoPredicao', function (predicao) {
                 if (predicao) {
-                    for (var i = 0; i < $scope.anos.length; i++) {
-                        if ($scope.anos[i].selected) {
-                            anos.push($scope.anos[i].value);
-                        }
-                    }
-                    anos.length > 2 ? $scope.showAlert() : $scope.porRegiaoPredicao();
+                    $scope.porRegiaoPredicao();
                 } else {
                     $scope.porRegiao();
                 }
@@ -698,8 +638,7 @@ angular.module('acidentesController', [])
             $scope.init = function () {                
                 $scope.regiaoPredicao ? $scope.porRegiaoPredicao() : $scope.porRegiao();
                 $scope.tipoAcidentePredicao ? $scope.porTipoAcidentePredicao() : $scope.porTipoAcidente();
-                $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();
-                // $scope.heatMap();
+                $scope.faixaHoraPredicao ? $scope.porFaixaHoraPredicao() : $scope.porFaixaHora();                
             }
 
             $scope.init();

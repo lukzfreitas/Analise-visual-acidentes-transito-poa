@@ -242,6 +242,7 @@ module.exports.predicao = function (request, response) {
     if (error) {
       console.error("Erro consulta predição regiões" + error);
     } else {
+      console.log(acidentes);
       var acidentes = result.hits.hits.map(function (item) {
         var tempo_entrada, noite_dia_entrada, tipo_acidente_entrada, dia_semana_entrada, ups_entrada = 0;
         switch (item._source.TEMPO) {
