@@ -785,9 +785,9 @@
             <md-button ng-click="toggleSidenavFiltros()" class="md-accent">
               Fechar
             </md-button>
-            <md-button ng-click="aplicarFiltrosESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
+            <!-- <md-button ng-click="aplicarFiltrosESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
               Aplicar
-            </md-button>
+            </md-button> -->
             <p style="font-size:80%">*não se aplica ao gráfico de acidentes por faixa horária</p>
         </md-content>
       </md-sidenav>
@@ -803,9 +803,9 @@
               <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
                 Fechar
               </md-button>
-              <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
+              <!-- <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar
-              </md-button>
+              </md-button> -->
             </md-content>
         </section>       
         
@@ -880,9 +880,9 @@
               <md-button ng-click="toggleSidenavPredicao()" class="md-accent">
                 Fechar
               </md-button>
-              <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
+              <!-- <md-button ng-click="aplicarPredicaoESair()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar
-              </md-button>
+              </md-button> -->
             </md-content>
         </section>       
 
@@ -892,7 +892,7 @@
       <a name="ancoraPredicao"></a> 
       <section class="row" flex>
         <section class="col-sm-8" id="anos">
-            <p style="margin-bottom: 20px;">Linha do tempo e Filtros</p>           
+            <p style="margin-bottom: 20px;">selecione o(s) ano(s) que deseja analisar</p>           
 
             <md-checkbox-group ng-model="false" class="md-primary">
                 <section layout-align="center">
@@ -926,7 +926,7 @@
                 Filtros
               </md-button>
               <md-button ng-click="toggleSidenavPredicao()" ng-href="#ancoraPredicao" class="md-raised md-primary">
-                  Predição
+                  Atributos p/ Predição
               </md-button>
               <md-button ng-click="aplicar()" ng-disabled="totalAnosSelecionados === 0" class="md-raised md-primary">
                 Aplicar

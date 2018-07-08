@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.7.2"
+    "angular": "^1.7.2",
+    "angular-material": "^1.1.10",
+    "angular-nvd3": "^1.0.9"
   }
 }

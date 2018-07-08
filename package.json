@@ -1,0 +1,29 @@
+{
+  "name": "analise-visual-acidentes-transito-poa",
+  "version": "1.0.0",
+  "description": "Projeto TCC",
+  "main": "web.js",
+  "dependencies": {
+    "brain": "^1.0.0",
+    "brain.js": "^1.2.2",
+    "ejs": "^2.6.1",
+    "elasticsearch": "^15.1.1",
+    "express": "^4.16.3",
+    "pg": "^7.4.3",
+    "ramda": "^0.25.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukzfreitas/Analise-visual-acidentes-transito-poa.git"
+  },
+  "author": "Lucas e Camila",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukzfreitas/Analise-visual-acidentes-transito-poa/issues"
+  },
+  "homepage": "https://github.com/lukzfreitas/Analise-visual-acidentes-transito-poa#readme"
+}

@@ -1,6 +1,5 @@
 var client = require('../connection');
 var service = require('../services/service');
-var limdu = require('limdu');
 var brain = require('brain.js');
 
 
