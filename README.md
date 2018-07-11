@@ -1,4 +1,4 @@
-# Analise Visual e Interativa de Acidentes de Trânsito na cidade de Porto Alegre/RS Brasil
+# Análise Visual e Interativa de Acidentes de Trânsito na cidade de Porto Alegre/RS Brasil
 Trabalho de conclusão do curso de Sistemas de Informação PUCRS realizado pelos alunos Camila Moser e Lucas de Freitas, orientados pela Profª. Drª. Isabel H. Manssour.
 
 ## Requerimentos
