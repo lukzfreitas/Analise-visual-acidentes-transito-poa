@@ -42,3 +42,6 @@ node web.js
 ```
 localhost:5000
 ```
+
+## Vídeo
+https://youtu.be/wSyXAaDv4WE
