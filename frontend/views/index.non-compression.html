@@ -892,7 +892,7 @@
           'opacity':40
       });
 
-      var crimeAnimator = new CrimeAnimator(Data.crimes, heatmap, map);
+      var crimeAnimator = new CrimeAnimator(Data.acidentes, heatmap, map);
 
       window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || 
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || 
@@ -954,9 +954,9 @@
   
   //transform and inflate dates from server and create mock times so that each days data is at least somewhat distributed
   var year = Data.year;
-  var crimes = Data.crimes;
-  for(var i=crimes.length-1 ; i >= 0 ; i--) {
-    var crime = crimes[i];
+  var acidentes = Data.acidentes;
+  for(var i=acidentes.length-1 ; i >= 0 ; i--) {
+    var crime = acidentes[i];
     crime[3] = Date.parse(year + '/' + (crime[3]+1) + '/' + crime[4] +  ' ' + Math.floor(Math.random()*24) + ':00');
   }
 

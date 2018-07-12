@@ -33,8 +33,8 @@ app.get('/:year', handleDataRequest);
 function handleDataRequest(req, res) {
   res.header("Content-Type", "text/html; charset=utf-8");
 
-  var ano1 = 2000;  
-  var intervaloAnos = [ano1];
+  var ano = 2016;  
+  var intervaloAnos = [ano];
 
   client.search({
     "index": 'acidentes_transito_datapoa',
@@ -63,7 +63,7 @@ function handleDataRequest(req, res) {
         return [item._source.LATITUDE, item._source.LONGITUDE, item._source.TIPO_ACID, date.getMonth(), date.getDate()];
       });     
       var anos = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];       
-      data = {years: anos, crimes: acidentes, year: 2016}            
+      data = {years: anos, acidentes: acidentes, year: 2016}            
       res.render('index.html', {data: data});
     }
   });
