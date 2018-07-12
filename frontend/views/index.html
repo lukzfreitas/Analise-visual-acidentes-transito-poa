@@ -1033,7 +1033,7 @@
       //calculate the number of days that elapse for each animation frame
       this.animationTimeMultiplier = 500000 * (this.dayRange / 365);
 
-      //calculate how long crimes should be displayed for based on our range
+      //calculate how long acidentes should be displayed for based on our range
       this.visibleLifespan = Math.ceil(this.dayRange / 10);
       if (this.visibleLifespan < 10)
         this.visibleLifespan = 10;
@@ -1462,7 +1462,7 @@
           'opacity': 40
         });
 
-        var crimeAnimator = new CrimeAnimator(Data.crimes, heatmap, map);
+        var crimeAnimator = new CrimeAnimator(Data.acidentes, heatmap, map);
 
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
           window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -1529,10 +1529,10 @@
 
     //transform and inflate dates from server and create mock times so that each days data is at least somewhat distributed
     var year = Data.year;
-    var crimes = Data.crimes;
+    var acidentes = Data.acidentes;
     var hourCounter, month, currentDay = 0, currentTimeStamp;
-    for (var i = 0, len = crimes.length; i < len; i++) {
-      var crime = crimes[i];
+    for (var i = 0, len = acidentes.length; i < len; i++) {
+      var crime = acidentes[i];
 
       if (currentDay != crime[4]) {
 
@@ -1546,7 +1546,7 @@
 
         currentTimeStamp = Date.parse(year + '/' + (month + 1) + '/' + currentDay);
       }
-      //auto generate hour to spread the crimes over the course of the day and get a smoother animation
+      //auto generate hour to spread the acidentes over the course of the day and get a smoother animation
       crime[3] = currentTimeStamp + (hourCounter * (DAY_IN_MILLI / 40));
       hourCounter += 1;
     }
